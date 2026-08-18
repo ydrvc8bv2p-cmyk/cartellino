@@ -61,18 +61,47 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca</b><p>Scrivi anche solo 2–3 lettere e scegli una marca presente nel catalogo. Subito dopo compariranno i suoi modelli.</p></div>
+      <div class="guided"><b>1. Cerca la marca · 53 marche caricate</b><p>Scrivi anche solo 2–3 lettere e scegli una marca presente nel catalogo. Poi filtra per categoria, tipo, materiale e infine modello.</p></div>
 
       <div class="field">
         <label>Marca</label>
-        <input id="fBrand" autocomplete="off" placeholder="Scrivi Church, Barrett, Alden…">
-        <div id="brandSuggestions" class="suggest hidden"></div>
+        <input id="fBrand" list="brandNativeList" autocomplete="off" placeholder="Scrivi Church, Cruna, Barrett…">
+        <datalist id="brandNativeList"><option value="Alden"></option><option value="Alpha Studio"></option><option value="Aspesi"></option><option value="Barbour"></option><option value="Barena Venezia"></option><option value="Barker"></option><option value="Barrett"></option><option value="Be Able"></option><option value="Berwich"></option><option value="Boglioli"></option><option value="Briglia 1949"></option><option value="Church&#x27;s"></option><option value="Circolo 1901"></option><option value="Corneliani"></option><option value="Crockett &amp; Jones"></option><option value="Cruciani"></option><option value="Cruna"></option><option value="Doucal&#x27;s"></option><option value="Drumohr"></option><option value="Eleventy"></option><option value="Fay"></option><option value="Fedeli"></option><option value="Fratelli Rossetti"></option><option value="Glanshirt"></option><option value="Gran Sasso"></option><option value="Herno"></option><option value="Incotex"></option><option value="J.M. Weston"></option><option value="Jacob Cohen"></option><option value="L.B.M. 1911"></option><option value="Lardini"></option><option value="Luigi Borrelli"></option><option value="Manuel Ritz"></option><option value="Massimo Alba"></option><option value="Montedoro"></option><option value="Myths"></option><option value="Paoloni"></option><option value="PT Torino"></option><option value="Roberto Collina"></option><option value="Rota"></option><option value="Santoni"></option><option value="Sebago"></option><option value="Slowear"></option><option value="Sonrisa"></option><option value="Stefano Bemer"></option><option value="Stone Island"></option><option value="Tagliatore"></option><option value="Ten C"></option><option value="Tricker&#x27;s"></option><option value="Velasca"></option><option value="Woolrich"></option><option value="Xacus"></option><option value="Zanone"></option></datalist>
+        <div class="note" style="margin-top:6px">Se i suggerimenti non compaiono, usa il menu qui sotto.</div>
+      </div>
+      <div class="field">
+        <label>Scegli marca dal catalogo</label>
+        <select id="fBrandFallback">
+          <option value="">— Seleziona una marca —</option>
+          <option value="Alden">Alden</option><option value="Alpha Studio">Alpha Studio</option><option value="Aspesi">Aspesi</option><option value="Barbour">Barbour</option><option value="Barena Venezia">Barena Venezia</option><option value="Barker">Barker</option><option value="Barrett">Barrett</option><option value="Be Able">Be Able</option><option value="Berwich">Berwich</option><option value="Boglioli">Boglioli</option><option value="Briglia 1949">Briglia 1949</option><option value="Church&#x27;s">Church&#x27;s</option><option value="Circolo 1901">Circolo 1901</option><option value="Corneliani">Corneliani</option><option value="Crockett &amp; Jones">Crockett &amp; Jones</option><option value="Cruciani">Cruciani</option><option value="Cruna">Cruna</option><option value="Doucal&#x27;s">Doucal&#x27;s</option><option value="Drumohr">Drumohr</option><option value="Eleventy">Eleventy</option><option value="Fay">Fay</option><option value="Fedeli">Fedeli</option><option value="Fratelli Rossetti">Fratelli Rossetti</option><option value="Glanshirt">Glanshirt</option><option value="Gran Sasso">Gran Sasso</option><option value="Herno">Herno</option><option value="Incotex">Incotex</option><option value="J.M. Weston">J.M. Weston</option><option value="Jacob Cohen">Jacob Cohen</option><option value="L.B.M. 1911">L.B.M. 1911</option><option value="Lardini">Lardini</option><option value="Luigi Borrelli">Luigi Borrelli</option><option value="Manuel Ritz">Manuel Ritz</option><option value="Massimo Alba">Massimo Alba</option><option value="Montedoro">Montedoro</option><option value="Myths">Myths</option><option value="Paoloni">Paoloni</option><option value="PT Torino">PT Torino</option><option value="Roberto Collina">Roberto Collina</option><option value="Rota">Rota</option><option value="Santoni">Santoni</option><option value="Sebago">Sebago</option><option value="Slowear">Slowear</option><option value="Sonrisa">Sonrisa</option><option value="Stefano Bemer">Stefano Bemer</option><option value="Stone Island">Stone Island</option><option value="Tagliatore">Tagliatore</option><option value="Ten C">Ten C</option><option value="Tricker&#x27;s">Tricker&#x27;s</option><option value="Velasca">Velasca</option><option value="Woolrich">Woolrich</option><option value="Xacus">Xacus</option><option value="Zanone">Zanone</option>
+        </select>
       </div>
 
       <div class="field">
-        <label>2. Modello / variante dal catalogo</label>
-        <select id="fCatalogModel" disabled>
+        <label>2. Categoria / famiglia prodotto</label>
+        <select id="fCatalogCategory" disabled>
           <option value="">Prima scegli la marca</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>3. Tipo / stile</label>
+        <select id="fCatalogType" disabled>
+          <option value="">Prima scegli una categoria</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>4. Materiale</label>
+        <select id="fCatalogMaterial" disabled>
+          <option value="">Tutti i materiali</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>5. Modello / variante dal catalogo</label>
+        <select id="fCatalogModel" disabled>
+          <option value="">Completa prima i filtri</option>
         </select>
         <p class="note" id="modelHint">Il modello compila automaticamente foto, tipo, colore, materiale, forma e suola.</p>
       </div>
@@ -168,28 +197,91 @@ function inferCat(c){const t=((c.style||"")+" "+(c.model||"")).toLowerCase();if(
 
 function resetCatalogSelection(){
  selectedCatalog=null;
- $("fCatalogModel").innerHTML='<option value="">Prima scegli la marca</option>';
+ $("fCatalogCategory").innerHTML='<option value="">Prima scegli la marca</option>';
+ $("fCatalogCategory").disabled=true;
+ $("fCatalogType").innerHTML='<option value="">Prima scegli una categoria</option>';
+ $("fCatalogType").disabled=true;
+ $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali</option>';
+ $("fCatalogMaterial").disabled=true;
+ $("fCatalogModel").innerHTML='<option value="">Completa prima i filtri</option>';
  $("fCatalogModel").disabled=true;
  $("catalogPreviewBox").classList.add("hidden");
 }
-function showBrandSuggestions(value){
- const q=value.trim().toLowerCase();
- const box=$("brandSuggestions");
- if(!q){box.classList.add("hidden");box.innerHTML="";return}
- const starts=BRANDS.filter(b=>b.toLowerCase().startsWith(q));
- const contains=BRANDS.filter(b=>!b.toLowerCase().startsWith(q)&&b.toLowerCase().includes(q));
- const matches=[...starts,...contains].slice(0,18);
- if(!matches.length){box.innerHTML='<button type="button"><small>Nessuna marca del catalogo trovata</small></button>';box.classList.remove("hidden");return}
- box.innerHTML=matches.map(b=>`<button type="button" data-brand="${esc(b)}"><b>${esc(b)}</b><small>${CATALOG.filter(c=>c.brand===b).length} articoli in archivio</small></button>`).join("");
- box.classList.remove("hidden");
- box.querySelectorAll("button[data-brand]").forEach(btn=>btn.onclick=()=>selectBrand(btn.dataset.brand));
+
+function catLabel(c){
+ const cat=inferCat(c);
+ if(cat==="Scarpe"){
+   const t=shoeType({...c,subtype:c.style});
+   if(/Penny|Tassel|loafer|mocass/i.test(t)) return "Mocassini";
+   if(/Oxford/i.test(t)) return "Oxford";
+   if(/Derby/i.test(t)) return "Derby";
+   if(/Monk/i.test(t)) return "Monk strap";
+   if(/Chelsea|Chukka|Stivale|Boot/i.test(t)) return "Stivali";
+   if(/Sneaker/i.test(t)) return "Sneaker";
+   return "Altre scarpe";
+ }
+ return cat;
 }
-function selectBrand(brand){
- $("fBrand").value=brand;
- $("brandSuggestions").classList.add("hidden");
- const rows=CATALOG.filter(c=>c.brand===brand);
+function typeLabel(c){
+ const cat=inferCat(c);
+ if(cat==="Scarpe") return shoeType({...c,subtype:c.style});
+ return c.style || "Altro";
+}
+function materialLabel(c){
+ const m=(c.material||"").trim();
+ if(!m) return "Non specificato";
+ const t=m.toLowerCase();
+ if(/suede|camoscio|scamosciato|nubuck|nabuk/.test(t)) return "Suede / camoscio";
+ if(/cordovan/.test(t)) return "Cordovan";
+ if(/calf|vitello|leather|pelle|grain|kudu/.test(t)) return "Pelle";
+ if(/linen|lino/.test(t)) return "Lino";
+ if(/cotton|cotone|gabardine|twill/.test(t)) return "Cotone";
+ if(/wool|lana|flannel/.test(t)) return "Lana";
+ if(/cashmere/.test(t)) return "Cashmere";
+ if(/denim/.test(t)) return "Denim";
+ return m;
+}
+function catalogPool(){
+ const brand=$("fBrand").value.trim();
+ if(!brand) return [];
+ return CATALOG.filter(c=>c.brand===brand);
+}
+function populateCategories(){
+ const pool=catalogPool();
+ const cats=[...new Set(pool.map(catLabel))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"it"));
+ $("fCatalogCategory").disabled=!cats.length;
+ $("fCatalogCategory").innerHTML='<option value="">Scegli categoria ('+cats.length+')</option>'+cats.map(x=>`<option>${esc(x)}</option>`).join("");
+ $("fCatalogType").innerHTML='<option value="">Prima scegli una categoria</option>';
+ $("fCatalogType").disabled=true;
+ $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali</option>';
+ $("fCatalogMaterial").disabled=true;
+ $("fCatalogModel").innerHTML='<option value="">Completa prima i filtri</option>';
+ $("fCatalogModel").disabled=true;
+}
+function populateTypes(){
+ const cat=$("fCatalogCategory").value;
+ const pool=catalogPool().filter(c=>!cat||catLabel(c)===cat);
+ const types=[...new Set(pool.map(typeLabel))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"it"));
+ $("fCatalogType").disabled=!types.length;
+ $("fCatalogType").innerHTML='<option value="">Tutti i tipi ('+types.length+')</option>'+types.map(x=>`<option>${esc(x)}</option>`).join("");
+ populateMaterials();
+}
+function populateMaterials(){
+ const cat=$("fCatalogCategory").value;
+ const type=$("fCatalogType").value;
+ const pool=catalogPool().filter(c=>(!cat||catLabel(c)===cat)&&(!type||typeLabel(c)===type));
+ const mats=[...new Set(pool.map(materialLabel))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"it"));
+ $("fCatalogMaterial").disabled=!mats.length;
+ $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali ('+mats.length+')</option>'+mats.map(x=>`<option>${esc(x)}</option>`).join("");
+ populateModels();
+}
+function populateModels(){
+ const cat=$("fCatalogCategory").value;
+ const type=$("fCatalogType").value;
+ const material=$("fCatalogMaterial").value;
+ const rows=catalogPool().filter(c=>(!cat||catLabel(c)===cat)&&(!type||typeLabel(c)===type)&&(!material||materialLabel(c)===material));
  const sel=$("fCatalogModel");
- sel.disabled=false;
+ sel.disabled=!rows.length;
  sel.innerHTML='<option value="">Scegli modello / variante ('+rows.length+')</option>'+
    rows.map(c=>{
      const label=[c.model,c.color,c.material,c.last&&("forma "+c.last)].filter(Boolean).join(" · ");
@@ -197,6 +289,14 @@ function selectBrand(brand){
    }).join("");
  selectedCatalog=null;
  $("catalogPreviewBox").classList.add("hidden");
+}
+function showBrandSuggestions(value){ return; }
+function selectBrand(brand){
+ if(!brand) return;
+ $("fBrand").value=brand;
+ $("fBrandFallback").value=brand;
+ resetCatalogSelection();
+ populateCategories();
 }
 function chooseCatalogItem(k){
  const c=CATALOG.find(x=>x.k===k);
@@ -262,12 +362,25 @@ function showSection(id){
 document.querySelectorAll("nav a").forEach(a=>a.onclick=()=>showSection(a.dataset.section));
 
 $("fBrand").addEventListener("input",e=>{
- showBrandSuggestions(e.target.value);
- const exact=BRANDS.find(b=>b.toLowerCase()===e.target.value.trim().toLowerCase());
- if(exact) selectBrand(exact); else resetCatalogSelection();
+ const value=e.target.value.trim();
+ const exact=BRANDS.find(b=>b.toLowerCase()===value.toLowerCase());
+ if(exact) selectBrand(exact);
+ else {
+   $("fBrandFallback").value="";
+   resetCatalogSelection();
+ }
 });
-$("fBrand").addEventListener("focus",e=>showBrandSuggestions(e.target.value));
-document.addEventListener("click",e=>{if(!e.target.closest(".field"))$("brandSuggestions").classList.add("hidden")});
+$("fBrand").addEventListener("change",e=>{
+ const value=e.target.value.trim();
+ const exact=BRANDS.find(b=>b.toLowerCase()===value.toLowerCase());
+ if(exact) selectBrand(exact);
+});
+$("fBrandFallback").addEventListener("change",e=>{
+ if(e.target.value) selectBrand(e.target.value);
+});
+$("fCatalogCategory").addEventListener("change",()=>populateTypes());
+$("fCatalogType").addEventListener("change",()=>populateMaterials());
+$("fCatalogMaterial").addEventListener("change",()=>populateModels());
 $("fCatalogModel").addEventListener("change",e=>chooseCatalogItem(e.target.value));
 
 $("photoBtn").onclick=()=>$("photoInput").click();
@@ -280,7 +393,7 @@ $("saveItem").onclick=()=>{
  const brand=$("fBrand").value.trim(); if(!brand){alert("Scegli o scrivi una marca.");return}
  const data={id:uid(),code:"CT·"+String(state.items.length+1).padStart(3,"0"),brand,model:$("fModel").value.trim(),category:$("fCat").value,status:$("fStatus").value,subtype:$("fSubtype").value.trim(),color:$("fColor").value.trim(),material:$("fMaterial").value.trim(),last:$("fLast").value.trim(),sole:$("fSole").value.trim(),size:$("fSize").value.trim(),photo:pendingPhoto,standardPhoto:selectedCatalog?.img||"",catalogKey:selectedCatalog?.k||"",created:Date.now()};
  state.items.unshift(data); save(); pendingPhoto=""; selectedCatalog=null;
- ["fBrand","fModel","fSubtype","fColor","fMaterial","fLast","fSole","fSize"].forEach(id=>$(id).value="");
+ ["fBrand","fBrandFallback","fModel","fSubtype","fColor","fMaterial","fLast","fSole","fSize"].forEach(id=>$(id).value="");
  $("preview").innerHTML=""; resetCatalogSelection(); $("addBox").open=false; renderWardrobe();
 };
 $("searchWardrobe").oninput=renderWardrobe;
