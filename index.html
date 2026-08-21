@@ -64,7 +64,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca · 53 marche caricate · V6</b><p>Scrivi anche solo 2–3 lettere e scegli una marca presente nel catalogo. Poi scegli il tipo di prodotto, eventualmente filtra per materiale, e infine il modello.</p></div>
+      <div class="guided"><b>1. Cerca la marca · 53 marche caricate · V6.1</b><p>Scrivi anche solo 2–3 lettere e scegli una marca presente nel catalogo. Poi scegli il tipo di prodotto, eventualmente filtra per materiale, e infine il modello.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -243,7 +243,7 @@ function shoeType(x){const t=((x.subtype||"")+" "+(x.model||"")+" "+(x.style||""
 function tone(x){const t=(x.color||"").toLowerCase();if(/nero|black/.test(t))return"Nero";if(/burgundy|bordeaux|color 8|oxblood/.test(t))return"Bordeaux";if(/marr|brown|tan|snuff|cognac|coffee|tobacco|walnut/.test(t))return"Marrone";if(/azzurro|celeste/.test(t))return"Azzurro";if(/navy|blu|blue/.test(t))return"Blu";if(/grigio|grey|gray|antracite/.test(t))return"Grigio";if(/bianco|white|cream|ecru/.test(t))return"Bianco";if(/beige|sabbia|stone/.test(t))return"Beige";if(/verde|green|olive|militare|salvia/.test(t))return"Verde";return x.color||"Altro"}
 function inferCat(c){const t=((c.style||"")+" "+(c.model||"")).toLowerCase();if(/loafer|moccas|mocass|oxford|derby|blucher|monk|boot|chukka|chelsea|sneaker|shoe|lace-up/.test(t))return"Scarpe";if(/trouser|pants|pantal|chino|bermuda/.test(t))return"Pantaloni";if(/shirt|camicia/.test(t))return"Camicie";if(/cardigan|maglia|sweater|pullover|knit/.test(t))return"Maglieria";if(/blazer|giacca/.test(t))return"Giacche";if(/coat|cappotto|giubbotto|field jacket|impermeabile/.test(t))return"Capospalla";if(/belt|cintura|wallet|portafogl|card case/.test(t))return"Accessori";return"Altro"}
 
-function resetCatalogSelection(){
+function clearBrandDependentFields(){
  selectedCatalog=null;
  $("fCatalogType").innerHTML='<option value="">Prima scegli la marca</option>';
  $("fCatalogType").disabled=true;
@@ -252,6 +252,18 @@ function resetCatalogSelection(){
  $("fCatalogModel").innerHTML='<option value="">Prima scegli il tipo di prodotto</option>';
  $("fCatalogModel").disabled=true;
  $("catalogPreviewBox").classList.add("hidden");
+
+ // Azzera anche i dati derivati dal prodotto della marca precedente.
+ $("fModel").value="";
+ $("fSubtype").value="";
+ $("fColor").value="";
+ $("fMaterial").value="";
+ $("fLast").value="";
+ $("fSole").value="";
+}
+
+function resetCatalogSelection(){
+ clearBrandDependentFields();
 }
 
 function shoeFamily(c){
@@ -421,11 +433,11 @@ function showBrandSuggestions(value){ renderBrandMatches(value); }
 
 function selectBrand(brand){
  if(!brand) return;
+ clearBrandDependentFields();
  $("fBrand").value=brand;
  $("fBrandFallback").value=brand;
  $("brandMatches").innerHTML="";
  $("brandStatus").textContent="Marca selezionata: "+brand+". Ora scegli il tipo di prodotto.";
- resetCatalogSelection();
  populateTypes();
 }
 function chooseCatalogItem(k){
@@ -494,16 +506,14 @@ document.querySelectorAll("nav a").forEach(a=>a.onclick=()=>showSection(a.datase
 $("fBrand").addEventListener("input",e=>{
  const value=e.target.value;
  renderBrandMatches(value);
- const matches=brandCandidates(value);
  const resolved=resolvedBrand();
+ clearBrandDependentFields();
  if(resolved){
    $("fBrandFallback").value=resolved;
-   resetCatalogSelection();
    populateTypes();
    $("brandStatus").textContent="Marca riconosciuta: "+resolved+". Ora scegli il tipo di prodotto.";
  } else {
    $("fBrandFallback").value="";
-   resetCatalogSelection();
  }
 });
 
