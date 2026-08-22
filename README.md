@@ -1,52 +1,29 @@
-# Cartellino V7 – catalog backend
+# Cartellino V8.1
 
-Questa versione separa l'app dal catalogo aggiornabile.
+PWA per archivio guardaroba personale con catalogo premium multi-fonte e riconoscimento foto OCR + AI.
 
-## Cosa cambia
+## Installazione PWA
 
-- `index.html` contiene l'app e mantiene il catalogo incorporato come fallback offline.
-- `catalog.generated.json` è il catalogo aggiornabile che l'app prova a caricare all'avvio.
-- `data/catalog.base.json` contiene i 4.110 prodotti / 53 marche già presenti.
-- `data/sources.json` contiene fonti ufficiali e retailer configurati.
-- `scripts/build_catalog.py` aggiorna e fonde i cataloghi da fonti pubbliche.
-- `.github/workflows/update-catalog.yml` esegue l'aggiornamento automatico ogni settimana e può essere avviato manualmente.
+Pubblicare i file nella root di GitHub Pages, aprire il sito con Safari su iPhone e scegliere **Condividi → Aggiungi a Home**.
 
-## Immagini
+## Catalogo
 
-L'app non copia né ripubblica le fotografie dei retailer. Conserva gli URL pubblici delle immagini e la pagina sorgente. Ogni prodotto può avere più `images`; se la prima immagine non si carica, l'app prova automaticamente le successive e poi un proxy immagine come fallback tecnico.
+`catalog.generated.json` è il catalogo usato dall'app. La base inclusa contiene prodotti correnti e di archivio da fonti pubbliche. Le immagini non vengono copiate nel repository: vengono referenziate dagli URL pubblici delle fonti e l'app usa più candidati/fallback quando disponibili.
 
-## Fonti
+Il backend opzionale (`scripts/build_catalog.py`) tenta di ampliare le marche sotto la soglia configurata in `data/sources.json`, privilegiando fonti ufficiali e retailer pubblici. Rispetta robots.txt e rate limit; siti chiusi, autenticati o che vietano scraping non vengono usati come sorgenti automatiche.
 
-Priorità:
-1. store ufficiale del marchio;
-2. retailer affidabili;
-3. discovery su retailer internazionali configurati.
+## Aggiornamento automatico
 
-Il crawler supporta:
-- Shopify `products.json` / collection JSON;
-- JSON-LD `Product`;
-- OpenGraph come fallback;
-- pagine categoria da cui vengono seguiti un numero limitato di link prodotto.
+Il workflow `.github/workflows/update-catalog.yml` può essere avviato manualmente dalla scheda **Actions** e gira anche settimanalmente. Richiede solo i permessi `contents: write` del `GITHUB_TOKEN` del repository.
 
-La discovery è configurata per cercare, tra gli altri, Farfetch, MR PORTER, Giglio, Tessabit, Italist, Luisaviaroma, Le Bon Marché e Galeries Lafayette. Il crawler controlla `robots.txt`, limita il numero di pagine e applica un ritardo fra le richieste.
+## Riconoscimento foto
 
-## Aggiornare il catalogo
+La pipeline prova a combinare:
+- foto prodotto;
+- foto ravvicinata etichetta/logo;
+- foto suola/codice;
+- OCR delle scritte;
+- tipo prodotto e colore sull'oggetto centrale;
+- confronto con il catalogo per marca/modello.
 
-Da GitHub: **Actions → Update product catalog → Run workflow**.
-
-Oppure in locale:
-
-```bash
-pip install -r requirements.txt
-python scripts/build_catalog.py
-```
-
-Per un test più rapido senza discovery esterna:
-
-```bash
-python scripts/build_catalog.py --no-discovery
-```
-
-## Nota
-
-Alcuni siti impediscono il crawling, rendono il contenuto solo via JavaScript o cambiano struttura. In quei casi la build non si interrompe: mantiene i dati precedenti e prosegue con le altre fonti.
+Marca e modello sono suggerimenti probabilistici: i risultati vanno confermati prima del salvataggio.
