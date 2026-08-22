@@ -48,6 +48,13 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 .hidden{display:none!important}
 .brandmatch{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 10px;border-radius:999px;font-size:11px;cursor:pointer}
 .brandmatch.primary{background:var(--ink);color:var(--brass);border-color:var(--ink)}
+.recogrow{display:grid;grid-template-columns:92px 1fr auto;gap:7px;align-items:center;border-top:1px solid var(--line);padding-top:7px}
+.recogrow:first-child{border-top:0;padding-top:0}
+.recogkey{font-size:9px;text-transform:uppercase;letter-spacing:.11em;color:var(--muted)}
+.recogval{font-size:12px;line-height:1.35}
+.recogscore{font-size:9px;color:var(--muted)}
+.recoguse{border:1px solid var(--line);background:transparent;padding:6px 8px;border-radius:3px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+
 
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
@@ -64,7 +71,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca · 53 marche caricate · V6.1</b><p>Scrivi anche solo 2–3 lettere e scegli una marca presente nel catalogo. Poi scegli il tipo di prodotto, eventualmente filtra per materiale, e infine il modello.</p></div>
+      <div class="guided"><b>1. Cerca la marca · 53 marche caricate · V7 backend</b><p>Scrivi anche solo 2–3 lettere e scegli una marca presente nel catalogo. Poi scegli il tipo di prodotto, eventualmente filtra per materiale, e infine il modello.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -139,8 +146,14 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
         <div style="flex:1;display:grid;gap:7px">
           <button class="btn ghost" type="button" id="photoBtn">Carica foto reale</button>
           <input type="file" id="photoInput" accept="image/*" hidden>
-          <p class="note">Se scegli un modello dal catalogo, l'app usa già la foto ufficiale come vista standard. La tua foto resta come vista reale.</p>
+          <button class="btn ghost" type="button" id="recognizePhotoBtn" disabled>Riconosci da foto · beta</button>
+          <p class="note">Prova a riconoscere tipo, colore, marca e modello confrontando la foto con il catalogo. La prima analisi può essere lenta perché il modello AI viene caricato nel browser.</p>
         </div>
+      </div>
+      <div id="recognitionBox" class="panel hidden" style="margin-top:10px">
+        <strong>Riconoscimento foto · beta</strong>
+        <p id="recognitionStatus">In attesa.</p>
+        <div id="recognitionResults" style="display:grid;gap:7px;margin-top:8px"></div>
       </div>
       <button class="btn" type="button" id="saveItem">Salva capo</button>
     </div>
@@ -236,7 +249,66 @@ try{state=JSON.parse(localStorage.getItem(KEY))||state}catch(e){}
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const BRANDS=[...new Set(CATALOG.map(c=>c.brand).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"it"));
+let BRANDS=[...new Set(CATALOG.map(c=>c.brand).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"it"));
+let backendCatalogLoaded=false;
+function imageCandidates(c){
+ const xs=[];
+ if(c){
+   if(c.img) xs.push(c.img);
+   if(Array.isArray(c.images)) xs.push(...c.images);
+ }
+ const direct=[...new Set(xs.filter(Boolean))];
+ const proxied=direct.filter(u=>/^https?:\/\//i.test(u)).map(u=>'https://images.weserv.nl/?url='+encodeURIComponent(u));
+ return [...new Set([...direct,...proxied])].slice(0,16);
+}
+function imageTag(c, extra=""){
+ const xs=imageCandidates(c);
+ if(!xs.length) return '<div class="ph">C</div>';
+ const packed=encodeURIComponent(JSON.stringify(xs));
+ return `<img src="${esc(xs[0])}" data-imgs="${packed}" data-idx="0" ${extra} onerror="cycleImage(this)">`;
+}
+function cycleImage(el){
+ try{
+   const xs=JSON.parse(decodeURIComponent(el.dataset.imgs||"%5B%5D"));
+   let i=(+el.dataset.idx||0)+1;
+   while(i<xs.length && !xs[i]) i++;
+   if(i<xs.length){el.dataset.idx=String(i);el.src=xs[i];return;}
+ }catch(e){}
+ el.style.display="none";
+}
+function refreshBrandControls(){
+ BRANDS=[...new Set(CATALOG.map(c=>c.brand).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"it"));
+ const sel=$("fBrandFallback");
+ if(sel) sel.innerHTML='<option value="">— Seleziona una marca —</option>'+BRANDS.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+ const bf=$("brandFilter");
+ if(bf) bf.innerHTML='<option>Tutte</option>'+BRANDS.map(b=>`<option>${esc(b)}</option>`).join("");
+}
+function mergeBackendItems(items){
+ if(!Array.isArray(items)||items.length<100) return false;
+ const map=new Map();
+ for(const c of CATALOG) map.set((c.brand+'|'+c.model+'|'+(c.color||'')).toLowerCase(),c);
+ for(const c of items){
+   const k=(c.brand+'|'+c.model+'|'+(c.color||'')).toLowerCase();
+   if(map.has(k)){
+     const a=map.get(k);
+     const imgs=[...new Set([...(a.images||[]),a.img,...(c.images||[]),c.img].filter(Boolean))];
+     Object.assign(a,{...c,images:imgs,img:imgs[0]||a.img||c.img||''});
+   }else{CATALOG.push(c);map.set(k,c);}
+ }
+ return true;
+}
+async function loadBackendCatalog(){
+ try{
+   const r=await fetch('catalog.generated.json?v='+Date.now(),{cache:'no-store'});
+   if(!r.ok) return;
+   const items=await r.json();
+   if(mergeBackendItems(items)){
+     backendCatalogLoaded=true;refreshBrandControls();
+     if($("modelHint")) $("modelHint").textContent='Catalogo backend caricato · '+CATALOG.length+' prodotti. Il modello compila automaticamente foto e dati quando disponibili.';
+     renderWardrobe();
+   }
+ }catch(e){console.warn('backend catalog fallback',e);}
+}
 
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){alert("Memoria piena. Usa meno foto o foto più leggere.")}}
 function shoeType(x){const t=((x.subtype||"")+" "+(x.model||"")+" "+(x.style||"")).toLowerCase();if(/tassel|nappin/.test(t))return"Tassel loafer";if(/penny|loafer|moccas|mocass/.test(t))return"Penny loafer";if(/double monk|doppia fibbia/.test(t))return"Double monk";if(/monk|fibbia/.test(t))return"Monk strap";if(/oxford|balmoral/.test(t))return"Oxford";if(/derby|blucher/.test(t))return"Derby";if(/chelsea/.test(t))return"Chelsea boot";if(/chukka/.test(t))return"Chukka";return x.subtype||x.style||"Altro"}
@@ -451,7 +523,7 @@ function chooseCatalogItem(k){
  $("fMaterial").value=c.material||"";
  $("fLast").value=c.last||"";
  $("fSole").value=c.sole||"";
- $("catalogPreview").innerHTML=c.img?`<img src="${esc(c.img)}" onerror="this.style.display='none'">`:'';
+ $("catalogPreview").innerHTML=imageCandidates(c).length?imageTag(c):'';
  $("catalogTitle").textContent=c.brand+" · "+c.model;
  $("catalogMeta").textContent=[c.style,c.color,c.material,c.last&&("forma "+c.last),c.sole].filter(Boolean).join(" · ");
  $("catalogPreviewBox").classList.remove("hidden");
@@ -476,7 +548,7 @@ function renderWardrobe(){
 function renderCatalog(){
  const q=$("catalogSearch").value.toLowerCase(), b=$("brandFilter").value;
  let list=CATALOG.filter(c=>(b==="Tutte"||c.brand===b)&&(!q||JSON.stringify(c).toLowerCase().includes(q))).slice(0,80);
- $("catalogGrid").innerHTML=list.map(c=>`<div class="card"><div class="pic">${c.img?`<img src="${esc(c.img)}" loading="lazy" onerror="this.style.display='none'">`:`<div class="ph">C</div>`}<span class="badge">${c.price||"—"}</span></div><div class="body"><span class="brand">${esc(c.brand)}</span><div class="model">${esc(c.model)}</div><div class="meta">${esc([c.style,c.color,c.material].filter(Boolean).join(" · "))}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(c.k)}">Aggiungi</button></div></div>`).join("");
+ $("catalogGrid").innerHTML=list.map(c=>`<div class="card"><div class="pic">${imageTag(c,'loading="lazy"')}<span class="badge">${c.price||"—"}</span></div><div class="body"><span class="brand">${esc(c.brand)}</span><div class="model">${esc(c.model)}</div><div class="meta">${esc([c.style,c.color,c.material].filter(Boolean).join(" · "))}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(c.k)}">Aggiungi</button></div></div>`).join("");
  document.querySelectorAll("#catalogGrid .addCat").forEach(btn=>btn.onclick=()=>addCatalog(btn.dataset.k));
 }
 function renderInsights(){
@@ -488,12 +560,12 @@ function renderInsights(){
  const pm=["Blu","Grigio","Beige","Bianco","Verde","Marrone"].filter(x=>!pc.has(x));
  $("insights").innerHTML=`<div class="panel"><strong>Scarpe</strong><p>${missing.length?"Mancano: "+esc(missing.join(", "))+".":"Rotazione classica ben coperta."}</p></div><div class="panel"><strong>Colori scarpe</strong><p>${esc(Object.entries(colors).map(([k,v])=>k+" "+v).join(" · ")||"Nessun dato.")}</p></div><div class="panel"><strong>Pantaloni</strong><p>${pm.length?"Colori scoperti: "+esc(pm.join(", "))+".":"Colori base ben coperti."}</p></div>`;
  const rec=CATALOG.map(c=>{const item={category:inferCat(c),subtype:c.style,model:c.model,color:c.color};let score=20;if(item.category==="Scarpe"){if(!types[shoeType(item)])score+=30;if(!colors[tone(item)])score+=15}if(item.category==="Pantaloni"&&pm.includes(tone(item)))score+=20;return{c,score}}).sort((a,b)=>b.score-a.score).slice(0,8);
- $("recommendGrid").innerHTML=rec.map(r=>`<div class="card"><div class="pic">${r.c.img?`<img src="${esc(r.c.img)}" loading="lazy" onerror="this.style.display='none'">`:""}<span class="badge">fit ${r.score}/100</span></div><div class="body"><span class="brand">${esc(r.c.brand)}</span><div class="model">${esc(r.c.model)}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(r.c.k)}">Aggiungi</button></div></div>`).join("");
+ $("recommendGrid").innerHTML=rec.map(r=>`<div class="card"><div class="pic">${imageTag(r.c,'loading="lazy"')}<span class="badge">fit ${r.score}/100</span></div><div class="body"><span class="brand">${esc(r.c.brand)}</span><div class="model">${esc(r.c.model)}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(r.c.k)}">Aggiungi</button></div></div>`).join("");
  document.querySelectorAll("#recommendGrid .addCat").forEach(btn=>btn.onclick=()=>addCatalog(btn.dataset.k));
 }
 function addCatalog(k){
  const c=CATALOG.find(x=>x.k===k); if(!c)return;
- state.items.unshift({id:uid(),code:"CT·"+String(state.items.length+1).padStart(3,"0"),brand:c.brand,model:c.model,category:inferCat(c),subtype:shoeType({...c,subtype:c.style}),color:c.color,material:c.material,last:c.last,sole:c.sole,status:"armadio",standardPhoto:c.img,photo:"",created:Date.now()});
+ state.items.unshift({id:uid(),code:"CT·"+String(state.items.length+1).padStart(3,"0"),brand:c.brand,model:c.model,category:inferCat(c),subtype:shoeType({...c,subtype:c.style}),color:c.color,material:c.material,last:c.last,sole:c.sole,status:"armadio",standardPhoto:(imageCandidates(c)[0]||""),photo:"",created:Date.now()});
  save(); renderWardrobe(); showSection("armadio");
 }
 function showSection(id){
@@ -530,10 +602,202 @@ $("fCatalogType").addEventListener("change",()=>populateMaterials());
 $("fCatalogMaterial").addEventListener("change",()=>populateModels());
 $("fCatalogModel").addEventListener("change",e=>chooseCatalogItem(e.target.value));
 
+
+let visionClassifierPromise=null;
+let visionModulePromise=null;
+let lastRecognition={};
+
+function rgbToHsl(r,g,b){
+ r/=255; g/=255; b/=255;
+ const max=Math.max(r,g,b), min=Math.min(r,g,b);
+ let h=0,s=0,l=(max+min)/2;
+ if(max!==min){
+   const d=max-min;
+   s=l>.5?d/(2-max-min):d/(max+min);
+   switch(max){
+     case r:h=(g-b)/d+(g<b?6:0);break;
+     case g:h=(b-r)/d+2;break;
+     case b:h=(r-g)/d+4;break;
+   }
+   h*=60;
+ }
+ return [h,s,l];
+}
+
+async function detectPhotoColor(dataUrl){
+ return new Promise((resolve)=>{
+   const im=new Image();
+   im.onload=()=>{
+     const c=document.createElement("canvas"), size=64;
+     c.width=size;c.height=size;
+     const ctx=c.getContext("2d",{willReadFrequently:true});
+     ctx.drawImage(im,0,0,size,size);
+     const d=ctx.getImageData(0,0,size,size).data;
+     let rs=0,gs=0,bs=0,n=0;
+     for(let i=0;i<d.length;i+=4){
+       const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];
+       if(a<200) continue;
+       const mx=Math.max(r,g,b), mn=Math.min(r,g,b);
+       if(mx>248 && mn>248) continue;
+       if(mx<12) continue;
+       rs+=r;gs+=g;bs+=b;n++;
+     }
+     if(!n){resolve("");return}
+     const r=rs/n,g=gs/n,b=bs/n;
+     const [h,s,l]=rgbToHsl(r,g,b);
+     let name="Altro";
+     if(l<.16) name="Nero";
+     else if(s<.10 && l>.82) name="Bianco";
+     else if(s<.13) name=l<.45?"Grigio scuro":"Grigio";
+     else if(h<15 || h>=345) name="Rosso";
+     else if(h<38) name=l>.62?"Beige":"Marrone";
+     else if(h<58) name=l>.68?"Beige":"Giallo";
+     else if(h<78) name="Giallo";
+     else if(h<165) name="Verde";
+     else if(h<200) name="Azzurro";
+     else if(h<255) name=l<.35?"Blu navy":"Blu";
+     else if(h<290) name="Viola";
+     else if(h<345) name="Bordeaux";
+     resolve(name);
+   };
+   im.onerror=()=>resolve("");
+   im.src=dataUrl;
+ });
+}
+
+function typeCandidates(){
+ return [
+   ["Mocassini","a leather loafer or moccasin shoe"],
+   ["Oxford","an oxford dress shoe"],
+   ["Derby","a derby or blucher dress shoe"],
+   ["Monk","a monk strap dress shoe"],
+   ["Chelsea","a chelsea boot"],
+   ["Chukka / Desert","a chukka or desert boot"],
+   ["Stivali","a leather boot"],
+   ["Sneaker","a sneaker"],
+   ["Pantaloni","men's trousers or chinos"],
+   ["Giacche","a men's blazer or tailored jacket"],
+   ["Overshirt","a men's overshirt"],
+   ["Camicie","a men's shirt"],
+   ["Polo & T-shirt","a men's polo shirt or t-shirt"],
+   ["Maglieria","a men's sweater or knitwear"],
+   ["Capispalla","a men's coat or outerwear"],
+   ["Shorts","men's shorts"]
+ ];
+}
+
+async function getVisionClassifier(){
+ if(!visionClassifierPromise){
+   visionModulePromise = import("https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1");
+   visionClassifierPromise=(async()=>{
+     const mod=await visionModulePromise;
+     const pipe=await mod.pipeline("zero-shot-image-classification","Xenova/clip-vit-base-patch32");
+     return {pipe,RawImage:mod.RawImage};
+   })();
+ }
+ return visionClassifierPromise;
+}
+
+function pct(x){ return Math.round((x||0)*100)+"%"; }
+
+function addRecognitionRow(key, value, score, action, actionValue){
+ const wrap=$("recognitionResults");
+ const row=document.createElement("div");
+ row.className="recogrow";
+ row.innerHTML=`<div class="recogkey">${esc(key)}</div>
+   <div class="recogval">${esc(value||"—")} ${score!=null?`<span class="recogscore">· ${pct(score)}</span>`:""}</div>
+   <button class="recoguse" type="button">Usa</button>`;
+ row.querySelector("button").onclick=()=>applyRecognition(action,actionValue||value);
+ wrap.appendChild(row);
+}
+
+function applyRecognition(kind,value){
+ if(!value)return;
+ if(kind==="brand"){
+   selectBrand(value);
+ } else if(kind==="type"){
+   const sel=$("fCatalogType");
+   const opt=[...sel.options].find(o=>o.value===value || o.textContent===value);
+   if(opt){sel.value=opt.value;populateMaterials();}
+ } else if(kind==="model"){
+   chooseCatalogItem(value);
+ } else if(kind==="color"){
+   $("fColor").value=value;
+ }
+}
+
+async function recognizeCurrentPhoto(){
+ if(!pendingPhoto){alert("Carica prima una foto.");return}
+ const box=$("recognitionBox"), status=$("recognitionStatus"), results=$("recognitionResults");
+ box.classList.remove("hidden"); results.innerHTML="";
+ status.textContent="Analisi colore…";
+ $("recognizePhotoBtn").disabled=true;
+
+ try{
+   const color=await detectPhotoColor(pendingPhoto);
+   if(color){
+     lastRecognition.color=color;
+     addRecognitionRow("Colore",color,null,"color",color);
+   }
+
+   status.textContent="Caricamento AI visiva… la prima volta può richiedere un po'.";
+   const {pipe,RawImage}=await getVisionClassifier();
+   const image=await RawImage.read(pendingPhoto);
+
+   status.textContent="Riconoscimento tipo di prodotto…";
+   const tc=typeCandidates();
+   const typeOut=await pipe(image,tc.map(x=>x[1]));
+   const topTypes=typeOut.slice(0,3).map(x=>{
+     const pair=tc.find(p=>p[1]===x.label);
+     return {label:pair?pair[0]:x.label,score:x.score};
+   });
+   topTypes.forEach((x,i)=>addRecognitionRow(i?"Tipo alt.":"Tipo",x.label,x.score,"type",x.label));
+
+   status.textContent="Tentativo riconoscimento marca…";
+   const brandLabels=BRANDS.map(b=>"a fashion product made by "+b);
+   const brandOut=await pipe(image,brandLabels);
+   const topBrands=brandOut.slice(0,3).map(x=>({
+     label:x.label.replace(/^a fashion product made by /,""),
+     score:x.score
+   }));
+   topBrands.forEach((x,i)=>addRecognitionRow(i?"Marca alt.":"Marca",x.label,x.score,"brand",x.label));
+
+   const bestBrand=topBrands[0]?.label||"";
+   const bestType=topTypes[0]?.label||"";
+   let candidates=CATALOG.filter(c=>c.brand===bestBrand);
+   if(bestType) candidates=candidates.filter(c=>productFamily(c)===bestType);
+   const unique=[],seen=new Set();
+   for(const c of candidates){
+     const k=(c.model||"").trim().toLowerCase();
+     if(!k||seen.has(k))continue;
+     seen.add(k);unique.push(c);
+     if(unique.length>=40)break;
+   }
+
+   if(unique.length){
+     status.textContent="Confronto con i modelli del catalogo…";
+     const modelLabels=unique.map(c=>`${c.brand} ${c.model}`);
+     const modelOut=await pipe(image,modelLabels);
+     modelOut.slice(0,3).forEach((x,i)=>{
+       const c=unique.find(c=>`${c.brand} ${c.model}`===x.label);
+       if(c)addRecognitionRow(i?"Modello alt.":"Modello",`${c.brand} · ${c.model}`,x.score,"model",c.k);
+     });
+   }
+
+   status.textContent="Analisi completata. I risultati sono suggerimenti: tocca “Usa” solo su quelli corretti.";
+ }catch(err){
+   console.error(err);
+   status.textContent="Il riconoscimento AI non è riuscito su questo dispositivo/rete. Il rilevamento colore locale può comunque funzionare.";
+ }finally{
+   $("recognizePhotoBtn").disabled=!pendingPhoto;
+ }
+}
+
 $("photoBtn").onclick=()=>$("photoInput").click();
+$("recognizePhotoBtn").onclick=recognizeCurrentPhoto;
 $("photoInput").onchange=e=>{
  const f=e.target.files[0]; if(!f)return;
- const r=new FileReader(); r.onload=()=>{const im=new Image();im.onload=()=>{const max=700,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);pendingPhoto=c.toDataURL("image/jpeg",.72);$("preview").innerHTML=`<img src="${pendingPhoto}">`};im.src=r.result};r.readAsDataURL(f);
+ const r=new FileReader(); r.onload=()=>{const im=new Image();im.onload=()=>{const max=700,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);pendingPhoto=c.toDataURL("image/jpeg",.72);$("preview").innerHTML=`<img src="${pendingPhoto}">`;$("recognizePhotoBtn").disabled=false;$("recognitionBox").classList.add("hidden");$("recognitionResults").innerHTML="";};im.src=r.result};r.readAsDataURL(f);
 };
 
 $("saveItem").onclick=()=>{
@@ -541,15 +805,16 @@ $("saveItem").onclick=()=>{
  const data={id:uid(),code:"CT·"+String(state.items.length+1).padStart(3,"0"),brand,model:$("fModel").value.trim(),category:$("fCat").value,status:$("fStatus").value,subtype:$("fSubtype").value.trim(),color:$("fColor").value.trim(),material:$("fMaterial").value.trim(),last:$("fLast").value.trim(),sole:$("fSole").value.trim(),size:$("fSize").value.trim(),photo:pendingPhoto,standardPhoto:selectedCatalog?.img||"",catalogKey:selectedCatalog?.k||"",created:Date.now()};
  state.items.unshift(data); save(); pendingPhoto=""; selectedCatalog=null;
  ["fBrand","fBrandFallback","fModel","fSubtype","fColor","fMaterial","fLast","fSole","fSize"].forEach(id=>$(id).value="");
- $("preview").innerHTML=""; resetCatalogSelection(); $("addBox").open=false; renderWardrobe();
+ $("preview").innerHTML=""; $("recognizePhotoBtn").disabled=true; $("recognitionBox").classList.add("hidden"); $("recognitionResults").innerHTML=""; resetCatalogSelection(); $("addBox").open=false; renderWardrobe();
 };
 $("searchWardrobe").oninput=renderWardrobe;
 $("statusFilter").onchange=renderWardrobe;
 $("catalogSearch").oninput=renderCatalog;
 $("brandFilter").onchange=renderCatalog;
 
-$("brandFilter").innerHTML='<option>Tutte</option>'+BRANDS.map(b=>`<option>${esc(b)}</option>`).join("");
+refreshBrandControls();
 renderWardrobe();
+loadBackendCatalog();
 </script>
 </body>
 </html>
