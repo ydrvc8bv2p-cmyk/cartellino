@@ -1,0 +1,1056 @@
+{
+  "version": 2,
+  "notes": "V8: official-first plus public Italian/UK/French retailer archives; target >=20 records per brand when public sources expose them. Images remain external URLs with fallbacks; no re-hosting.",
+  "sources": [
+    {
+      "brand": "Alden",
+      "name": "Alden official",
+      "url": "https://aldenshop.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Aspesi",
+      "name": "Aspesi official",
+      "url": "https://aspesi.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Barena Venezia",
+      "name": "Barena Venezia official",
+      "url": "https://barenavenezia.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Barker",
+      "name": "Barker official",
+      "url": "https://www.barkershoes.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Barrett",
+      "name": "Barrett official",
+      "url": "https://barrett.it",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Church's",
+      "name": "Church's official",
+      "url": "https://www.church-footwear.com",
+      "kind": "generic_site",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Circolo 1901",
+      "name": "Circolo 1901 official",
+      "url": "https://circolo1901.it",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Crockett & Jones",
+      "name": "Crockett & Jones official",
+      "url": "https://crockettandjones.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Doucal's",
+      "name": "Doucal's official",
+      "url": "https://doucals.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Fedeli",
+      "name": "Fedeli official",
+      "url": "https://fedelicashmere.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Fratelli Rossetti",
+      "name": "Fratelli Rossetti official",
+      "url": "https://fratellirossetti.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Glanshirt",
+      "name": "Glanshirt official",
+      "url": "https://slowear.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Incotex",
+      "name": "Incotex official",
+      "url": "https://slowear.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "J.M. Weston",
+      "name": "J.M. Weston official",
+      "url": "https://www.jmweston.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Manuel Ritz",
+      "name": "Manuel Ritz official",
+      "url": "https://www.manuelritz.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Massimo Alba",
+      "name": "Massimo Alba official",
+      "url": "https://massimoalba.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Roberto Collina",
+      "name": "Roberto Collina official",
+      "url": "https://robertocollina.it",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Sebago",
+      "name": "Sebago official",
+      "url": "https://sebago.eu",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Slowear",
+      "name": "Slowear official",
+      "url": "https://slowear.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Stefano Bemer",
+      "name": "Stefano Bemer official",
+      "url": "https://stefanobemer.com",
+      "kind": "generic_site",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Tricker's",
+      "name": "Tricker's official",
+      "url": "https://trickers.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Velasca",
+      "name": "Velasca official",
+      "url": "https://velasca.com",
+      "kind": "generic_site",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Xacus",
+      "name": "Xacus official",
+      "url": "https://xacus.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Zanone",
+      "name": "Zanone official",
+      "url": "https://slowear.com",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    },
+    {
+      "brand": "Cruna",
+      "name": "Cruna official all products",
+      "url": "https://cruna.com/en/collections/cruna-tutti-i-prodotti",
+      "kind": "shopify_collection",
+      "priority": 110,
+      "max_products": 500
+    },
+    {
+      "brand": "Tricker's",
+      "name": "Tricker's official mens shoes",
+      "url": "https://trickers.com/collections/mens-shoes",
+      "kind": "shopify_collection",
+      "priority": 110,
+      "max_products": 300
+    },
+    {
+      "brand": "Church's",
+      "name": "Church's official men styles",
+      "url": "https://www.church-footwear.com/eu/en/men/style/c/10395EU",
+      "kind": "generic_listing",
+      "priority": 110,
+      "max_products": 300
+    },
+    {
+      "brand": "Gran Sasso",
+      "name": "Gran Sasso official SS26 men",
+      "url": "https://shop.gransasso.it/en/spring-summer-men",
+      "kind": "generic_listing",
+      "priority": 110,
+      "max_products": 500
+    },
+    {
+      "brand": "Gran Sasso",
+      "name": "Gran Sasso official T-shirts",
+      "url": "https://shop.gransasso.it/en/t-shirts-men-ss",
+      "kind": "generic_listing",
+      "priority": 110,
+      "max_products": 120
+    },
+    {
+      "brand": "Gran Sasso",
+      "name": "Gran Sasso official shirts",
+      "url": "https://shop.gransasso.it/en/shirts-men-ss",
+      "kind": "generic_listing",
+      "priority": 110,
+      "max_products": 120
+    },
+    {
+      "brand": "Gran Sasso",
+      "name": "Gran Sasso official knitwear",
+      "url": "https://shop.gransasso.it/en/sweaters-men-ss",
+      "kind": "generic_listing",
+      "priority": 110,
+      "max_products": 180
+    },
+    {
+      "brand": "Gran Sasso",
+      "name": "Gran Sasso official polos",
+      "url": "https://shop.gransasso.it/en/polos-and-skipper-men-ss",
+      "kind": "generic_listing",
+      "priority": 110,
+      "max_products": 120
+    },
+    {
+      "brand": "Church's",
+      "name": "MR PORTER UK",
+      "url": "https://www.mrporter.com/en-gb/mens/designer/churchs/shoes",
+      "kind": "generic_listing",
+      "priority": 80,
+      "max_products": 100
+    },
+    {
+      "brand": "Church's",
+      "name": "FARFETCH IT",
+      "url": "https://www.farfetch.com/it/shopping/men/churchs/shoes-2/items.aspx",
+      "kind": "generic_listing",
+      "priority": 75,
+      "max_products": 160
+    },
+    {
+      "brand": "Santoni",
+      "name": "FARFETCH IT",
+      "url": "https://www.farfetch.com/it/shopping/men/santoni/shoes-2/items.aspx",
+      "kind": "generic_listing",
+      "priority": 75,
+      "max_products": 160
+    },
+    {
+      "brand": "Gran Sasso",
+      "name": "FARFETCH IT",
+      "url": "https://www.farfetch.com/it/shopping/men/gran-sasso/items.aspx",
+      "kind": "generic_listing",
+      "priority": 75,
+      "max_products": 180
+    },
+    {
+      "brand": "Incotex",
+      "name": "FARFETCH IT",
+      "url": "https://www.farfetch.com/it/shopping/men/73456-designer-incotex/trousers-2/items.aspx",
+      "kind": "generic_listing",
+      "priority": 75,
+      "max_products": 160
+    },
+    {
+      "brand": "Zanone",
+      "name": "FARFETCH IT",
+      "url": "https://www.farfetch.com/it/shopping/men/zanone/clothing-2/items.aspx",
+      "kind": "generic_listing",
+      "priority": 75,
+      "max_products": 160
+    },
+    {
+      "brand": "Church's",
+      "name": "Le Bon Marché FR",
+      "url": "https://www.lebonmarche.com/fr/marques/churchs",
+      "kind": "generic_listing",
+      "priority": 60,
+      "max_products": 60
+    },
+    {
+      "brands": [
+        "Alpha Studio",
+        "Barbour",
+        "Be Able",
+        "Berwick 1707",
+        "Boglioli",
+        "Briglia 1949",
+        "Corneliani",
+        "Cruciani",
+        "Cruna",
+        "Drumohr",
+        "Eleventy",
+        "Fay",
+        "Gran Sasso",
+        "Herno",
+        "Jacob Cohen",
+        "L.B.M. 1911",
+        "Lardini",
+        "Luigi Borrelli",
+        "Montedoro",
+        "Myths",
+        "PT Torino",
+        "Paoloni",
+        "Rota",
+        "Santoni",
+        "Sonrisa",
+        "Stone Island",
+        "Tagliatore",
+        "Ten C",
+        "Woolrich"
+      ],
+      "name": "SigmaGi IT",
+      "url": "https://www.sigmagi.com/it",
+      "kind": "generic_site",
+      "priority": 65,
+      "max_products": 700
+    },
+    {
+      "brand": "Barbour",
+      "name": "YOOX Barbour men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Barbour_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Be Able",
+      "name": "YOOX Be Able trousers",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Be%20Able_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Jacob Cohen",
+      "name": "YOOX Jacob Cohen men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Jacob%20Cohen_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Lardini",
+      "name": "YOOX Lardini men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Lardini_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Montedoro",
+      "name": "Slowear Montedoro",
+      "url": "https://www.slowear.com/collections/montedoro-men",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Myths",
+      "name": "YOOX Myths men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Myths_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Tagliatore",
+      "name": "YOOX Tagliatore men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Tagliatore_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Corneliani",
+      "name": "YOOX Corneliani men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Corneliani_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Cruciani",
+      "name": "YOOX Cruciani men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Cruciani_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Rota",
+      "name": "YOOX Rota men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Rota_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "PT Torino",
+      "name": "PT Torino official jeans",
+      "url": "https://www.pt-torino.com/it/uomo/jeans",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Woolrich",
+      "name": "YOOX Woolrich men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Woolrich_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Santoni",
+      "name": "Santoni official men",
+      "url": "https://www.santonishoes.com/it-it/uomo/",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Stone Island",
+      "name": "Stone Island official men",
+      "url": "https://www.stoneisland.com/it-it/collection/uomo",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Fay",
+      "name": "YOOX Fay men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Fay_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Berwick 1707",
+      "name": "Berwick 1707 official",
+      "url": "https://berwickshoes.com/en-it",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Briglia 1949",
+      "name": "YOOX Briglia 1949 men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Briglia%201949_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Sonrisa",
+      "name": "YOOX Sonrisa men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Sonrisa_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Orciani",
+      "name": "Orciani official men",
+      "url": "https://www.orciani.com/it/uomo.html",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Orciani",
+      "name": "Orciani official belts",
+      "url": "https://www.orciani.com/it/uomo/cinture-uomo.html",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Luigi Bianchi Mantova",
+      "name": "YOOX Luigi Bianchi Mantova",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Luigi%20Bianchi%20Mantova_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "MooRER",
+      "name": "MooRER official men",
+      "url": "https://www.moorer.clothing/men/",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Barba Napoli",
+      "name": "YOOX Barba Napoli",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Barba%20Napoli_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Filippo De Laurentiis",
+      "name": "YOOX Filippo De Laurentiis",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Filippo%20De%20Laurentiis_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "People of Shibuya",
+      "name": "People of Shibuya official SS26",
+      "url": "https://peopleofshibuya.com/en/collections/ss26/",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Tintoria Mattei 954",
+      "name": "YOOX Tintoria Mattei 954",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Tintoria%20Mattei%20954_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Duno",
+      "name": "YOOX Duno men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Duno_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Altea",
+      "name": "YOOX Altea men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Altea_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Daniele Fiesoli",
+      "name": "YOOX Daniele Fiesoli men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Daniele%20Fiesoli_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Mason's",
+      "name": "YOOX Mason's men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Mason%27s_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "G.T.A.",
+      "name": "YOOX G.T.A. men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/G.T.A._d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Jeckerson",
+      "name": "YOOX Jeckerson men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Jeckerson_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Peuterey",
+      "name": "YOOX Peuterey men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Peuterey_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Save The Duck",
+      "name": "YOOX Save The Duck men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Save%20The%20Duck_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Paul & Shark",
+      "name": "YOOX Paul & Shark men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Paul%20%26%20Shark_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "RRD Roberto Ricci Designs",
+      "name": "YOOX RRD Roberto Ricci Designs men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/RRD%20Roberto%20Ricci%20Designs_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Hogan",
+      "name": "YOOX Hogan men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Hogan_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Tod's",
+      "name": "YOOX Tod's men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Tod%27s_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Premiata",
+      "name": "YOOX Premiata men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Premiata_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Cheaney",
+      "name": "YOOX Cheaney men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Cheaney_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Loake",
+      "name": "YOOX Loake men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Loake_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Carmina",
+      "name": "YOOX Carmina men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Carmina_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Carlos Santos",
+      "name": "YOOX Carlos Santos men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Carlos%20Santos_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Edward Green",
+      "name": "YOOX Edward Green men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Edward%20Green_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Moreschi",
+      "name": "YOOX Moreschi men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Moreschi_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Bontoni",
+      "name": "YOOX Bontoni men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Bontoni_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Canali",
+      "name": "YOOX Canali men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Canali_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Pal Zileri",
+      "name": "YOOX Pal Zileri men",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Pal%20Zileri_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 250
+    },
+    {
+      "brand": "Anderson's",
+      "name": "Anderson's public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Anderson%27s_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Il Bisonte",
+      "name": "Il Bisonte public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Il%20Bisonte_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Serapian",
+      "name": "Serapian public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Serapian_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Valextra",
+      "name": "Valextra public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Valextra_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "The Bridge",
+      "name": "The Bridge public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/The%20Bridge_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Piquadro",
+      "name": "Piquadro public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Piquadro_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Fedon",
+      "name": "Fedon public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Fedon_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Felisi",
+      "name": "Felisi public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Felisi_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Campomaggi",
+      "name": "Campomaggi public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Campomaggi_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Boldrini Selleria",
+      "name": "Boldrini Selleria public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Boldrini%20Selleria_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Tumi",
+      "name": "Tumi public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Tumi_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Johnstons of Elgin",
+      "name": "Johnstons of Elgin public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Johnstons%20of%20Elgin_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "John Smedley",
+      "name": "John Smedley public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/John%20Smedley_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Inis Meáin",
+      "name": "Inis Meáin public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Inis%20Me%C3%A1in_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Malo",
+      "name": "Malo public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Malo_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Ballantyne",
+      "name": "Ballantyne public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Ballantyne_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Boglioli",
+      "name": "Boglioli public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Boglioli_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Caruso",
+      "name": "Caruso public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Caruso_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Sartorio",
+      "name": "Sartorio public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Sartorio_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Lubiam",
+      "name": "Lubiam public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Lubiam_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "Berwich",
+      "name": "Berwich public discovery",
+      "url": "https://www.yoox.com/it/uomo/shoponline/Berwich_d",
+      "kind": "generic_listing",
+      "priority": 35,
+      "max_products": 80
+    },
+    {
+      "brand": "L.B.M. 1911",
+      "name": "YOOX L.B.M. 1911",
+      "url": "https://www.yoox.com/it/uomo/shoponline/l.b.m.%201911_d",
+      "kind": "generic_listing",
+      "priority": 70,
+      "max_products": 300
+    },
+    {
+      "brand": "Berwick 1707",
+      "name": "Berwick 1707 Shopify all",
+      "url": "https://berwickshoes.com/en-it",
+      "kind": "shopify_all",
+      "priority": 100,
+      "max_products": 350
+    }
+  ],
+  "discovery": {
+    "enabled": true,
+    "domains": [
+      "farfetch.com",
+      "mrporter.com",
+      "giglio.com",
+      "tessabit.com",
+      "italist.com",
+      "luisaviaroma.com",
+      "lebonmarche.com",
+      "galerieslafayette.com",
+      "yoox.com",
+      "peopleofshibuya.com",
+      "orciani.com",
+      "moorer.clothing",
+      "berwickshoes.com",
+      "pt-torino.com",
+      "andersonsitaly.com",
+      "ilbisonte.com",
+      "serapian.com",
+      "thebridge.it",
+      "piquadro.com",
+      "felisi.net"
+    ],
+    "max_search_results_per_domain": 3,
+    "max_product_pages_per_brand": 40
+  },
+  "brand_registry": [
+    "Alden",
+    "Alpha Studio",
+    "Altea",
+    "Anderson's",
+    "Aspesi",
+    "Ballantyne",
+    "Barba Napoli",
+    "Barbour",
+    "Barena Venezia",
+    "Barker",
+    "Barrett",
+    "Be Able",
+    "Berwich",
+    "Berwick 1707",
+    "Boglioli",
+    "Boldrini Selleria",
+    "Bontoni",
+    "Briglia 1949",
+    "Campomaggi",
+    "Canali",
+    "Carlos Santos",
+    "Carmina",
+    "Caruso",
+    "Cheaney",
+    "Church's",
+    "Circolo 1901",
+    "Corneliani",
+    "Crockett & Jones",
+    "Cruciani",
+    "Cruna",
+    "Daniele Fiesoli",
+    "Doucal's",
+    "Drumohr",
+    "Duno",
+    "Edward Green",
+    "Eleventy",
+    "Fay",
+    "Fedeli",
+    "Fedon",
+    "Felisi",
+    "Filippo De Laurentiis",
+    "Fratelli Rossetti",
+    "G.T.A.",
+    "Glanshirt",
+    "Gran Sasso",
+    "Herno",
+    "Hogan",
+    "Il Bisonte",
+    "Incotex",
+    "Inis Meáin",
+    "J.M. Weston",
+    "Jacob Cohen",
+    "Jeckerson",
+    "John Smedley",
+    "Johnstons of Elgin",
+    "L.B.M. 1911",
+    "Lardini",
+    "Loake",
+    "Lubiam",
+    "Luigi Bianchi Mantova",
+    "Luigi Borrelli",
+    "Malo",
+    "Manuel Ritz",
+    "Mason's",
+    "Massimo Alba",
+    "Montedoro",
+    "MooRER",
+    "Moreschi",
+    "Myths",
+    "Orciani",
+    "Pal Zileri",
+    "Paoloni",
+    "Paul & Shark",
+    "People of Shibuya",
+    "Peuterey",
+    "Piquadro",
+    "Premiata",
+    "PT Torino",
+    "Roberto Collina",
+    "Rota",
+    "RRD Roberto Ricci Designs",
+    "Santoni",
+    "Sartorio",
+    "Save The Duck",
+    "Sebago",
+    "Serapian",
+    "Slowear",
+    "Sonrisa",
+    "Stefano Bemer",
+    "Stone Island",
+    "Tagliatore",
+    "Ten C",
+    "The Bridge",
+    "Tintoria Mattei 954",
+    "Tod's",
+    "Tricker's",
+    "Tumi",
+    "Valextra",
+    "Velasca",
+    "Woolrich",
+    "Xacus",
+    "Zanone"
+  ],
+  "min_products_per_brand": 20
+}
