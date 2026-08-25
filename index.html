@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartellino V8.4</title>
+<title>Cartellino V8.4.1</title>
 <style>
 :root{--bg:#e3e5e0;--panel:#f8f8f5;--ink:#17201c;--muted:#657068;--line:#c9cdc5;--brass:#c9ae72;--brass2:#9a7b3f;--pos:#3c6b4b;--neg:#8c3a2e}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -78,12 +78,12 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca Â· V8.4 Premium PWA</b><p>Scrivi 2â3 lettere e scegli la marca. Poi seleziona tipo di prodotto, materiale facoltativo e modello. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+      <div class="guided"><b>1. Cerca la marca  -  V8.4.1 Premium PWA</b><p>Scrivi 2-3 lettere e scegli la marca. Poi seleziona tipo di prodotto, materiale facoltativo e modello. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
 
       <div class="field">
         <label>Marca</label>
         <input id="fBrand" autocomplete="off" autocapitalize="words" spellcheck="false"
-          placeholder="Scrivi Trickers, Church, Crunaâ¦">
+          placeholder="Scrivi Trickers, Church, Cruna...">
         <div id="brandMatches" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:7px"></div>
         <p class="note" id="brandStatus">Scrivi almeno 2 lettere: sotto compariranno le marche compatibili.</p>
       </div>
@@ -92,7 +92,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
         <label>Oppure scegli la marca</label>
         <select id="fBrandFallback">
           
-          <option value="">â Seleziona una marca â</option>
+          <option value="">- Seleziona una marca -</option>
           <option value="Alden">Alden</option><option value="Alpha Studio">Alpha Studio</option><option value="Aspesi">Aspesi</option><option value="Barbour">Barbour</option><option value="Barena Venezia">Barena Venezia</option><option value="Barker">Barker</option><option value="Barrett">Barrett</option><option value="Be Able">Be Able</option><option value="Berwich">Berwich</option><option value="Boglioli">Boglioli</option><option value="Briglia 1949">Briglia 1949</option><option value="Church&#x27;s">Church&#x27;s</option><option value="Circolo 1901">Circolo 1901</option><option value="Corneliani">Corneliani</option><option value="Crockett &amp; Jones">Crockett &amp; Jones</option><option value="Cruciani">Cruciani</option><option value="Cruna">Cruna</option><option value="Doucal&#x27;s">Doucal&#x27;s</option><option value="Drumohr">Drumohr</option><option value="Eleventy">Eleventy</option><option value="Fay">Fay</option><option value="Fedeli">Fedeli</option><option value="Fratelli Rossetti">Fratelli Rossetti</option><option value="Glanshirt">Glanshirt</option><option value="Gran Sasso">Gran Sasso</option><option value="Herno">Herno</option><option value="Incotex">Incotex</option><option value="J.M. Weston">J.M. Weston</option><option value="Jacob Cohen">Jacob Cohen</option><option value="L.B.M. 1911">L.B.M. 1911</option><option value="Lardini">Lardini</option><option value="Luigi Borrelli">Luigi Borrelli</option><option value="Manuel Ritz">Manuel Ritz</option><option value="Massimo Alba">Massimo Alba</option><option value="Montedoro">Montedoro</option><option value="Myths">Myths</option><option value="Paoloni">Paoloni</option><option value="PT Torino">PT Torino</option><option value="Roberto Collina">Roberto Collina</option><option value="Rota">Rota</option><option value="Santoni">Santoni</option><option value="Sebago">Sebago</option><option value="Slowear">Slowear</option><option value="Sonrisa">Sonrisa</option><option value="Stefano Bemer">Stefano Bemer</option><option value="Stone Island">Stone Island</option><option value="Tagliatore">Tagliatore</option><option value="Ten C">Ten C</option><option value="Tricker&#x27;s">Tricker&#x27;s</option><option value="Velasca">Velasca</option><option value="Woolrich">Woolrich</option><option value="Xacus">Xacus</option><option value="Zanone">Zanone</option>
         
         </select>
@@ -103,7 +103,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
         <select id="fCatalogType" disabled>
           <option value="">Prima scegli la marca</option>
         </select>
-        <p class="note">La lista cambia in base al marchio: Tricker's â Mocassini/Oxford/Derbyâ¦ Â· Cruna â Pantaloni/Giacche/Overshirt/Maglieriaâ¦</p>
+        <p class="note">La lista cambia in base al marchio: Tricker's  ->  Mocassini/Oxford/Derby...  -  Cruna  ->  Pantaloni/Giacche/Overshirt/Maglieria...</p>
       </div>
 
       <div class="field">
@@ -140,7 +140,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
       <div class="row">
         <div class="field"><label>Colore</label>
 <select id="fColor">
-  <option value="">â Seleziona colore â</option>
+  <option value="">- Seleziona colore -</option>
   <option>Nero</option>
   <option>Blu navy</option>
   <option>Blu</option>
@@ -164,7 +164,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
         <div class="field"><label>Forma / last</label><input id="fLast"></div>
         <div class="field"><label>Suola</label><input id="fSole"></div>
       </div>
-      <div class="field"><label>Taglia</label><input id="fSize" placeholder="6.5 F Â· 48 Â· M"></div>
+      <div class="field"><label>Taglia</label><input id="fSize" placeholder="6.5 F  -  48  -  M"></div>
 
       <div class="title">Foto</div>
       <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px">
@@ -177,12 +177,12 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
           <button class="btn ghost" type="button" id="solePhotoBtn">Foto suola / codice</button>
           <input type="file" id="solePhotoInput" accept="image/*" hidden>
           <div id="detailPhotos" class="note">Nessuna foto dettaglio.</div>
-          <button class="btn ghost" type="button" id="recognizePhotoBtn" disabled>Riconosci da foto Â· OCR + AI</button>
+          <button class="btn ghost" type="button" id="recognizePhotoBtn" disabled>Riconosci da foto  -  OCR + AI</button>
           <p class="note">Per marca e modello: oltre alla foto intera, fotografa da vicino scritta interna, logo o codice. L'app legge il testo e lo incrocia col catalogo. Il colore viene calcolato sull'oggetto centrale, non sullo sfondo.</p>
         </div>
       </div>
       <div id="recognitionBox" class="panel hidden" style="margin-top:10px">
-        <strong>Riconoscimento foto Â· beta</strong>
+        <strong>Riconoscimento foto  -  beta</strong>
         <p id="recognitionStatus">In attesa.</p>
         <div id="recognitionResults" style="display:grid;gap:7px;margin-top:8px"></div>
       </div>
@@ -205,7 +205,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 </section>
 
 <section id="collezione">
-  <div class="title">IA Â· cosa manca</div>
+  <div class="title">IA  -  cosa manca</div>
   <div id="insights"></div>
   <div class="title">Consigli dal catalogo</div>
   <div class="grid" id="recommendGrid"></div>
@@ -275,7 +275,7 @@ function cycleImage(el){
 function refreshBrandControls(){
  BRANDS=[...new Set([...BRAND_REGISTRY,...CATALOG.map(c=>c.brand).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,"it"));
  const sel=$("fBrandFallback");
- if(sel) sel.innerHTML='<option value="">â Seleziona una marca â</option>'+BRANDS.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+ if(sel) sel.innerHTML='<option value="">- Seleziona una marca -</option>'+BRANDS.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
  const bf=$("brandFilter");
  if(bf) bf.innerHTML='<option>Tutte</option>'+BRANDS.map(b=>`<option>${esc(b)}</option>`).join("");
 }
@@ -301,8 +301,8 @@ async function loadBackendCatalog(){
    const items=await r.json();
    if(mergeBackendItems(items)){
      backendCatalogLoaded=true;refreshBrandControls();
-     if($("modelHint")) $("modelHint").textContent='Catalogo caricato Â· '+CATALOG.length+' prodotti Â· '+new Set(CATALOG.map(x=>x.brand)).size+' marche. Foto con fallback multi-fonte.';
-     const g=document.querySelector(".guided b"); if(g) g.textContent='1. Cerca la marca Â· V8.2 Â· '+new Set(CATALOG.map(x=>x.brand)).size+' marche Â· '+CATALOG.length+' prodotti';
+     if($("modelHint")) $("modelHint").textContent='Catalogo caricato  -  '+CATALOG.length+' prodotti  -  '+new Set(CATALOG.map(x=>x.brand)).size+' marche. Foto con fallback multi-fonte.';
+     const g=document.querySelector(".guided b"); if(g) g.textContent='1. Cerca la marca  -  V8.2  -  '+new Set(CATALOG.map(x=>x.brand)).size+' marche  -  '+CATALOG.length+' prodotti';
      renderWardrobe();
    }
  }catch(e){console.warn('backend catalog fallback',e);}
@@ -514,7 +514,7 @@ function populateModels(){
  });
  sel.innerHTML=(type?'<option value="">Scegli modello / variante ('+unique.length+')</option>':'<option value="">Prima scegli il tipo di prodotto</option>')+
    (type ? unique.map(c=>{
-     const label=[c.model,c.color,c.material,c.last&&("forma "+c.last)].filter(Boolean).join(" Â· ");
+     const label=[c.model,c.color,c.material,c.last&&("forma "+c.last)].filter(Boolean).join("  -  ");
      return `<option value="${esc(c.k)}">${esc(label)}</option>`;
    }).join("") : "");
  selectedCatalog=null;
@@ -543,14 +543,14 @@ function chooseCatalogItem(k){
  $("fLast").value=c.last||"";
  $("fSole").value=c.sole||"";
  $("catalogPreview").innerHTML=imageCandidates(c).length?imageTag(c):'';
- $("catalogTitle").textContent=c.brand+" Â· "+c.model;
- $("catalogMeta").textContent=[c.style,c.color,c.material,c.last&&("forma "+c.last),c.sole].filter(Boolean).join(" Â· ");
+ $("catalogTitle").textContent=c.brand+"  -  "+c.model;
+ $("catalogMeta").textContent=[c.style,c.color,c.material,c.last&&("forma "+c.last),c.sole].filter(Boolean).join("  -  ");
  $("catalogPreviewBox").classList.remove("hidden");
 }
 
 function card(i){
  const src=i.photo||i.standardPhoto||"";
- return `<div class="card"><div class="pic">${src?`<img src="${esc(src)}" onerror="this.style.display='none'">`:`<div class="ph">C</div>`}<span class="badge">${esc(i.code||"")}</span></div><div class="body"><span class="brand">${esc(i.brand||"â")}</span><div class="model">${esc(i.model||i.category||"Capo")}</div><div class="meta">${esc([i.subtype,i.color,i.material].filter(Boolean).join(" Â· "))}</div></div></div>`
+ return `<div class="card"><div class="pic">${src?`<img src="${esc(src)}" onerror="this.style.display='none'">`:`<div class="ph">C</div>`}<span class="badge">${esc(i.code||"")}</span></div><div class="body"><span class="brand">${esc(i.brand||"-")}</span><div class="model">${esc(i.model||i.category||"Capo")}</div><div class="meta">${esc([i.subtype,i.color,i.material].filter(Boolean).join("  -  "))}</div></div></div>`
 }
 function renderWardrobe(){
  const q=$("searchWardrobe").value.toLowerCase(), st=$("statusFilter").value;
@@ -567,7 +567,7 @@ function renderWardrobe(){
 function renderCatalog(){
  const q=$("catalogSearch").value.toLowerCase(), b=$("brandFilter").value;
  let list=CATALOG.filter(c=>(b==="Tutte"||c.brand===b)&&(!q||JSON.stringify(c).toLowerCase().includes(q))).slice(0,80);
- $("catalogGrid").innerHTML=list.map(c=>`<div class="card"><div class="pic">${imageTag(c,'loading="lazy"')}<span class="badge">${c.price||"â"}</span></div><div class="body"><span class="brand">${esc(c.brand)}</span><div class="model">${esc(c.model)}</div><div class="meta">${esc([c.style,c.color,c.material].filter(Boolean).join(" Â· "))}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(c.k)}">Aggiungi</button></div></div>`).join("");
+ $("catalogGrid").innerHTML=list.map(c=>`<div class="card"><div class="pic">${imageTag(c,'loading="lazy"')}<span class="badge">${c.price||"-"}</span></div><div class="body"><span class="brand">${esc(c.brand)}</span><div class="model">${esc(c.model)}</div><div class="meta">${esc([c.style,c.color,c.material].filter(Boolean).join("  -  "))}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(c.k)}">Aggiungi</button></div></div>`).join("");
  document.querySelectorAll("#catalogGrid .addCat").forEach(btn=>btn.onclick=()=>addCatalog(btn.dataset.k));
 }
 function renderInsights(){
@@ -577,14 +577,14 @@ function renderInsights(){
  const missing=targets.filter(x=>!types[x]);
  const pants=owned.filter(i=>i.category==="Pantaloni"), pc=new Set(pants.map(tone));
  const pm=["Blu","Grigio","Beige","Bianco","Verde","Marrone"].filter(x=>!pc.has(x));
- $("insights").innerHTML=`<div class="panel"><strong>Scarpe</strong><p>${missing.length?"Mancano: "+esc(missing.join(", "))+".":"Rotazione classica ben coperta."}</p></div><div class="panel"><strong>Colori scarpe</strong><p>${esc(Object.entries(colors).map(([k,v])=>k+" "+v).join(" Â· ")||"Nessun dato.")}</p></div><div class="panel"><strong>Pantaloni</strong><p>${pm.length?"Colori scoperti: "+esc(pm.join(", "))+".":"Colori base ben coperti."}</p></div>`;
+ $("insights").innerHTML=`<div class="panel"><strong>Scarpe</strong><p>${missing.length?"Mancano: "+esc(missing.join(", "))+".":"Rotazione classica ben coperta."}</p></div><div class="panel"><strong>Colori scarpe</strong><p>${esc(Object.entries(colors).map(([k,v])=>k+" "+v).join("  -  ")||"Nessun dato.")}</p></div><div class="panel"><strong>Pantaloni</strong><p>${pm.length?"Colori scoperti: "+esc(pm.join(", "))+".":"Colori base ben coperti."}</p></div>`;
  const rec=CATALOG.map(c=>{const item={category:inferCat(c),subtype:c.style,model:c.model,color:c.color};let score=20;if(item.category==="Scarpe"){if(!types[shoeType(item)])score+=30;if(!colors[tone(item)])score+=15}if(item.category==="Pantaloni"&&pm.includes(tone(item)))score+=20;return{c,score}}).sort((a,b)=>b.score-a.score).slice(0,8);
  $("recommendGrid").innerHTML=rec.map(r=>`<div class="card"><div class="pic">${imageTag(r.c,'loading="lazy"')}<span class="badge">fit ${r.score}/100</span></div><div class="body"><span class="brand">${esc(r.c.brand)}</span><div class="model">${esc(r.c.model)}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(r.c.k)}">Aggiungi</button></div></div>`).join("");
  document.querySelectorAll("#recommendGrid .addCat").forEach(btn=>btn.onclick=()=>addCatalog(btn.dataset.k));
 }
 function addCatalog(k){
  const c=CATALOG.find(x=>x.k===k); if(!c)return;
- state.items.unshift({id:uid(),code:"CTÂ·"+String(state.items.length+1).padStart(3,"0"),brand:c.brand,model:c.model,category:inferCat(c),subtype:shoeType({...c,subtype:c.style}),color:c.color,material:c.material,last:c.last,sole:c.sole,status:"armadio",standardPhoto:(imageCandidates(c)[0]||""),photo:"",created:Date.now()});
+ state.items.unshift({id:uid(),code:"CT - "+String(state.items.length+1).padStart(3,"0"),brand:c.brand,model:c.model,category:inferCat(c),subtype:shoeType({...c,subtype:c.style}),color:c.color,material:c.material,last:c.last,sole:c.sole,status:"armadio",standardPhoto:(imageCandidates(c)[0]||""),photo:"",created:Date.now()});
  save(); renderWardrobe(); showSection("armadio");
 }
 function showSection(id){
@@ -881,7 +881,7 @@ function addRecognitionRow(key, value, score, action, actionValue){
  const row=document.createElement("div");
  row.className="recogrow";
  row.innerHTML=`<div class="recogkey">${esc(key)}</div>
-   <div class="recogval">${esc(value||"â")} ${score!=null?`<span class="recogscore">Â· ${pct(score)}</span>`:""}</div>
+   <div class="recogval">${esc(value||"-")} ${score!=null?`<span class="recogscore"> -  ${pct(score)}</span>`:""}</div>
    <button class="recoguse" type="button">Usa</button>`;
  row.querySelector("button").onclick=()=>applyRecognition(action,actionValue||value);
  wrap.appendChild(row);
@@ -1069,7 +1069,7 @@ async function recognizeCurrentPhoto(){
  try{
    let pipe=null,RawImage=null,image=null;
    if(pendingPhoto){
-     status.textContent="Riconoscimento del tipo di prodottoâ¦";
+     status.textContent="Riconoscimento del tipo di prodotto...";
      const vision=await getVisionClassifier();
      pipe=vision.pipe;RawImage=vision.RawImage;image=await RawImage.read(pendingPhoto);
 
@@ -1081,7 +1081,7 @@ async function recognizeCurrentPhoto(){
      const looksLikeShoe=["Mocassini","Oxford","Derby","Monk","Chelsea","Chukka / Desert","Stivali","Sneaker"].includes(bestFamily);
 
      if(looksLikeShoe){
-       status.textContent="Riconoscimento del sottotipo della scarpaâ¦";
+       status.textContent="Riconoscimento del sottotipo della scarpa...";
        const subs=await classifyFromDefinitions(pipe,image,shoeSubtypeCandidates());
        const topSubs=subs.slice(0,4);
        if(topSubs[0]){
@@ -1098,8 +1098,8 @@ async function recognizeCurrentPhoto(){
      }
 
      status.textContent=looksLikeShoe
-       ? "Analisi del colore della tomaia, escludendo suola e sfondoâ¦"
-       : "Analisi del colore principale del prodottoâ¦";
+       ? "Analisi del colore della tomaia, escludendo suola e sfondo..."
+       : "Analisi del colore principale del prodotto...";
 
      // Primary color comes from semantic vision, not raw dominant pixels.
      const colorRank=await classifySemanticColor(pipe,image,looksLikeShoe);
@@ -1117,7 +1117,7 @@ async function recognizeCurrentPhoto(){
      }
    }
 
-   status.textContent="Lettura etichetta, logo e codiciâ¦";
+   status.textContent="Lettura etichetta, logo e codici...";
    try{
      ocrText=await readVisibleText();
      if(ocrText){
@@ -1146,7 +1146,7 @@ async function recognizeCurrentPhoto(){
 
    // Visual brand is advisory only, never auto-applied.
    if(!brandEvidence && pendingPhoto && pipe && image){
-     status.textContent="Verifica visiva della marcaâ¦";
+     status.textContent="Verifica visiva della marca...";
      const brandLabels=BRANDS.map(b=>"the visible logo or brand identity of "+b+" on this product");
      const bo=await pipe(image,brandLabels);
      const tops=bo.slice(0,3).map(x=>({
@@ -1167,7 +1167,7 @@ async function recognizeCurrentPhoto(){
    if(brand){
      const hits=exactModelFromEvidence(ocrText,brand,bestSubtype,detectedColor);
      if(hits.length){
-       hits.forEach((x,i)=>addRecognitionRow(i?"Modello alt.":"Modello preciso",`${x.c.brand} Â· ${x.c.model}`,Math.min(.99,.68+x.score*.012),"model",x.c.k));
+       hits.forEach((x,i)=>addRecognitionRow(i?"Modello alt.":"Modello preciso",`${x.c.brand}  -  ${x.c.model}`,Math.min(.99,.68+x.score*.012),"model",x.c.k));
        if(hits[0].score>=20)chooseCatalogItem(hits[0].c.k);
      }else{
        addRecognitionRow("Modello","Marca e tipo riconosciuti; modello esatto non confermato da codice/nome",null,"none","");
@@ -1176,7 +1176,7 @@ async function recognizeCurrentPhoto(){
      addRecognitionRow("Modello","Non cercato finchÃ© la marca non Ã¨ affidabile",null,"none","");
    }
 
-   status.textContent="Analisi completata. Per le scarpe: famiglia â sottotipo â colore tomaia â marca â modello preciso.";
+   status.textContent="Analisi completata. Per le scarpe: famiglia  ->  sottotipo  ->  colore tomaia  ->  marca  ->  modello preciso.";
  }catch(err){
    console.error(err);
    status.textContent="Analisi non completata. Prova con una foto prodotto piÃ¹ pulita e una foto ravvicinata di logo/etichetta.";
@@ -1190,13 +1190,13 @@ $("labelPhotoBtn").onclick=()=>{$("labelPhotoInput").value="";$("labelPhotoInput
 $("solePhotoBtn").onclick=()=>{$("solePhotoInput").value="";$("solePhotoInput").click()};
 $("recognizePhotoBtn").onclick=recognizeCurrentPhoto;
 function compressPicked(file,max=1400,q=.86){return new Promise(resolve=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL("image/jpeg",q))};im.src=r.result};r.readAsDataURL(file)})}
-function updateDetailPhotos(){const xs=[];if(pendingLabelPhoto)xs.push("etichetta/logo â");if(pendingSolePhoto)xs.push("suola/codice â");$("detailPhotos").textContent=xs.length?xs.join(" Â· "):"Nessuna foto dettaglio.";$("recognizePhotoBtn").disabled=!(pendingPhoto||pendingLabelPhoto||pendingSolePhoto)}
+function updateDetailPhotos(){const xs=[];if(pendingLabelPhoto)xs.push("etichetta/logo â");if(pendingSolePhoto)xs.push("suola/codice â");$("detailPhotos").textContent=xs.length?xs.join("  -  "):"Nessuna foto dettaglio.";$("recognizePhotoBtn").disabled=!(pendingPhoto||pendingLabelPhoto||pendingSolePhoto)}
 $("photoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;pendingPhoto=await compressPicked(f,1200,.84);$("preview").innerHTML=`<img src="${pendingPhoto}">`;$("recognitionBox").classList.add("hidden");$("recognitionResults").innerHTML="";updateDetailPhotos()};
 $("labelPhotoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;pendingLabelPhoto=await compressPicked(f,1800,.92);updateDetailPhotos()};
 $("solePhotoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;pendingSolePhoto=await compressPicked(f,1800,.92);updateDetailPhotos()};
 $("saveItem").onclick=()=>{
  const brand=$("fBrand").value.trim(); if(!brand){alert("Scegli o scrivi una marca.");return}
- const data={id:uid(),code:"CTÂ·"+String(state.items.length+1).padStart(3,"0"),brand,model:$("fModel").value.trim(),category:$("fCat").value,status:$("fStatus").value,subtype:$("fSubtype").value.trim(),color:$("fColor").value.trim(),material:$("fMaterial").value.trim(),last:$("fLast").value.trim(),sole:$("fSole").value.trim(),size:$("fSize").value.trim(),photo:pendingPhoto,standardPhoto:selectedCatalog?.img||"",catalogKey:selectedCatalog?.k||"",created:Date.now()};
+ const data={id:uid(),code:"CT - "+String(state.items.length+1).padStart(3,"0"),brand,model:$("fModel").value.trim(),category:$("fCat").value,status:$("fStatus").value,subtype:$("fSubtype").value.trim(),color:$("fColor").value.trim(),material:$("fMaterial").value.trim(),last:$("fLast").value.trim(),sole:$("fSole").value.trim(),size:$("fSize").value.trim(),photo:pendingPhoto,standardPhoto:selectedCatalog?.img||"",catalogKey:selectedCatalog?.k||"",created:Date.now()};
  state.items.unshift(data); save(); pendingPhoto=""; pendingLabelPhoto=""; pendingSolePhoto=""; selectedCatalog=null;
  ["fBrand","fBrandFallback","fModel","fSubtype","fColor","fMaterial","fLast","fSole","fSize"].forEach(id=>$(id).value="");
  $("preview").innerHTML=""; updateDetailPhotos(); $("recognizePhotoBtn").disabled=true; $("recognitionBox").classList.add("hidden"); $("recognitionResults").innerHTML=""; resetCatalogSelection(); $("addBox").open=false; renderWardrobe();
@@ -1213,5 +1213,30 @@ loadBackendCatalog();
 <script>
 if ('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn));
 </script>
+
+<script>
+(function(){
+  const fixes = [
+    [/ÃÂ·/g," - "],[/Ã/g,""],[/Ã¢ÂÂ|Ã¢ÂÂ/g,"-"],[/Ã¢ÂÂ¦/g,"..."],[/Ã¢ÂÂ/g," -> "],
+    [/ÃÂ /g,"Ã "],[/ÃÂ¨/g,"Ã¨"],[/ÃÂ©/g,"Ã©"],[/ÃÂ¬/g,"Ã¬"],[/ÃÂ²/g,"Ã²"],[/ÃÂ¹/g,"Ã¹"]
+  ];
+  function cleanTextNode(n){
+    let v=n.nodeValue||"";
+    for(const [rx,r] of fixes) v=v.replace(rx,r);
+    if(v!==n.nodeValue)n.nodeValue=v;
+  }
+  function clean(root=document.body){
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    while(w.nextNode())cleanTextNode(w.currentNode);
+  }
+  window.addEventListener("DOMContentLoaded",()=>clean());
+  const mo=new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+    if(n.nodeType===3) cleanTextNode(n);
+    else if(n.nodeType===1) clean(n);
+  })));
+  window.addEventListener("DOMContentLoaded",()=>mo.observe(document.body,{subtree:true,childList:true}));
+})();
+</script>
+
 </body>
 </html>
