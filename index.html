@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartellino V9.8 Light Champagne</title>
+<title>Cartellino V9.9 Photo Runtime Fix</title>
 <style>
 :root{--bg:#F5F3EE;--panel:#FFFFFF;--ink:#171717;--muted:#74716B;--line:#DDD9D1;--brass:#B49A68;--brass2:#8F764B;--pos:#52705A;--neg:#8A4940;--soft:#ECE9E2;--shadow:0 8px 24px rgba(23,23,23,.055)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -102,7 +102,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 @media(min-width:700px){.sub-grid{grid-template-columns:repeat(4,1fr)}}
 
 
-/* V9.8 Light Champagne / iPhone-safe responsive layer */
+/* V9.9 Photo Runtime Fix / iPhone-safe responsive layer */
 html{
   width:100%;
   min-height:100%;
@@ -759,11 +759,11 @@ input::placeholder,textarea::placeholder{color:#A39A8F!important}
 <meta name="theme-color" content="#F4F0E8">
 <meta name="color-scheme" content="light">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Cartellino">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 </head>
-<body data-cartellino-version="9.8">
+<body data-cartellino-version="9.9">
 <header>
  <div class="logo">Cartellino</div>
  <div class="sub">Archivio guardaroba personale</div>
@@ -776,7 +776,7 @@ input::placeholder,textarea::placeholder{color:#A39A8F!important}
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca  -  V9.8 Light Champagne</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+      <div class="guided"><b>1. Cerca la marca  -  V9.9 Photo Runtime Fix</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -2594,9 +2594,11 @@ loadBackendCatalog();
 if ('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn));
 
 document.addEventListener("click",e=>{
- const zi=e.target.closest("[data-zoom-index]");
+ if(e.target&&e.target.id==="zoomClose"){closePhotoZoom();return}
+ if(e.target&&e.target.id==="photoZoom"){closePhotoZoom();return}
+ const zi=e.target.closest&&e.target.closest("[data-zoom-index]");
  if(zi){openPhotoZoom(Number(zi.dataset.zoomIndex)||0);return}
- const dot=e.target.closest("[data-gallery-dot]");
+ const dot=e.target.closest&&e.target.closest("[data-gallery-dot]");
  if(dot){
    const tr=$("galleryTrack"),i=Number(dot.dataset.galleryDot)||0;
    if(tr)tr.scrollTo({left:i*tr.clientWidth,behavior:"smooth"});
@@ -2607,8 +2609,6 @@ document.addEventListener("scroll",e=>{
  if(e.target&&e.target.id==="galleryTrack")syncGalleryIndicator();
  if(e.target&&e.target.id==="zoomStage")syncZoomIndex();
 },true);
-$("zoomClose").addEventListener("click",closePhotoZoom);
-$("photoZoom").addEventListener("click",e=>{if(e.target.id==="photoZoom")closePhotoZoom()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhotoZoom()});
 
 </script>
