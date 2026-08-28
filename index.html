@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartellino V9.1 Model Search</title>
+<title>Cartellino V9.3 Photo Gallery</title>
 <style>
 :root{--bg:#F6F4EF;--panel:#FCFBF8;--ink:#18211D;--muted:#68716C;--line:#D8D5CC;--brass:#B5965A;--brass2:#947845;--pos:#4D735C;--neg:#8A4940;--soft:#EEEAE1;--shadow:0 8px 24px rgba(24,33,29,.055)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -102,7 +102,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 @media(min-width:700px){.sub-grid{grid-template-columns:repeat(4,1fr)}}
 
 
-/* V9.1 Model Search / iPhone-safe responsive layer */
+/* V9.3 Photo Gallery / iPhone-safe responsive layer */
 html{
   width:100%;
   min-height:100%;
@@ -490,6 +490,25 @@ nav a.on{
  .item-detail-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
+
+.gallery-wrap{position:relative;margin-top:10px}
+.gallery-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:10px}
+.gallery-track::-webkit-scrollbar{display:none}
+.gallery-slide{flex:0 0 100%;scroll-snap-align:center;position:relative;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;min-height:260px;display:flex;align-items:center;justify-content:center}
+.gallery-slide img{width:100%;height:100%;max-height:420px;object-fit:contain;display:block;background:#fff;cursor:zoom-in}
+.gallery-dots{display:flex;justify-content:center;gap:6px;margin-top:8px}
+.gallery-dot{width:7px;height:7px;border-radius:50%;background:var(--line);border:0;padding:0}
+.gallery-dot.active{background:var(--brass2)}
+.gallery-count{position:absolute;right:10px;top:10px;background:rgba(23,23,23,.78);color:#fff;border-radius:999px;padding:5px 8px;font-size:10px;z-index:2}
+.zoom-modal{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:9999;display:none;align-items:center;justify-content:center}
+.zoom-modal.open{display:flex}
+.zoom-stage{width:100%;height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.zoom-stage::-webkit-scrollbar{display:none}
+.zoom-slide{flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;padding:54px 18px 38px}
+.zoom-slide img{max-width:100%;max-height:100%;object-fit:contain;touch-action:pinch-zoom}
+.zoom-close{position:fixed;right:16px;top:calc(14px + env(safe-area-inset-top));z-index:10001;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;width:40px;height:40px;border-radius:50%;font-size:24px;line-height:36px}
+.zoom-index{position:fixed;left:50%;transform:translateX(-50%);top:calc(18px + env(safe-area-inset-top));z-index:10001;color:#fff;font-size:12px;background:rgba(0,0,0,.35);padding:5px 9px;border-radius:999px}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -512,7 +531,7 @@ nav a.on{
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca  -  V9.1 Model Search</b><p>Scrivi 2-3 lettere e scegli la marca. Poi puoi filtrare per tipo/materiale oppure cercare direttamente il modello scrivendo le prime lettere. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+      <div class="guided"><b>1. Cerca la marca  -  V9.3 Photo Gallery</b><p>Scegli la marca, poi restringi a cascata per tipo e materiale. Il menu Modello mostra solo le varianti compatibili, in ordine alfabetico. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -548,11 +567,11 @@ nav a.on{
       </div>
 
       <div class="field">
-        <label>4. Cerca modello / variante</label>
-        <input id="fCatalogModel" list="modelSuggestions" autocomplete="off" disabled
-          placeholder="Inizia a scrivere il modello...">
-        <datalist id="modelSuggestions"></datalist>
-        <p class="note" id="modelHint">I modelli sono in ordine alfabetico. Scrivi anche solo le prime lettere e scegli il risultato: i dati disponibili vengono compilati automaticamente.</p>
+        <label>4. Modello / variante</label>
+        <select id="fCatalogModel" disabled>
+          <option value="">Prima scegli la marca</option>
+        </select>
+        <p class="note" id="modelHint">Il menu si restringe automaticamente in base a marca, tipo e materiale. I modelli restano in ordine alfabetico.</p>
       </div>
 
       <div id="catalogPreviewBox" class="panel hidden">
@@ -1028,10 +1047,8 @@ function clearBrandDependentFields(){
  $("fCatalogType").disabled=true;
  $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali</option>';
  $("fCatalogMaterial").disabled=true;
- $("fCatalogModel").value="";
+ $("fCatalogModel").innerHTML='<option value="">Prima scegli la marca</option>';
  $("fCatalogModel").disabled=true;
- $("modelSuggestions").innerHTML="";
- MODEL_OPTION_MAP=new Map();
  $("catalogPreviewBox").classList.add("hidden");
 
  // Azzera anche i dati derivati dal prodotto della marca precedente.
@@ -1173,8 +1190,6 @@ function catalogPool(){
  return CATALOG.filter(c=>c.brand===brand);
 }
 
-let MODEL_OPTION_MAP=new Map();
-
 function populateTypes(){
  const pool=catalogPool();
  const types=[...new Set(pool.map(productFamily))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"it"));
@@ -1198,66 +1213,42 @@ function populateMaterials(){
  populateModels();
 }
 
-function modelSuggestionLabel(c){
+function modelOptionLabel(c){
  return [c.model,c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c)&&("forma "+catalogLast(c))]
-   .filter(Boolean).join("  -  ");
+   .filter(Boolean).join(" - ");
 }
 
 function populateModels(){
  const type=$("fCatalogType").value;
  const material=$("fCatalogMaterial").value;
- const rows=catalogPool().filter(c=>(!type||productFamily(c)===type)&&(!material||materialLabel(c)===material));
- const input=$("fCatalogModel");
- const dl=$("modelSuggestions");
+ const rows=catalogPool().filter(c=>
+   (!type||productFamily(c)===type) &&
+   (!material||materialLabel(c)===material)
+ );
+ const sel=$("fCatalogModel");
  const unique=[];
  const seen=new Set();
+
  rows.forEach(c=>{
-   const key=[c.model,c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c),catalogSole(c)].map(normKey).join("|");
+   const key=[c.model,c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c),catalogSole(c)]
+     .map(normKey).join("|");
    if(!seen.has(key)){seen.add(key);unique.push(c)}
  });
+
  unique.sort((a,b)=>{
-   const ma=String(a.model||"");
-   const mb=String(b.model||"");
-   const byModel=ma.localeCompare(mb,"it",{sensitivity:"base",numeric:true});
+   const byModel=String(a.model||"").localeCompare(String(b.model||""),"it",{sensitivity:"base",numeric:true});
    if(byModel) return byModel;
-   return modelSuggestionLabel(a).localeCompare(modelSuggestionLabel(b),"it",{sensitivity:"base",numeric:true});
+   return modelOptionLabel(a).localeCompare(modelOptionLabel(b),"it",{sensitivity:"base",numeric:true});
  });
- MODEL_OPTION_MAP=new Map();
- dl.innerHTML=unique.map(c=>{
-   const label=modelSuggestionLabel(c);
-   MODEL_OPTION_MAP.set(normKey(label),c.k);
-   // Also allow exact bare model if it identifies a single record/model family.
-   return `<option value="${esc(label)}"></option>`;
- }).join("");
- const modelCounts={};
- unique.forEach(c=>{const k=normKey(c.model);modelCounts[k]=(modelCounts[k]||0)+1});
- unique.forEach(c=>{if(modelCounts[normKey(c.model)]===1) MODEL_OPTION_MAP.set(normKey(c.model),c.k)});
- input.disabled=!unique.length;
- input.placeholder=unique.length ? "Scrivi il modello ("+unique.length+" disponibili)..." : "Nessun modello disponibile";
- input.value="";
+
+ sel.disabled=!unique.length;
+ sel.innerHTML=unique.length
+   ? '<option value="">Seleziona modello ('+unique.length+')</option>'+
+     unique.map(c=>`<option value="${esc(c.k)}">${esc(modelOptionLabel(c))}</option>`).join("")
+   : '<option value="">Nessun modello compatibile</option>';
+
  selectedCatalog=null;
  $("catalogPreviewBox").classList.add("hidden");
-}
-
-function resolveModelInput(value){
- const q=normKey(value);
- if(!q)return "";
- if(MODEL_OPTION_MAP.has(q))return MODEL_OPTION_MAP.get(q);
- const pool=catalogPool();
- const exactModels=pool.filter(c=>normKey(c.model)===q);
- if(exactModels.length){
-   exactModels.sort((a,b)=>{
-     const score=x=>(x.color?1:0)+(catalogMaterial(x)?1:0)+(catalogVariant(x)?1:0)+(catalogFit(x)?1:0)+(catalogLast(x)?1:0)+(catalogSole(x)?1:0);
-     return score(b)-score(a);
-   });
-   return exactModels[0].k;
- }
- return "";
-}
-
-function applyModelInput(){
- const k=resolveModelInput($("fCatalogModel").value);
- if(k)chooseCatalogItem(k);
 }
 function showBrandSuggestions(value){ renderBrandMatches(value); }
 
@@ -1271,18 +1262,72 @@ function selectBrand(brand){
  populateTypes();
  syncTechnicalSelectors(null);
 }
+
+let ACTIVE_GALLERY_IMAGES=[];
+
+function safeImagesFor(c){
+ const arr=imageCandidates(c)||[];
+ const out=[];
+ const seen=new Set();
+ arr.forEach(u=>{
+   const s=String(u||"").trim();
+   if(s&&!seen.has(s)){seen.add(s);out.push(s)}
+ });
+ return out;
+}
+
+function galleryHtml(c){
+ const imgs=safeImagesFor(c);
+ ACTIVE_GALLERY_IMAGES=imgs;
+ if(!imgs.length)return "";
+ const slides=imgs.map((u,i)=>`<div class="gallery-slide"><img src="${esc(u)}" alt="${esc((c.brand||"")+" "+(c.model||"")+" foto "+(i+1))}" data-zoom-index="${i}" loading="${i?"lazy":"eager"}"></div>`).join("");
+ const dots=imgs.length>1?`<div class="gallery-dots">${imgs.map((_,i)=>`<button class="gallery-dot${i===0?" active":""}" data-gallery-dot="${i}" aria-label="Foto ${i+1}"></button>`).join("")}</div>`:"";
+ return `<div class="gallery-wrap"><div class="gallery-count" id="galleryCount">1 / ${imgs.length}</div><div class="gallery-track" id="galleryTrack">${slides}</div>${dots}</div>`;
+}
+
+function syncGalleryIndicator(){
+ const tr=$("galleryTrack");
+ if(!tr||!ACTIVE_GALLERY_IMAGES.length)return;
+ const i=Math.max(0,Math.min(ACTIVE_GALLERY_IMAGES.length-1,Math.round(tr.scrollLeft/Math.max(1,tr.clientWidth))));
+ const count=$("galleryCount");if(count)count.textContent=(i+1)+" / "+ACTIVE_GALLERY_IMAGES.length;
+ document.querySelectorAll("[data-gallery-dot]").forEach((d,n)=>d.classList.toggle("active",n===i));
+}
+
+function openPhotoZoom(index=0){
+ if(!ACTIVE_GALLERY_IMAGES.length)return;
+ const z=$("photoZoom"),stage=$("zoomStage");
+ stage.innerHTML=ACTIVE_GALLERY_IMAGES.map((u,i)=>`<div class="zoom-slide"><img src="${esc(u)}" alt="Foto ${i+1}"></div>`).join("");
+ z.classList.add("open");z.setAttribute("aria-hidden","false");
+ document.body.style.overflow="hidden";
+ requestAnimationFrame(()=>{
+   stage.scrollLeft=Math.max(0,index)*stage.clientWidth;
+   syncZoomIndex();
+ });
+}
+function syncZoomIndex(){
+ const stage=$("zoomStage");
+ if(!stage||!ACTIVE_GALLERY_IMAGES.length)return;
+ const i=Math.max(0,Math.min(ACTIVE_GALLERY_IMAGES.length-1,Math.round(stage.scrollLeft/Math.max(1,stage.clientWidth))));
+ $("zoomIndex").textContent=(i+1)+" / "+ACTIVE_GALLERY_IMAGES.length;
+}
+function closePhotoZoom(){
+ $("photoZoom").classList.remove("open");
+ $("photoZoom").setAttribute("aria-hidden","true");
+ document.body.style.overflow="";
+}
+
 function chooseCatalogItem(k){
  const c=CATALOG.find(x=>x.k===k);
  if(!c)return;
  selectedCatalog=c;
- $("fCatalogModel").value=modelSuggestionLabel(c);
+ $("fCatalogModel").value=c.k;
  $("fModel").value=c.model||"";
  const fam=productFamily(c);
  $("fCat").value=(["Mocassini","Oxford","Derby","Monk","Chelsea","Chukka / Desert","Stivali","Sneaker","Pantofole","Sandali","Brogue","Altre scarpe"].includes(fam)) ? "Scarpe" : (fam==="Polo & T-shirt" ? "Polo & T-shirt" : fam);
  $("fSubtype").value=(isFootwearBrand(c.brand) ? shoeType({...c,subtype:c.style}) : (c.style||catalogVariant(c)||fam));
  setColorValue(c.color||"");
  syncTechnicalSelectors(c);
- $("catalogPreview").innerHTML=imageCandidates(c).length?imageTag(c):'';
+ $("catalogPreview").innerHTML=galleryHtml(c);
  $("catalogTitle").textContent=c.brand+"  -  "+c.model;
  const td=technicalDefaultsFor(c);
  $("catalogMeta").textContent=[c.style,c.color,td.material,td.variant,td.fit,td.last&&("forma "+td.last),td.sole,td.fitting&&("fitting "+td.fitting),td.finish].filter(Boolean).join("  -  ");
@@ -1543,10 +1588,8 @@ $("fBrandFallback").addEventListener("change",e=>{
 
 $("fCatalogType").addEventListener("change",()=>populateMaterials());
 $("fCatalogMaterial").addEventListener("change",()=>populateModels());
-$("fCatalogModel").addEventListener("change",applyModelInput);
-$("fCatalogModel").addEventListener("input",()=>{
- const k=resolveModelInput($("fCatalogModel").value);
- if(k)chooseCatalogItem(k);
+$("fCatalogModel").addEventListener("change",e=>{
+ if(e.target.value) chooseCatalogItem(e.target.value);
 });
 ["fColor","fMaterial","fLast","fSole","fFinish","fFit","fVariant"].forEach(id=>$(id).addEventListener("change",updateFromVariantControls));
 $("fCat").addEventListener("change",()=>syncTechnicalSelectors(selectedCatalog));
@@ -2146,7 +2189,33 @@ loadBackendCatalog();
 </script>
 <script>
 if ('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn));
+
+document.addEventListener("click",e=>{
+ const zi=e.target.closest("[data-zoom-index]");
+ if(zi){openPhotoZoom(Number(zi.dataset.zoomIndex)||0);return}
+ const dot=e.target.closest("[data-gallery-dot]");
+ if(dot){
+   const tr=$("galleryTrack"),i=Number(dot.dataset.galleryDot)||0;
+   if(tr)tr.scrollTo({left:i*tr.clientWidth,behavior:"smooth"});
+   return;
+ }
+});
+document.addEventListener("scroll",e=>{
+ if(e.target&&e.target.id==="galleryTrack")syncGalleryIndicator();
+ if(e.target&&e.target.id==="zoomStage")syncZoomIndex();
+},true);
+$("zoomClose").addEventListener("click",closePhotoZoom);
+$("photoZoom").addEventListener("click",e=>{if(e.target.id==="photoZoom")closePhotoZoom()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhotoZoom()});
+
 </script>
+
+
+<div id="photoZoom" class="zoom-modal" aria-hidden="true">
+  <button class="zoom-close" id="zoomClose" aria-label="Chiudi">&times;</button>
+  <div class="zoom-index" id="zoomIndex">1 / 1</div>
+  <div class="zoom-stage" id="zoomStage"></div>
+</div>
 
 </body>
 </html>
