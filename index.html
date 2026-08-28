@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartellino V9.3 Photo Gallery</title>
+<title>Cartellino V9.5 Champagne Palette</title>
 <style>
-:root{--bg:#F6F4EF;--panel:#FCFBF8;--ink:#18211D;--muted:#68716C;--line:#D8D5CC;--brass:#B5965A;--brass2:#947845;--pos:#4D735C;--neg:#8A4940;--soft:#EEEAE1;--shadow:0 8px 24px rgba(24,33,29,.055)}
+:root{--bg:#F5F3EE;--panel:#FFFFFF;--ink:#171717;--muted:#74716B;--line:#DDD9D1;--brass:#B49A68;--brass2:#8F764B;--pos:#52705A;--neg:#8A4940;--soft:#ECE9E2;--shadow:0 8px 24px rgba(23,23,23,.055)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{background:var(--ink);color:white;padding:14px;border-bottom:2px solid var(--brass2);position:sticky;top:0;z-index:20}
+header{background:#171717;color:white;padding:14px;border-bottom:1px solid var(--brass);position:sticky;top:0;z-index:20}
 .logo{font-family:Georgia,serif;color:var(--brass);font-size:23px;letter-spacing:.15em;text-transform:uppercase}
-.sub{font-size:9px;color:#89928c;text-transform:uppercase;letter-spacing:.16em;margin-top:4px}
-.stats{display:flex;gap:12px;margin-top:10px;padding-top:8px;border-top:1px solid #334038}
-.stats div{flex:1}.stats b{display:block}.stats span{font-size:8px;text-transform:uppercase;color:#8b958e;letter-spacing:.1em}
+.sub{font-size:9px;color:#A39F98;text-transform:uppercase;letter-spacing:.16em;margin-top:4px}
+.stats{display:flex;gap:12px;margin-top:10px;padding-top:8px;border-top:1px solid #3A3A38}
+.stats div{flex:1}.stats b{display:block}.stats span{font-size:8px;text-transform:uppercase;color:#B5B1AA;letter-spacing:.1em}
 main{padding:14px 14px 92px}
 .toolbar{display:flex;gap:8px;margin-bottom:10px}.toolbar>*{flex:1}
 input,select,textarea{width:100%;padding:11px;background:var(--panel);border:1px solid var(--line);border-radius:4px;font-size:16px;color:var(--ink)}
 input:focus,select:focus,textarea:focus{outline:2px solid rgba(154,123,63,.22);border-color:var(--brass2)}
-.btn{background:var(--ink);color:var(--brass);border:0;border-radius:4px;padding:12px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;width:100%}
+.btn{background:#171717;color:#E5D4B0;border:0;border-radius:4px;padding:12px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;width:100%}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .title{font-size:10px;text-transform:uppercase;letter-spacing:.17em;color:var(--muted);display:flex;align-items:center;gap:8px;margin:16px 0 10px}
 .title:after{content:"";height:1px;background:var(--line);flex:1}
@@ -102,7 +102,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 @media(min-width:700px){.sub-grid{grid-template-columns:repeat(4,1fr)}}
 
 
-/* V9.3 Photo Gallery / iPhone-safe responsive layer */
+/* V9.5 Champagne Palette / iPhone-safe responsive layer */
 html{
   width:100%;
   min-height:100%;
@@ -509,10 +509,35 @@ nav a.on{
 .zoom-close{position:fixed;right:16px;top:calc(14px + env(safe-area-inset-top));z-index:10001;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;width:40px;height:40px;border-radius:50%;font-size:24px;line-height:36px}
 .zoom-index{position:fixed;left:50%;transform:translateX(-50%);top:calc(18px + env(safe-area-inset-top));z-index:10001;color:#fff;font-size:12px;background:rgba(0,0,0,.35);padding:5px 9px;border-radius:999px}
 
+
+.model-search-field{position:relative}
+.model-dropdown{position:absolute;left:0;right:0;top:calc(100% - 26px);z-index:80;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 12px 30px rgba(23,23,23,.16);max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.model-dropdown.hidden{display:none}
+.model-result{display:block;width:100%;text-align:left;background:var(--panel);border:0;border-bottom:1px solid var(--line);padding:11px 12px;color:var(--ink);cursor:pointer}
+.model-result:last-child{border-bottom:0}
+.model-result-name{display:block;font-weight:650;font-size:14px}
+.model-result-meta{display:block;margin-top:3px;font-size:10px;color:var(--muted);line-height:1.35}
+.model-empty{padding:12px;color:var(--muted);font-size:12px}
+
+
+/* V9.5 neutral premium palette */
+body{background:var(--bg);color:var(--ink)}
+header .logo{color:#D1B47A}
+header .sub{color:#AAA59D}
+.card,.panel,details,.sheet,.modal-card{background:var(--panel);border-color:var(--line)}
+input,select,textarea{background:#FFFFFF;color:#171717;border-color:var(--line)}
+input:focus,select:focus,textarea:focus{outline:2px solid rgba(180,154,104,.22);border-color:var(--brass2)}
+.note,.muted,.meta{color:var(--muted)}
+.model-dropdown{background:#FFFFFF;border-color:var(--line);box-shadow:0 12px 30px rgba(23,23,23,.14)}
+.model-result{background:#FFFFFF;color:#171717;border-bottom-color:var(--line)}
+.model-result:active{background:#F3EFE6}
+.gallery-slide{background:#FFFFFF;border-color:var(--line)}
+.gallery-dot.active{background:var(--brass2)}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#18211D">
+<meta name="theme-color" content="#171717">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Cartellino">
@@ -531,7 +556,7 @@ nav a.on{
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca  -  V9.3 Photo Gallery</b><p>Scegli la marca, poi restringi a cascata per tipo e materiale. Il menu Modello mostra solo le varianti compatibili, in ordine alfabetico. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+      <div class="guided"><b>1. Cerca la marca  -  V9.5 Champagne Palette</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -566,12 +591,12 @@ nav a.on{
         </select>
       </div>
 
-      <div class="field">
+      <div class="field model-search-field">
         <label>4. Modello / variante</label>
-        <select id="fCatalogModel" disabled>
-          <option value="">Prima scegli la marca</option>
-        </select>
-        <p class="note" id="modelHint">Il menu si restringe automaticamente in base a marca, tipo e materiale. I modelli restano in ordine alfabetico.</p>
+        <input id="fCatalogModel" type="text" autocomplete="off" autocorrect="off" autocapitalize="off"
+          spellcheck="false" disabled placeholder="Prima scegli la marca">
+        <div id="modelDropdown" class="model-dropdown hidden"></div>
+        <p class="note" id="modelHint">Scrivi il nome: i risultati compaiono qui sotto dentro Cartellino. Tocca il modello esatto per selezionarlo.</p>
       </div>
 
       <div id="catalogPreviewBox" class="panel hidden">
@@ -1047,8 +1072,11 @@ function clearBrandDependentFields(){
  $("fCatalogType").disabled=true;
  $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali</option>';
  $("fCatalogMaterial").disabled=true;
- $("fCatalogModel").innerHTML='<option value="">Prima scegli la marca</option>';
+ $("fCatalogModel").value="";
+ $("fCatalogModel").placeholder="Prima scegli la marca";
  $("fCatalogModel").disabled=true;
+ MODEL_ROWS=[];MODEL_SELECTED_KEY="";
+ closeModelDropdown();
  $("catalogPreviewBox").classList.add("hidden");
 
  // Azzera anche i dati derivati dal prodotto della marca precedente.
@@ -1218,6 +1246,9 @@ function modelOptionLabel(c){
    .filter(Boolean).join(" - ");
 }
 
+let MODEL_ROWS=[];
+let MODEL_SELECTED_KEY="";
+
 function populateModels(){
  const type=$("fCatalogType").value;
  const material=$("fCatalogMaterial").value;
@@ -1225,30 +1256,63 @@ function populateModels(){
    (!type||productFamily(c)===type) &&
    (!material||materialLabel(c)===material)
  );
- const sel=$("fCatalogModel");
- const unique=[];
  const seen=new Set();
-
+ MODEL_ROWS=[];
  rows.forEach(c=>{
    const key=[c.model,c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c),catalogSole(c)]
      .map(normKey).join("|");
-   if(!seen.has(key)){seen.add(key);unique.push(c)}
+   if(!seen.has(key)){seen.add(key);MODEL_ROWS.push(c)}
  });
-
- unique.sort((a,b)=>{
-   const byModel=String(a.model||"").localeCompare(String(b.model||""),"it",{sensitivity:"base",numeric:true});
-   if(byModel) return byModel;
-   return modelOptionLabel(a).localeCompare(modelOptionLabel(b),"it",{sensitivity:"base",numeric:true});
+ MODEL_ROWS.sort((a,b)=>{
+   const x=String(a.model||"").localeCompare(String(b.model||""),"it",{sensitivity:"base",numeric:true});
+   return x||modelOptionLabel(a).localeCompare(modelOptionLabel(b),"it",{sensitivity:"base",numeric:true});
  });
-
- sel.disabled=!unique.length;
- sel.innerHTML=unique.length
-   ? '<option value="">Seleziona modello ('+unique.length+')</option>'+
-     unique.map(c=>`<option value="${esc(c.k)}">${esc(modelOptionLabel(c))}</option>`).join("")
-   : '<option value="">Nessun modello compatibile</option>';
-
+ MODEL_SELECTED_KEY="";
+ const inp=$("fCatalogModel");
+ inp.disabled=!MODEL_ROWS.length;
+ inp.value="";
+ inp.placeholder=MODEL_ROWS.length?"Scrivi il nome del modello...":"Nessun modello compatibile";
+ closeModelDropdown();
  selectedCatalog=null;
  $("catalogPreviewBox").classList.add("hidden");
+}
+
+function modelSearchScore(c,q){
+ const m=normKey(c.model), label=normKey(modelOptionLabel(c));
+ if(!q)return 10;
+ if(m===q)return 1000;
+ if(m.startsWith(q))return 800-(m.length-q.length);
+ const words=m.split(/\s+/);
+ if(words.some(w=>w.startsWith(q)))return 650;
+ if(m.includes(q))return 500;
+ if(label.includes(q))return 300;
+ return -1;
+}
+function renderModelDropdown(){
+ const box=$("modelDropdown");
+ if($("fCatalogModel").disabled){closeModelDropdown();return}
+ const q=normKey($("fCatalogModel").value);
+ const matches=MODEL_ROWS.map(c=>({c,s:modelSearchScore(c,q)})).filter(x=>x.s>=0)
+   .sort((a,b)=>b.s-a.s||String(a.c.model||"").localeCompare(String(b.c.model||""),"it",{sensitivity:"base",numeric:true}))
+   .slice(0,40);
+ if(!matches.length){
+   box.innerHTML='<div class="model-empty">Nessun modello trovato</div>';
+ }else{
+   box.innerHTML=matches.map(({c})=>{
+     const meta=[c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c)&&("Forma "+catalogLast(c))].filter(Boolean).join(" - ");
+     return `<button type="button" class="model-result" data-model-key="${esc(c.k)}"><span class="model-result-name">${esc(c.model||"Modello")}</span>${meta?`<span class="model-result-meta">${esc(meta)}</span>`:""}</button>`;
+   }).join("");
+ }
+ box.classList.remove("hidden");
+}
+function closeModelDropdown(){$("modelDropdown").classList.add("hidden")}
+function selectModelResult(k){
+ const c=CATALOG.find(x=>x.k===k);
+ if(!c)return;
+ MODEL_SELECTED_KEY=k;
+ $("fCatalogModel").value=c.model||"";
+ closeModelDropdown();
+ chooseCatalogItem(k);
 }
 function showBrandSuggestions(value){ renderBrandMatches(value); }
 
@@ -1266,13 +1330,21 @@ function selectBrand(brand){
 let ACTIVE_GALLERY_IMAGES=[];
 
 function safeImagesFor(c){
- const arr=imageCandidates(c)||[];
- const out=[];
- const seen=new Set();
- arr.forEach(u=>{
+ const identity=x=>
+   normKey(x.brand)===normKey(c.brand) &&
+   normKey(x.model)===normKey(c.model) &&
+   normKey(x.color)===normKey(c.color) &&
+   normKey(catalogMaterial(x))===normKey(catalogMaterial(c)) &&
+   normKey(catalogVariant(x))===normKey(catalogVariant(c)) &&
+   normKey(catalogFit(x))===normKey(catalogFit(c)) &&
+   normKey(catalogLast(x))===normKey(catalogLast(c));
+ const rows=CATALOG.filter(identity);
+ if(!rows.length)rows.push(c);
+ const out=[],seen=new Set();
+ rows.forEach(r=>(imageCandidates(r)||[]).forEach(u=>{
    const s=String(u||"").trim();
    if(s&&!seen.has(s)){seen.add(s);out.push(s)}
- });
+ }));
  return out;
 }
 
@@ -1320,7 +1392,8 @@ function chooseCatalogItem(k){
  const c=CATALOG.find(x=>x.k===k);
  if(!c)return;
  selectedCatalog=c;
- $("fCatalogModel").value=c.k;
+ MODEL_SELECTED_KEY=c.k;
+ $("fCatalogModel").value=c.model||"";
  $("fModel").value=c.model||"";
  const fam=productFamily(c);
  $("fCat").value=(["Mocassini","Oxford","Derby","Monk","Chelsea","Chukka / Desert","Stivali","Sneaker","Pantofole","Sandali","Brogue","Altre scarpe"].includes(fam)) ? "Scarpe" : (fam==="Polo & T-shirt" ? "Polo & T-shirt" : fam);
@@ -1588,8 +1661,19 @@ $("fBrandFallback").addEventListener("change",e=>{
 
 $("fCatalogType").addEventListener("change",()=>populateMaterials());
 $("fCatalogMaterial").addEventListener("change",()=>populateModels());
-$("fCatalogModel").addEventListener("change",e=>{
- if(e.target.value) chooseCatalogItem(e.target.value);
+$("fCatalogModel").addEventListener("focus",renderModelDropdown);
+$("fCatalogModel").addEventListener("input",()=>{
+ MODEL_SELECTED_KEY="";
+ selectedCatalog=null;
+ $("catalogPreviewBox").classList.add("hidden");
+ renderModelDropdown();
+});
+$("modelDropdown").addEventListener("click",e=>{
+ const b=e.target.closest("[data-model-key]");
+ if(b)selectModelResult(b.dataset.modelKey);
+});
+document.addEventListener("click",e=>{
+ if(!e.target.closest(".model-search-field"))closeModelDropdown();
 });
 ["fColor","fMaterial","fLast","fSole","fFinish","fFit","fVariant"].forEach(id=>$(id).addEventListener("change",updateFromVariantControls));
 $("fCat").addEventListener("change",()=>syncTechnicalSelectors(selectedCatalog));
