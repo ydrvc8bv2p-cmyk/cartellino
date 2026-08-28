@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartellino V9.5 Champagne Palette</title>
+<title>Cartellino V9.8 Light Champagne</title>
 <style>
 :root{--bg:#F5F3EE;--panel:#FFFFFF;--ink:#171717;--muted:#74716B;--line:#DDD9D1;--brass:#B49A68;--brass2:#8F764B;--pos:#52705A;--neg:#8A4940;--soft:#ECE9E2;--shadow:0 8px 24px rgba(23,23,23,.055)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -102,7 +102,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 @media(min-width:700px){.sub-grid{grid-template-columns:repeat(4,1fr)}}
 
 
-/* V9.5 Champagne Palette / iPhone-safe responsive layer */
+/* V9.8 Light Champagne / iPhone-safe responsive layer */
 html{
   width:100%;
   min-height:100%;
@@ -534,16 +534,236 @@ input:focus,select:focus,textarea:focus{outline:2px solid rgba(180,154,104,.22);
 .gallery-slide{background:#FFFFFF;border-color:var(--line)}
 .gallery-dot.active{background:var(--brass2)}
 
+
+/* V9.6 collection drill-down */
+.collection-drill-modal{position:fixed;inset:0;z-index:120;background:rgba(23,23,23,.42);display:flex;align-items:flex-end;justify-content:center}
+.collection-drill-modal.hidden{display:none}
+.collection-drill-sheet{width:100%;max-width:720px;max-height:88vh;overflow:auto;background:var(--bg);border-radius:18px 18px 0 0;padding:14px 14px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -18px 48px rgba(23,23,23,.18)}
+.collection-drill-head{display:grid;grid-template-columns:40px 1fr 40px;gap:8px;align-items:center;position:sticky;top:-14px;background:var(--bg);z-index:3;padding:10px 0 12px;border-bottom:1px solid var(--line)}
+.collection-drill-head h2{margin:0;font-family:Georgia,serif;font-size:22px;font-weight:400}
+.collection-drill-kicker{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.collection-owned-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:10px}
+.collection-owned-item{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px;text-align:left;color:var(--ink)}
+.collection-owned-thumb{width:86px;height:72px;border-radius:7px;overflow:hidden;background:var(--soft)}
+.collection-owned-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.collection-owned-title{font-family:Georgia,serif;font-size:16px;line-height:1.12}
+.collection-owned-brand{font-size:9px;text-transform:uppercase;letter-spacing:.11em;color:var(--brass2);margin-bottom:3px}
+.collection-owned-meta{font-size:10px;color:var(--muted);line-height:1.4;margin-top:4px}
+.type-color-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.type-color-card{background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px}
+.type-color-card.present{border-color:rgba(82,112,90,.45)}
+.type-color-card.missing{border-color:rgba(180,154,104,.58)}
+.type-color-status{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:5px}
+.type-color-card.present .type-color-status{color:var(--pos)}
+.type-color-card.missing .type-color-status{color:var(--brass2)}
+.type-color-name{font-size:12px;display:flex;align-items:center;gap:6px}
+.collection-section-title{margin-top:18px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.collection-empty{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px;color:var(--muted);font-size:11px;margin-top:10px}
+.collection-drill-summary{display:flex;gap:8px;margin-top:12px}
+.collection-drill-summary .panel{flex:1;text-align:center;margin:0;padding:9px 5px}
+.collection-drill-summary strong{display:block;font-family:Georgia,serif;font-size:19px}
+.collection-drill-summary span{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+
+/* V9.7 definitive palette override - intentionally last */
+:root{
+ --bg:#F4F0E8;
+ --panel:#FFFDFC;
+ --ink:#181715;
+ --muted:#746F67;
+ --line:#DED7CC;
+ --brass:#C0A06A;
+ --brass2:#9B7A45;
+ --pos:#52705A;
+ --neg:#8A4940;
+ --soft:#EEE8DE;
+ --shadow:0 8px 24px rgba(24,23,21,.06);
+}
+html{background:#181715!important}
+body{background:#F4F0E8!important;color:#181715!important}
+header{background:#181715!important;color:#FFFDFC!important;border-bottom-color:#C0A06A!important}
+.logo,header .logo{color:#D7BC87!important}
+.sub,header .sub{color:#B8B0A4!important}
+.stats{border-top-color:#393630!important}
+.stats span{color:#B8B0A4!important}
+nav{background:#181715!important;border-top-color:#9B7A45!important}
+nav a{color:#A9A198!important}
+nav a.on{color:#E0C48D!important}
+summary{background:#181715!important;color:#E0C48D!important}
+.btn{background:#181715!important;color:#E7CF9E!important}
+.btn.ghost{background:#FFFDFC!important;color:#181715!important;border-color:#DED7CC!important}
+.card,.panel,details,.sheet,.modal-card,.collection-drill-sheet{background:#FFFDFC!important;border-color:#DED7CC!important}
+input,select,textarea{background:#FFFDFC!important;color:#181715!important;border-color:#DED7CC!important}
+input:focus,select:focus,textarea:focus{outline-color:rgba(192,160,106,.25)!important;border-color:#9B7A45!important}
+.guided{background:#F1E9DB!important;border-color:#C0A06A!important}
+.readonly{background:#F0ECE5!important;color:#625D55!important}
+.pic,.preview,.slot-fallback,.collection-owned-thumb{background:#EEE8DE!important}
+.ph{color:#BEB6AA!important}
+.badge{background:rgba(24,23,21,.90)!important;color:#E0C48D!important}
+.brand,.brandmatch.primary{background:#181715!important;color:#E0C48D!important;border-color:#181715!important}
+.suggest,.model-dropdown{background:#FFFDFC!important;border-color:#C0A06A!important}
+.suggest button,.model-result{background:#FFFDFC!important;color:#181715!important;border-bottom-color:#DED7CC!important}
+.cover-card.owned,.matrix-card.ok{border-color:#86A08B!important}
+.cover-card.missing,.matrix-card.gap{border-color:#C0A06A!important}
+.statusbar.ok{background:#52705A!important;color:#fff!important}
+.statusbar.gap{background:#C0A06A!important;color:#181715!important}
+.collection-drill-modal{background:rgba(24,23,21,.42)!important}
+.type-color-card,.collection-owned-item{background:#FFFDFC!important}
+.type-color-card.missing{border-color:#C0A06A!important}
+.type-color-card.present{border-color:#86A08B!important}
+
+
+/* V9.8 definitive LIGHT palette - must remain last */
+:root{
+ --bg:#F4F0E8;
+ --panel:#FFFDFC;
+ --ink:#1C1A17;
+ --muted:#756F66;
+ --line:#DDD4C7;
+ --brass:#C5A56D;
+ --brass2:#9A7945;
+ --pos:#52705A;
+ --neg:#8A4940;
+ --soft:#EFE8DD;
+ --shadow:0 8px 24px rgba(28,26,23,.055);
+ color-scheme:light;
+}
+html,body{background:#F4F0E8!important;color:#1C1A17!important;color-scheme:light!important}
+header{
+ background:#F8F3EA!important;
+ color:#1C1A17!important;
+ border-bottom:1px solid #D9C8AA!important;
+ box-shadow:0 2px 10px rgba(28,26,23,.04)!important
+}
+header .logo,.logo{color:#8F6E39!important}
+header .sub,.sub{color:#756F66!important}
+.stats{border-top-color:#DDD4C7!important}
+.stats b,.stats strong{color:#1C1A17!important}
+.stats span{color:#756F66!important}
+
+nav{
+ background:#FFFDFC!important;
+ border-top:1px solid #DDD4C7!important;
+ box-shadow:0 -4px 18px rgba(28,26,23,.045)!important
+}
+nav a{color:#756F66!important;background:transparent!important}
+nav a.on{
+ color:#8F6E39!important;
+ background:#F4EBDD!important
+}
+
+summary{
+ background:#F7F1E7!important;
+ color:#1C1A17!important;
+ border-color:#DDD4C7!important
+}
+summary::marker{color:#9A7945!important}
+
+.btn{
+ background:#C5A56D!important;
+ color:#1C1A17!important;
+ border:1px solid #B79660!important
+}
+.btn.ghost{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#D7CCBD!important
+}
+.icon-btn{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#D7CCBD!important
+}
+
+.card,.panel,details,.sheet,.modal-card,.collection-drill-sheet{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#DDD4C7!important
+}
+.section-title,h1,h2,h3,h4{color:#1C1A17!important}
+.note,.muted,.meta,.collection-drill-kicker{color:#756F66!important}
+
+input,select,textarea{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#D7CCBD!important
+}
+input:focus,select:focus,textarea:focus{
+ outline:2px solid rgba(197,165,109,.24)!important;
+ border-color:#9A7945!important
+}
+input::placeholder,textarea::placeholder{color:#A39A8F!important}
+
+.guided{
+ background:#F2E8D8!important;
+ border-color:#D4B477!important;
+ color:#1C1A17!important
+}
+.readonly{background:#F1ECE4!important;color:#625D55!important}
+.pic,.preview,.slot-fallback,.collection-owned-thumb{background:#EFE8DD!important}
+.ph{color:#B4AA9D!important}
+
+.badge{
+ background:#F0E3CC!important;
+ color:#6E542D!important;
+ border:1px solid #D8BF90!important
+}
+.brand,.brandmatch.primary{
+ background:#F1E3C9!important;
+ color:#6E542D!important;
+ border-color:#D3B985!important
+}
+
+.suggest,.model-dropdown{
+ background:#FFFDFC!important;
+ border-color:#D4B477!important;
+ box-shadow:0 12px 30px rgba(28,26,23,.10)!important
+}
+.suggest button,.model-result{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-bottom-color:#E2D9CC!important
+}
+.suggest button:active,.model-result:active{background:#F4EBDD!important}
+
+.collection-drill-modal,.zoom-modal{
+ background:rgba(70,61,48,.28)!important
+}
+.collection-owned-item,.type-color-card{
+ background:#FFFDFC!important;
+ color:#1C1A17!important
+}
+
+/* Functional colors only */
+.cover-card.owned,.matrix-card.ok,.type-color-card.present{border-color:#86A08B!important}
+.cover-card.missing,.matrix-card.gap,.type-color-card.missing{border-color:#C5A56D!important}
+.statusbar.ok{background:#52705A!important;color:#FFFFFF!important}
+.statusbar.gap{background:#E4C995!important;color:#1C1A17!important}
+.type-color-card.present .type-color-status{color:#52705A!important}
+.type-color-card.missing .type-color-status{color:#9A7945!important}
+
+/* Photo gallery also stays light */
+.gallery-slide,.gallery-wrap{background:#FFFDFC!important}
+.gallery-dot{background:#D6CCBD!important}
+.gallery-dot.active{background:#9A7945!important}
+.zoom-stage{background:#F4F0E8!important}
+.zoom-close,.zoom-index{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#DDD4C7!important
+}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#171717">
+<meta name="theme-color" content="#F4F0E8">
+<meta name="color-scheme" content="light">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Cartellino">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 </head>
-<body>
+<body data-cartellino-version="9.8">
 <header>
  <div class="logo">Cartellino</div>
  <div class="sub">Archivio guardaroba personale</div>
@@ -556,7 +776,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid rgba(180,154,104,.22);
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca  -  V9.5 Champagne Palette</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+      <div class="guided"><b>1. Cerca la marca  -  V9.8 Light Champagne</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -716,6 +936,20 @@ input:focus,select:focus,textarea:focus{outline:2px solid rgba(180,154,104,.22);
       <button type="button" class="btn ghost" id="editItemBtn">Modifica</button>
       <button type="button" class="btn hidden" id="saveEditBtn">Salva modifiche</button>
     </div>
+  </div>
+</div>
+
+<div id="collectionDrillModal" class="collection-drill-modal hidden" role="dialog" aria-modal="true" aria-labelledby="collectionDrillTitle">
+  <div class="collection-drill-sheet">
+    <div class="collection-drill-head">
+      <button type="button" class="icon-btn" id="closeCollectionDrill" aria-label="Chiudi">&#215;</button>
+      <div>
+        <div class="collection-drill-kicker">Dettaglio collezione</div>
+        <h2 id="collectionDrillTitle">Tipo</h2>
+      </div>
+      <div></div>
+    </div>
+    <div id="collectionDrillBody"></div>
   </div>
 </div>
 
@@ -1491,6 +1725,7 @@ function startEditItem(){
  $("editItemBtn").classList.add("hidden");$("saveEditBtn").classList.remove("hidden");
 }
 function saveEditedItem(){
+ closeCollectionDrill();
  const item=state.items.find(x=>x.id===activeItemId);if(!item)return;
  document.querySelectorAll("#itemDetailGrid [data-edit]").forEach(el=>{item[el.dataset.edit]=el.value.trim()});
  item.updated=Date.now(); save(); renderWardrobe();
@@ -1499,6 +1734,7 @@ function saveEditedItem(){
  $("editItemBtn").classList.remove("hidden");$("saveEditBtn").classList.add("hidden");
 }
 function deleteActiveItem(){
+ closeCollectionDrill();
  const item=state.items.find(x=>x.id===activeItemId);if(!item)return;
  if(!confirm(`Eliminare "${item.model||item.brand||"questo articolo"}" dall'armadio?`))return;
  state.items=state.items.filter(x=>x.id!==activeItemId);save();renderWardrobe();closeItemModal();
@@ -1511,10 +1747,78 @@ $("deleteItemBtn").onclick=deleteActiveItem;
 
 function renderCatalog(){
  const q=$("catalogSearch").value.toLowerCase(), b=$("brandFilter").value;
- let list=CATALOG.filter(c=>(b==="Tutte"||c.brand===b)&&(!q||JSON.stringify(c).toLowerCase().includes(q))).slice(0,80);
+ let list=CATALOG.filter(c=>!isMonkItem(c)&&(b==="Tutte"||c.brand===b)&&(!q||JSON.stringify(c).toLowerCase().includes(q))).slice(0,80);
  $("catalogGrid").innerHTML=list.map(c=>`<div class="card"><div class="pic">${imageTag(c,'loading="lazy"')}<span class="badge">${c.price||"-"}</span></div><div class="body"><span class="brand">${esc(c.brand)}</span><div class="model">${esc(c.model)}</div><div class="meta">${esc([c.style,c.color,c.material].filter(Boolean).join("  -  "))}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(c.k)}">Aggiungi</button></div></div>`).join("");
  document.querySelectorAll("#catalogGrid .addCat").forEach(btn=>btn.onclick=()=>addCatalog(btn.dataset.k));
 }
+
+function collectionItemImage(i){
+ const src=i.photo||i.standardPhoto||"";
+ return src?`<img src="${esc(src)}" loading="lazy" onerror="this.style.display='none'">`:'<div class="slot-fallback"></div>';
+}
+function closeCollectionDrill(){
+ $("collectionDrillModal").classList.add("hidden");
+}
+function openCollectionDrill(type){
+ const owned=state.items.filter(i=>i.status==="armadio"&&isShoeItem(i)&&!isMonkItem(i));
+ const items=owned.filter(i=>shoeType(i)===type);
+ const keyColors=["Nero","Marrone","Bordeaux","Blu scuro"];
+ const exactOwnedColors=[...new Set(items.map(tone).filter(c=>c&&c!=="Altro"))];
+ const missing=keyColors.filter(c=>!items.some(i=>tone(i)===c));
+ $("collectionDrillTitle").textContent=type;
+ const ownedHtml=items.length?items.map(i=>{
+   const secondary=[
+     i.variant,
+     tone(i)!=="Altro"?tone(i):(i.color||""),
+     i.material,
+     i.size&&("Taglia "+i.size),
+     i.fitting&&("Fitting "+i.fitting),
+     i.last&&("Last "+i.last)
+   ].filter(Boolean).join(" - ");
+   return `<button type="button" class="collection-owned-item" data-drill-item="${esc(i.id)}">
+     <div class="collection-owned-thumb">${collectionItemImage(i)}</div>
+     <div>
+       <div class="collection-owned-brand">${esc(i.brand||"")}</div>
+       <div class="collection-owned-title">${esc(i.model||type)}</div>
+       <div class="collection-owned-meta">${esc(secondary||type)}</div>
+     </div>
+   </button>`;
+ }).join(""):`<div class="collection-empty">Non hai ancora nessun paio di questo tipo.</div>`;
+ const colorsHtml=keyColors.map(color=>{
+   const count=items.filter(i=>tone(i)===color).length;
+   return `<div class="type-color-card ${count?"present":"missing"}">
+     <div class="type-color-name"><span class="color-dot" style="background:${colorHex(color)}"></span>${esc(color)}</div>
+     <div class="type-color-status">${count?"PRESENTE"+(count>1?" - "+count+" paia":""):"MANCA"}</div>
+   </div>`;
+ }).join("");
+ const extraColors=exactOwnedColors.filter(c=>!keyColors.includes(c));
+ const extraHtml=extraColors.length?`<div class="collection-section-title">Altri colori posseduti</div>
+   <div class="type-color-grid">${extraColors.map(color=>{
+     const count=items.filter(i=>tone(i)===color).length;
+     return `<div class="type-color-card present"><div class="type-color-name"><span class="color-dot" style="background:${colorHex(color)}"></span>${esc(color)}</div><div class="type-color-status">PRESENTE${count>1?" - "+count+" paia":""}</div></div>`;
+   }).join("")}</div>`:"";
+ $("collectionDrillBody").innerHTML=`
+   <div class="collection-drill-summary">
+     <div class="panel"><strong>${items.length}</strong><span>paia possedute</span></div>
+     <div class="panel"><strong>${keyColors.length-missing.length}/4</strong><span>colori chiave</span></div>
+     <div class="panel"><strong>${missing.length}</strong><span>colori mancanti</span></div>
+   </div>
+   <div class="collection-section-title">I miei modelli</div>
+   <div class="collection-owned-grid">${ownedHtml}</div>
+   <div class="collection-section-title">Colori di ${esc(type)}</div>
+   <div class="type-color-grid">${colorsHtml}</div>
+   ${extraHtml}`;
+ $("collectionDrillModal").classList.remove("hidden");
+}
+$("closeCollectionDrill").onclick=closeCollectionDrill;
+$("collectionDrillModal").onclick=e=>{if(e.target===$("collectionDrillModal"))closeCollectionDrill()};
+$("collectionDrillBody").addEventListener("click",e=>{
+ const item=e.target.closest("[data-drill-item]");
+ if(!item)return;
+ const found=state.items.find(x=>x.id===item.dataset.drillItem);
+ if(found){closeCollectionDrill();openItemModal(found.id)}
+});
+
 function renderInsights(){
  const owned=state.items.filter(i=>i.status==="armadio");
  const shoes=owned.filter(isShoeItem).filter(i=>!isMonkItem(i));
@@ -1565,20 +1869,7 @@ function renderInsights(){
  }).join("");
 
  document.querySelectorAll("#shoeMacroCoverage .cover-card").forEach(card=>{
-   card.onclick=()=>{
-     const type=card.dataset.type;
-     const own=shoes.filter(i=>shoeType(i)===type);
-     if(own.length){
-       const target=own[0];
-       const el=document.querySelector(`[data-item-id="${target.id||""}"]`);
-       show("armadio");
-       setTimeout(()=>{ if(el) el.scrollIntoView({behavior:"smooth",block:"center"}); },120);
-     }else{
-       show("catalogo");
-       if($("searchCat")) $("searchCat").value=type.replace("Cap-toe ","").replace("Semi brogue ","").replace("Full brogue ","");
-       renderCatalog();
-     }
-   };
+   card.onclick=()=>openCollectionDrill(card.dataset.type);
  });
 
  $("shoeColorCoverage").innerHTML=keyColors.map(color=>{
@@ -2236,7 +2527,10 @@ async function recognizeCurrentPhoto(){
    status.textContent="Analisi completata. Per le scarpe: famiglia  ->  sottotipo  ->  colore tomaia  ->  marca  ->  modello preciso.";
  }catch(err){
    console.error(err);
-   status.textContent="Analisi non completata. Prova con una foto prodotto pi\u00f9 pulita e una foto ravvicinata di logo/etichetta.";
+   const msg=String(err&&err.message||err||"");
+   status.textContent=/fetch|network|load|module|cdn|import/i.test(msg)
+     ?"Foto caricata, ma il motore AI non si e' caricato dalla rete. Controlla la connessione e riprova."
+     :"Analisi non completata. Prova con una foto prodotto pi\u00f9 pulita e una foto ravvicinata di logo/etichetta.";
  }finally{
    $("recognizePhotoBtn").disabled=!(pendingPhoto||pendingLabelPhoto||pendingSolePhoto);
  }
@@ -2248,7 +2542,32 @@ $("solePhotoBtn").onclick=()=>{$("solePhotoInput").value="";$("solePhotoInput").
 $("recognizePhotoBtn").onclick=recognizeCurrentPhoto;
 function compressPicked(file,max=1400,q=.86){return new Promise(resolve=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL("image/jpeg",q))};im.src=r.result};r.readAsDataURL(file)})}
 function updateDetailPhotos(){const xs=[];if(pendingLabelPhoto)xs.push("etichetta/logo \u2713");if(pendingSolePhoto)xs.push("suola/codice \u2713");$("detailPhotos").textContent=xs.length?xs.join("  -  "):"Nessuna foto dettaglio.";$("recognizePhotoBtn").disabled=!(pendingPhoto||pendingLabelPhoto||pendingSolePhoto)}
-$("photoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;pendingPhoto=await compressPicked(f,1200,.84);$("preview").innerHTML=`<img src="${pendingPhoto}">`;$("recognitionBox").classList.add("hidden");$("recognitionResults").innerHTML="";updateDetailPhotos()};
+$("photoInput").onchange=async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{
+   pendingPhoto=await compressPicked(f,1200,.84);
+   const img=new Image();
+   img.onload=()=>{
+     $("preview").innerHTML=`<img src="${pendingPhoto}" alt="Foto caricata">`;
+     $("recognitionBox").classList.remove("hidden");
+     $("recognitionStatus").textContent=`Foto caricata correttamente: ${img.naturalWidth} x ${img.naturalHeight}. Premi Riconosci da foto.`;
+     $("recognitionResults").innerHTML="";
+     updateDetailPhotos();
+   };
+   img.onerror=()=>{
+     pendingPhoto="";
+     $("recognitionBox").classList.remove("hidden");
+     $("recognitionStatus").textContent="Errore nella lettura della foto. Prova un'altra immagine.";
+     updateDetailPhotos();
+   };
+   img.src=pendingPhoto;
+ }catch(err){
+   console.error(err);pendingPhoto="";
+   $("recognitionBox").classList.remove("hidden");
+   $("recognitionStatus").textContent="Errore durante la preparazione della foto.";
+   updateDetailPhotos();
+ }
+};
 $("labelPhotoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;pendingLabelPhoto=await compressPicked(f,1800,.92);updateDetailPhotos()};
 $("solePhotoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;pendingSolePhoto=await compressPicked(f,1800,.92);updateDetailPhotos()};
 $("saveItem").onclick=()=>{
