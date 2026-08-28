@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartellino V9.0 Smart Catalog</title>
+<title>Cartellino V9.1 Model Search</title>
 <style>
 :root{--bg:#F6F4EF;--panel:#FCFBF8;--ink:#18211D;--muted:#68716C;--line:#D8D5CC;--brass:#B5965A;--brass2:#947845;--pos:#4D735C;--neg:#8A4940;--soft:#EEEAE1;--shadow:0 8px 24px rgba(24,33,29,.055)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -102,7 +102,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 @media(min-width:700px){.sub-grid{grid-template-columns:repeat(4,1fr)}}
 
 
-/* V9.0 Smart Catalog / iPhone-safe responsive layer */
+/* V9.1 Model Search / iPhone-safe responsive layer */
 html{
   width:100%;
   min-height:100%;
@@ -512,7 +512,7 @@ nav a.on{
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca  -  V9.0 Smart Catalog</b><p>Scrivi 2-3 lettere e scegli la marca. Poi seleziona tipo di prodotto, materiale facoltativo e modello. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+      <div class="guided"><b>1. Cerca la marca  -  V9.1 Model Search</b><p>Scrivi 2-3 lettere e scegli la marca. Poi puoi filtrare per tipo/materiale oppure cercare direttamente il modello scrivendo le prime lettere. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -548,11 +548,11 @@ nav a.on{
       </div>
 
       <div class="field">
-        <label>4. Modello / variante</label>
-        <select id="fCatalogModel" disabled>
-          <option value="">Prima scegli il tipo di prodotto</option>
-        </select>
-        <p class="note" id="modelHint">Dopo il modello, foto ufficiale e dati tecnici vengono compilati automaticamente quando disponibili.</p>
+        <label>4. Cerca modello / variante</label>
+        <input id="fCatalogModel" list="modelSuggestions" autocomplete="off" disabled
+          placeholder="Inizia a scrivere il modello...">
+        <datalist id="modelSuggestions"></datalist>
+        <p class="note" id="modelHint">I modelli sono in ordine alfabetico. Scrivi anche solo le prime lettere e scegli il risultato: i dati disponibili vengono compilati automaticamente.</p>
       </div>
 
       <div id="catalogPreviewBox" class="panel hidden">
@@ -1028,8 +1028,10 @@ function clearBrandDependentFields(){
  $("fCatalogType").disabled=true;
  $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali</option>';
  $("fCatalogMaterial").disabled=true;
- $("fCatalogModel").innerHTML='<option value="">Prima scegli il tipo di prodotto</option>';
+ $("fCatalogModel").value="";
  $("fCatalogModel").disabled=true;
+ $("modelSuggestions").innerHTML="";
+ MODEL_OPTION_MAP=new Map();
  $("catalogPreviewBox").classList.add("hidden");
 
  // Azzera anche i dati derivati dal prodotto della marca precedente.
@@ -1171,49 +1173,91 @@ function catalogPool(){
  return CATALOG.filter(c=>c.brand===brand);
 }
 
+let MODEL_OPTION_MAP=new Map();
+
 function populateTypes(){
  const pool=catalogPool();
  const types=[...new Set(pool.map(productFamily))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"it"));
  $("fCatalogType").disabled=!types.length;
  $("fCatalogType").innerHTML=types.length
-   ? '<option value="">Scegli tipo di prodotto ('+types.length+')</option>'+types.map(x=>`<option>${esc(x)}</option>`).join("")
+   ? '<option value="">Tutti i tipi ('+types.length+')</option>'+types.map(x=>`<option>${esc(x)}</option>`).join("")
    : '<option value="">Nessun tipo disponibile per questa marca</option>';
  $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali</option>';
- $("fCatalogMaterial").disabled=true;
- $("fCatalogModel").innerHTML='<option value="">Prima scegli il tipo di prodotto</option>';
- $("fCatalogModel").disabled=true;
+ $("fCatalogMaterial").disabled=!pool.length;
  selectedCatalog=null;
  $("catalogPreviewBox").classList.add("hidden");
+ populateModels();
 }
 
 function populateMaterials(){
  const type=$("fCatalogType").value;
  const pool=catalogPool().filter(c=>!type||productFamily(c)===type);
  const mats=[...new Set(pool.map(materialLabel))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"it"));
- $("fCatalogMaterial").disabled=!mats.length;
+ $("fCatalogMaterial").disabled=!pool.length;
  $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali ('+mats.length+')</option>'+mats.map(x=>`<option>${esc(x)}</option>`).join("");
  populateModels();
+}
+
+function modelSuggestionLabel(c){
+ return [c.model,c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c)&&("forma "+catalogLast(c))]
+   .filter(Boolean).join("  -  ");
 }
 
 function populateModels(){
  const type=$("fCatalogType").value;
  const material=$("fCatalogMaterial").value;
  const rows=catalogPool().filter(c=>(!type||productFamily(c)===type)&&(!material||materialLabel(c)===material));
- const sel=$("fCatalogModel");
- sel.disabled=!rows.length || !type;
+ const input=$("fCatalogModel");
+ const dl=$("modelSuggestions");
  const unique=[];
  const seen=new Set();
  rows.forEach(c=>{
-   const key=(c.model+"|"+(c.color||"")+"|"+(c.material||"")).toLowerCase();
+   const key=[c.model,c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c),catalogSole(c)].map(normKey).join("|");
    if(!seen.has(key)){seen.add(key);unique.push(c)}
  });
- sel.innerHTML=(type?'<option value="">Scegli modello / variante ('+unique.length+')</option>':'<option value="">Prima scegli il tipo di prodotto</option>')+
-   (type ? unique.map(c=>{
-     const label=[c.model,c.color,c.material,c.last&&("forma "+c.last)].filter(Boolean).join("  -  ");
-     return `<option value="${esc(c.k)}">${esc(label)}</option>`;
-   }).join("") : "");
+ unique.sort((a,b)=>{
+   const ma=String(a.model||"");
+   const mb=String(b.model||"");
+   const byModel=ma.localeCompare(mb,"it",{sensitivity:"base",numeric:true});
+   if(byModel) return byModel;
+   return modelSuggestionLabel(a).localeCompare(modelSuggestionLabel(b),"it",{sensitivity:"base",numeric:true});
+ });
+ MODEL_OPTION_MAP=new Map();
+ dl.innerHTML=unique.map(c=>{
+   const label=modelSuggestionLabel(c);
+   MODEL_OPTION_MAP.set(normKey(label),c.k);
+   // Also allow exact bare model if it identifies a single record/model family.
+   return `<option value="${esc(label)}"></option>`;
+ }).join("");
+ const modelCounts={};
+ unique.forEach(c=>{const k=normKey(c.model);modelCounts[k]=(modelCounts[k]||0)+1});
+ unique.forEach(c=>{if(modelCounts[normKey(c.model)]===1) MODEL_OPTION_MAP.set(normKey(c.model),c.k)});
+ input.disabled=!unique.length;
+ input.placeholder=unique.length ? "Scrivi il modello ("+unique.length+" disponibili)..." : "Nessun modello disponibile";
+ input.value="";
  selectedCatalog=null;
  $("catalogPreviewBox").classList.add("hidden");
+}
+
+function resolveModelInput(value){
+ const q=normKey(value);
+ if(!q)return "";
+ if(MODEL_OPTION_MAP.has(q))return MODEL_OPTION_MAP.get(q);
+ const pool=catalogPool();
+ const exactModels=pool.filter(c=>normKey(c.model)===q);
+ if(exactModels.length){
+   exactModels.sort((a,b)=>{
+     const score=x=>(x.color?1:0)+(catalogMaterial(x)?1:0)+(catalogVariant(x)?1:0)+(catalogFit(x)?1:0)+(catalogLast(x)?1:0)+(catalogSole(x)?1:0);
+     return score(b)-score(a);
+   });
+   return exactModels[0].k;
+ }
+ return "";
+}
+
+function applyModelInput(){
+ const k=resolveModelInput($("fCatalogModel").value);
+ if(k)chooseCatalogItem(k);
 }
 function showBrandSuggestions(value){ renderBrandMatches(value); }
 
@@ -1231,6 +1275,7 @@ function chooseCatalogItem(k){
  const c=CATALOG.find(x=>x.k===k);
  if(!c)return;
  selectedCatalog=c;
+ $("fCatalogModel").value=modelSuggestionLabel(c);
  $("fModel").value=c.model||"";
  const fam=productFamily(c);
  $("fCat").value=(["Mocassini","Oxford","Derby","Monk","Chelsea","Chukka / Desert","Stivali","Sneaker","Pantofole","Sandali","Brogue","Altre scarpe"].includes(fam)) ? "Scarpe" : (fam==="Polo & T-shirt" ? "Polo & T-shirt" : fam);
@@ -1498,7 +1543,11 @@ $("fBrandFallback").addEventListener("change",e=>{
 
 $("fCatalogType").addEventListener("change",()=>populateMaterials());
 $("fCatalogMaterial").addEventListener("change",()=>populateModels());
-$("fCatalogModel").addEventListener("change",e=>chooseCatalogItem(e.target.value));
+$("fCatalogModel").addEventListener("change",applyModelInput);
+$("fCatalogModel").addEventListener("input",()=>{
+ const k=resolveModelInput($("fCatalogModel").value);
+ if(k)chooseCatalogItem(k);
+});
 ["fColor","fMaterial","fLast","fSole","fFinish","fFit","fVariant"].forEach(id=>$(id).addEventListener("change",updateFromVariantControls));
 $("fCat").addEventListener("change",()=>syncTechnicalSelectors(selectedCatalog));
 
@@ -2079,7 +2128,7 @@ $("saveItem").onclick=()=>{
  const brand=$("fBrand").value.trim(); if(!brand){alert("Scegli o scrivi una marca.");return}
  const data={id:uid(),code:"CT - "+String(state.items.length+1).padStart(3,"0"),brand,model:$("fModel").value.trim(),category:$("fCat").value,status:$("fStatus").value,subtype:$("fSubtype").value.trim(),color:$("fColor").value.trim(),material:$("fMaterial").value.trim(),last:$("fLast").value.trim(),sole:$("fSole").value.trim(),size:$("fSize").value.trim(),fitting:$("fFitting").value.trim(),finish:$("fFinish").value.trim(),fit:$("fFit").value.trim(),variant:$("fVariant").value.trim(),photo:pendingPhoto,standardPhoto:selectedCatalog?.img||"",catalogKey:selectedCatalog?.k||"",created:Date.now()};
  state.items.unshift(data); save(); pendingPhoto=""; pendingLabelPhoto=""; pendingSolePhoto=""; selectedCatalog=null;
- ["fBrand","fBrandFallback","fModel","fSubtype","fColor"].forEach(id=>$(id).value="");
+ ["fBrand","fBrandFallback","fCatalogModel","fModel","fSubtype","fColor"].forEach(id=>$(id).value="");
  optionFill("fMaterial",[],"","- Non specificato -"); optionFill("fLast",[],"","- Non specificato -"); optionFill("fSole",[],"","- Non specificata -"); optionFill("fSize",[],"","- Seleziona taglia -"); optionFill("fFitting",[],"","- Seleziona fitting -");
  $("preview").innerHTML=""; updateDetailPhotos(); $("recognizePhotoBtn").disabled=true; $("recognitionBox").classList.add("hidden"); $("recognitionResults").innerHTML=""; resetCatalogSelection(); $("addBox").open=false; renderWardrobe();
  showSection("armadio");
