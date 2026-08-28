@@ -1,0 +1,2624 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cartellino V9.8 Light Champagne</title>
+<style>
+:root{--bg:#F5F3EE;--panel:#FFFFFF;--ink:#171717;--muted:#74716B;--line:#DDD9D1;--brass:#B49A68;--brass2:#8F764B;--pos:#52705A;--neg:#8A4940;--soft:#ECE9E2;--shadow:0 8px 24px rgba(23,23,23,.055)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:#171717;color:white;padding:14px;border-bottom:1px solid var(--brass);position:sticky;top:0;z-index:20}
+.logo{font-family:Georgia,serif;color:var(--brass);font-size:23px;letter-spacing:.15em;text-transform:uppercase}
+.sub{font-size:9px;color:#A39F98;text-transform:uppercase;letter-spacing:.16em;margin-top:4px}
+.stats{display:flex;gap:12px;margin-top:10px;padding-top:8px;border-top:1px solid #3A3A38}
+.stats div{flex:1}.stats b{display:block}.stats span{font-size:8px;text-transform:uppercase;color:#B5B1AA;letter-spacing:.1em}
+main{padding:14px 14px 92px}
+.toolbar{display:flex;gap:8px;margin-bottom:10px}.toolbar>*{flex:1}
+input,select,textarea{width:100%;padding:11px;background:var(--panel);border:1px solid var(--line);border-radius:4px;font-size:16px;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid rgba(154,123,63,.22);border-color:var(--brass2)}
+.btn{background:#171717;color:#E5D4B0;border:0;border-radius:4px;padding:12px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.title{font-size:10px;text-transform:uppercase;letter-spacing:.17em;color:var(--muted);display:flex;align-items:center;gap:8px;margin:16px 0 10px}
+.title:after{content:"";height:1px;background:var(--line);flex:1}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.pic{aspect-ratio:3/4;background:#efefe9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pic img{width:100%;height:100%;object-fit:contain}.ph{font-family:Georgia,serif;font-size:32px;color:#bbc0b8}
+.body{padding:8px}.brand{display:inline-block;background:var(--ink);color:var(--brass);padding:3px 6px;font-family:Georgia,serif;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+.model{font-family:Georgia,serif;font-size:15px;margin-top:6px}.meta{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.35}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--ink);border-top:2px solid var(--brass2);display:grid;grid-template-columns:repeat(4,1fr);z-index:30;padding-bottom:env(safe-area-inset-bottom)}
+nav a{color:#7f8a83;text-decoration:none;text-align:center;padding:14px 2px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+nav a.on{color:var(--brass)}
+section{display:none}section.on{display:block}
+.panel{background:var(--panel);border:1px solid var(--line);padding:12px;border-radius:4px;margin-bottom:8px}
+.panel strong{font-family:Georgia,serif;font-size:17px;font-weight:400}.panel p{margin:5px 0 0;font-size:12px;color:var(--muted);line-height:1.45}
+details{background:var(--panel);border:1px solid var(--line);border-radius:4px;margin:0 0 12px}
+summary{list-style:none;padding:12px;background:var(--ink);color:var(--brass);text-transform:uppercase;letter-spacing:.12em;font-size:10px;cursor:pointer}
+summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bottom:10px;position:relative}.field label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.11em;color:var(--muted);margin-bottom:4px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.preview{width:105px;height:135px;background:#efefe9;border:1px solid var(--line);overflow:hidden}.preview img{width:100%;height:100%;object-fit:contain}
+.note{font-size:10px;color:var(--muted);line-height:1.45}
+.badge{position:absolute;left:0;top:0;background:rgba(23,32,28,.88);color:var(--brass);font-size:8px;padding:4px 6px}
+.suggest{position:absolute;left:0;right:0;top:100%;z-index:60;background:var(--panel);border:1px solid var(--brass2);max-height:260px;overflow:auto;box-shadow:0 8px 20px rgba(0,0,0,.16)}
+.suggest button{display:block;width:100%;text-align:left;background:var(--panel);border:0;border-bottom:1px solid var(--line);padding:11px;font-size:14px;color:var(--ink)}
+.suggest button:last-child{border-bottom:0}.suggest button small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.guided{border:1px solid var(--brass2);background:#f5f2e8;padding:10px;border-radius:4px;margin-bottom:12px}
+.guided b{font-family:Georgia,serif;font-weight:400;font-size:16px}.guided p{font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.45}
+.readonly{background:#eceee9!important;color:#4f5852}
+.hidden{display:none!important}
+.brandmatch{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 10px;border-radius:999px;font-size:11px;cursor:pointer}
+.brandmatch.primary{background:var(--ink);color:var(--brass);border-color:var(--ink)}
+.recogrow{display:grid;grid-template-columns:92px 1fr auto;gap:7px;align-items:center;border-top:1px solid var(--line);padding-top:7px}
+.recogrow:first-child{border-top:0;padding-top:0}
+.recogkey{font-size:9px;text-transform:uppercase;letter-spacing:.11em;color:var(--muted)}
+.recogval{font-size:12px;line-height:1.35}
+.recogscore{font-size:9px;color:var(--muted)}
+.recoguse{border:1px solid var(--line);background:transparent;padding:6px 8px;border-radius:3px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.coverage-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.cover-card{background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden;position:relative}
+.cover-card .pic{aspect-ratio:4/3}
+.cover-card .body{padding:9px}
+.cover-card.owned{border-color:#7f9b85}
+.cover-card.missing{border-color:#b49a61}
+.cover-status{font-size:8px;text-transform:uppercase;letter-spacing:.12em;margin-top:5px}
+.cover-card.owned .cover-status{color:var(--pos)}
+.cover-card.missing .cover-status{color:var(--brass2)}
+.color-dot{width:17px;height:17px;border-radius:50%;border:1px solid #a8aaa5;display:inline-block;vertical-align:middle;margin-right:6px}
+.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.matrix-card{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:8px;min-height:82px;display:flex;flex-direction:column;justify-content:space-between}
+.matrix-card.ok{border-color:#7f9b85}
+.matrix-card.gap{border-color:#b49a61}
+.matrix-card b{font-family:Georgia,serif;font-size:12px;font-weight:400}
+.matrix-card small{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.slot-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#efefe9;position:relative}
+.slot-fallback:before{content:"";width:68%;height:34%;border-radius:55% 48% 38% 42%;background:#c5c9c2;transform:rotate(-8deg);box-shadow:inset -8px -5px 0 rgba(0,0,0,.06)}
+.collection-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.collection-summary .panel{margin:0;text-align:center;padding:10px 6px}
+.collection-summary strong{display:block;font-family:Georgia,serif;font-size:20px}
+.collection-summary span{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+@media(min-width:700px){.coverage-grid{grid-template-columns:repeat(4,1fr)}.matrix{grid-template-columns:repeat(6,1fr)}}
+
+
+
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+.macro-block{margin-bottom:18px}
+.macro-head{display:flex;justify-content:space-between;align-items:end;margin:8px 0 8px}
+.macro-head h3{font-family:Georgia,serif;font-size:18px;font-weight:400;margin:0}
+.macro-head span{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.sub-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.statusbar{position:absolute;left:8px;right:8px;bottom:8px;border-radius:2px;padding:6px 8px;font-size:8px;letter-spacing:.12em;text-transform:uppercase;text-align:center;font-weight:700}
+.statusbar.ok{background:#3c6b4b;color:white}
+.statusbar.gap{background:#c9ae72;color:#17201c}
+.cover-card .pic{position:relative}
+.cover-card{cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}
+.cover-card:active{transform:scale(.985)}
+.cover-card .body{padding-bottom:10px}
+.cover-card .meta{min-height:13px}
+.compact-insight{display:flex;gap:8px;margin-bottom:12px}
+.compact-insight .panel{margin:0;flex:1;text-align:center;padding:9px 6px}
+.compact-insight strong{display:block;font-family:Georgia,serif;font-size:18px}
+.compact-insight span{font-size:8px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+@media(min-width:700px){.sub-grid{grid-template-columns:repeat(4,1fr)}}
+
+
+/* V9.8 Light Champagne / iPhone-safe responsive layer */
+html{
+  width:100%;
+  min-height:100%;
+  background:var(--ink);
+  -webkit-text-size-adjust:100%;
+}
+body{
+  margin:0;
+  width:100%;
+  min-width:0;
+  min-height:100dvh;
+  overflow-x:hidden;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+button,input,select,textarea{font:inherit}
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  width:100%;
+  background:var(--ink);
+  color:white;
+  border-bottom:1px solid rgba(181,150,90,.62);
+  padding:
+    calc(13px + env(safe-area-inset-top))
+    max(16px,env(safe-area-inset-right))
+    12px
+    max(16px,env(safe-area-inset-left));
+}
+.header-inner{
+  width:min(100%,960px);
+  margin:0 auto;
+}
+.logo{
+  text-align:center;
+  font-family:Georgia,serif;
+  color:#D0B577;
+  font-size:clamp(22px,6vw,29px);
+  line-height:1.05;
+  letter-spacing:.18em;
+  text-indent:.18em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.sub{
+  text-align:center;
+  font-size:9px;
+  line-height:1.35;
+  color:#96A09A;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  margin-top:7px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  margin-top:12px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.13);
+}
+.stats div{
+  min-width:0;
+  text-align:center;
+  padding:0 4px;
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.stats div:last-child{border-right:0}
+.stats b{
+  display:block;
+  font-size:18px;
+  line-height:1;
+  font-weight:650;
+}
+.stats span{
+  display:block;
+  margin-top:6px;
+  font-size:8px;
+  line-height:1.2;
+  text-transform:uppercase;
+  color:#98A19C;
+  letter-spacing:.12em;
+}
+main{
+  width:min(100%,960px);
+  margin:0 auto;
+  padding:
+    14px
+    max(14px,env(safe-area-inset-right))
+    calc(82px + env(safe-area-inset-bottom))
+    max(14px,env(safe-area-inset-left));
+}
+details{
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:none;
+}
+summary{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:54px;
+  padding:13px 16px;
+  background:var(--ink);
+  color:#D0B577;
+  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:10px;
+}
+.toolbar{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(120px,.85fr);
+  gap:10px;
+  margin:14px 0 12px;
+}
+.toolbar>*{min-width:0}
+input,select,textarea{
+  min-width:0;
+  width:100%;
+  min-height:46px;
+  padding:10px 12px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:9px;
+  font-size:16px;
+  color:var(--ink);
+  box-shadow:none;
+}
+input:focus,select:focus,textarea:focus{
+  outline:3px solid rgba(181,150,90,.15);
+  border-color:var(--brass);
+}
+.btn{
+  min-height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--ink);
+  color:#D0B577;
+  border:1px solid var(--ink);
+  border-radius:9px;
+  padding:11px 12px;
+  font-size:10px;
+  line-height:1.15;
+  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+}
+.btn.ghost{
+  background:var(--panel);
+  color:var(--ink);
+  border-color:var(--line);
+}
+.title{
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:10px;
+  margin:20px 0 12px;
+  text-align:center;
+  font-size:9px;
+  line-height:1.2;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  color:var(--muted);
+}
+.title:before,.title:after{
+  content:"";
+  display:block;
+  height:1px;
+  background:var(--line);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  align-items:stretch;
+}
+.card{
+  min-width:0;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.pic{
+  width:100%;
+  aspect-ratio:1/1.15;
+  background:var(--soft);
+}
+.pic img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.body{
+  flex:1;
+  padding:11px 11px 12px;
+  min-width:0;
+}
+.brand{
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  background:var(--ink);
+  color:#D0B577;
+  border-radius:3px;
+  padding:4px 7px;
+  font-size:9px;
+  letter-spacing:.09em;
+}
+.model{
+  overflow-wrap:anywhere;
+  font-size:clamp(14px,3.8vw,17px);
+  line-height:1.15;
+  margin-top:8px;
+}
+.meta{
+  overflow-wrap:anywhere;
+  font-size:10px;
+  line-height:1.4;
+  margin-top:5px;
+}
+.badge{
+  left:8px;
+  top:8px;
+  border-radius:4px;
+  background:rgba(24,33,29,.92);
+  color:#D0B577;
+  padding:5px 7px;
+}
+.panel,.guided{
+  border-radius:9px;
+  box-shadow:none;
+}
+.guided{background:#F1EDE3;border-color:#D8CAB0}
+.preview{border-radius:8px;background:var(--soft)}
+.row{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.coverage-grid,.sub-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.cover-card{
+  border-radius:10px;
+  box-shadow:var(--shadow);
+}
+.cover-card .pic{aspect-ratio:4/3}
+.statusbar{
+  left:8px;
+  right:8px;
+  bottom:8px;
+  min-height:25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:5px;
+}
+.statusbar.ok{background:var(--pos);color:#fff}
+.statusbar.gap{background:#D8C59B;color:var(--ink)}
+.matrix{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.matrix-card{
+  min-width:0;
+  min-height:88px;
+  border-radius:9px;
+  padding:10px;
+}
+.macro-head{
+  align-items:center;
+  margin:14px 2px 9px;
+}
+.macro-head h3{font-size:19px}
+nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:30;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  width:100%;
+  min-height:58px;
+  padding:
+    0
+    max(6px,env(safe-area-inset-right))
+    env(safe-area-inset-bottom)
+    max(6px,env(safe-area-inset-left));
+  background:rgba(24,33,29,.98);
+  border-top:1px solid rgba(181,150,90,.58);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+nav a{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:58px;
+  padding:8px 3px;
+  color:#8E9892;
+  text-align:center;
+  font-size:8px;
+  line-height:1.15;
+  letter-spacing:.08em;
+  white-space:normal;
+}
+nav a.on{
+  color:#D0B577;
+  font-weight:650;
+}
+@media(max-width:370px){
+  main{padding-left:10px;padding-right:10px}
+  .grid,.coverage-grid,.sub-grid{gap:8px}
+  .toolbar{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .logo{font-size:21px}
+  nav a{font-size:7px;letter-spacing:.05em}
+}
+@media(min-width:600px){
+  main{padding-top:20px}
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .coverage-grid,.sub-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .matrix{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(min-width:820px){
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .coverage-grid,.sub-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .matrix{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(orientation:landscape) and (max-height:520px){
+  header{position:relative}
+  .logo{font-size:20px}
+  .sub{display:none}
+  .stats{margin-top:8px;padding-top:8px}
+  main{padding-top:10px}
+}
+
+
+/* V8.8 item editor */
+.item-modal{
+ position:fixed;inset:0;z-index:100;background:rgba(16,22,19,.52);
+ display:flex;align-items:flex-end;justify-content:center;padding:0;
+ backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)
+}
+.item-modal.hidden{display:none}
+.item-modal-sheet{
+ width:min(100%,720px);max-height:92dvh;overflow:auto;
+ background:var(--bg);border-radius:18px 18px 0 0;
+ padding:16px max(16px,env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+ box-shadow:0 -14px 40px rgba(0,0,0,.15)
+}
+.item-modal-head{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:10px;margin-bottom:14px}
+.item-modal-head h2{font-family:Georgia,serif;font-weight:400;font-size:21px;margin:2px 0 0;overflow-wrap:anywhere}
+.eyebrow{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--panel);font-size:25px;color:var(--ink)}
+.text-btn{border:0;background:transparent;padding:10px 4px;font-size:9px;text-transform:uppercase;letter-spacing:.1em}
+.text-btn.danger{color:var(--neg)}
+.item-detail-photo{width:100%;aspect-ratio:4/3;background:var(--soft);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.item-detail-photo img{width:100%;height:100%;object-fit:contain}
+.item-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.detail-cell{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px;min-width:0}
+.detail-cell label{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;margin-bottom:5px}
+.detail-cell .value{font-size:13px;overflow-wrap:anywhere;min-height:18px}
+.detail-cell input,.detail-cell select{min-height:40px;font-size:15px;padding:7px 9px}
+.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.card[data-item-id]{cursor:pointer}
+.card[data-item-id]:active{transform:scale(.992)}
+.autofill-note{font-size:8px;color:var(--pos);letter-spacing:.06em;text-transform:uppercase;margin-top:5px}
+@media(min-width:700px){
+ .item-modal{align-items:center;padding:24px}
+ .item-modal-sheet{border-radius:18px;padding:20px}
+ .item-detail-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+
+.gallery-wrap{position:relative;margin-top:10px}
+.gallery-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:10px}
+.gallery-track::-webkit-scrollbar{display:none}
+.gallery-slide{flex:0 0 100%;scroll-snap-align:center;position:relative;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;min-height:260px;display:flex;align-items:center;justify-content:center}
+.gallery-slide img{width:100%;height:100%;max-height:420px;object-fit:contain;display:block;background:#fff;cursor:zoom-in}
+.gallery-dots{display:flex;justify-content:center;gap:6px;margin-top:8px}
+.gallery-dot{width:7px;height:7px;border-radius:50%;background:var(--line);border:0;padding:0}
+.gallery-dot.active{background:var(--brass2)}
+.gallery-count{position:absolute;right:10px;top:10px;background:rgba(23,23,23,.78);color:#fff;border-radius:999px;padding:5px 8px;font-size:10px;z-index:2}
+.zoom-modal{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:9999;display:none;align-items:center;justify-content:center}
+.zoom-modal.open{display:flex}
+.zoom-stage{width:100%;height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.zoom-stage::-webkit-scrollbar{display:none}
+.zoom-slide{flex:0 0 100%;height:100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;padding:54px 18px 38px}
+.zoom-slide img{max-width:100%;max-height:100%;object-fit:contain;touch-action:pinch-zoom}
+.zoom-close{position:fixed;right:16px;top:calc(14px + env(safe-area-inset-top));z-index:10001;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;width:40px;height:40px;border-radius:50%;font-size:24px;line-height:36px}
+.zoom-index{position:fixed;left:50%;transform:translateX(-50%);top:calc(18px + env(safe-area-inset-top));z-index:10001;color:#fff;font-size:12px;background:rgba(0,0,0,.35);padding:5px 9px;border-radius:999px}
+
+
+.model-search-field{position:relative}
+.model-dropdown{position:absolute;left:0;right:0;top:calc(100% - 26px);z-index:80;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 12px 30px rgba(23,23,23,.16);max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.model-dropdown.hidden{display:none}
+.model-result{display:block;width:100%;text-align:left;background:var(--panel);border:0;border-bottom:1px solid var(--line);padding:11px 12px;color:var(--ink);cursor:pointer}
+.model-result:last-child{border-bottom:0}
+.model-result-name{display:block;font-weight:650;font-size:14px}
+.model-result-meta{display:block;margin-top:3px;font-size:10px;color:var(--muted);line-height:1.35}
+.model-empty{padding:12px;color:var(--muted);font-size:12px}
+
+
+/* V9.5 neutral premium palette */
+body{background:var(--bg);color:var(--ink)}
+header .logo{color:#D1B47A}
+header .sub{color:#AAA59D}
+.card,.panel,details,.sheet,.modal-card{background:var(--panel);border-color:var(--line)}
+input,select,textarea{background:#FFFFFF;color:#171717;border-color:var(--line)}
+input:focus,select:focus,textarea:focus{outline:2px solid rgba(180,154,104,.22);border-color:var(--brass2)}
+.note,.muted,.meta{color:var(--muted)}
+.model-dropdown{background:#FFFFFF;border-color:var(--line);box-shadow:0 12px 30px rgba(23,23,23,.14)}
+.model-result{background:#FFFFFF;color:#171717;border-bottom-color:var(--line)}
+.model-result:active{background:#F3EFE6}
+.gallery-slide{background:#FFFFFF;border-color:var(--line)}
+.gallery-dot.active{background:var(--brass2)}
+
+
+/* V9.6 collection drill-down */
+.collection-drill-modal{position:fixed;inset:0;z-index:120;background:rgba(23,23,23,.42);display:flex;align-items:flex-end;justify-content:center}
+.collection-drill-modal.hidden{display:none}
+.collection-drill-sheet{width:100%;max-width:720px;max-height:88vh;overflow:auto;background:var(--bg);border-radius:18px 18px 0 0;padding:14px 14px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -18px 48px rgba(23,23,23,.18)}
+.collection-drill-head{display:grid;grid-template-columns:40px 1fr 40px;gap:8px;align-items:center;position:sticky;top:-14px;background:var(--bg);z-index:3;padding:10px 0 12px;border-bottom:1px solid var(--line)}
+.collection-drill-head h2{margin:0;font-family:Georgia,serif;font-size:22px;font-weight:400}
+.collection-drill-kicker{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.collection-owned-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:10px}
+.collection-owned-item{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px;text-align:left;color:var(--ink)}
+.collection-owned-thumb{width:86px;height:72px;border-radius:7px;overflow:hidden;background:var(--soft)}
+.collection-owned-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.collection-owned-title{font-family:Georgia,serif;font-size:16px;line-height:1.12}
+.collection-owned-brand{font-size:9px;text-transform:uppercase;letter-spacing:.11em;color:var(--brass2);margin-bottom:3px}
+.collection-owned-meta{font-size:10px;color:var(--muted);line-height:1.4;margin-top:4px}
+.type-color-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.type-color-card{background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px}
+.type-color-card.present{border-color:rgba(82,112,90,.45)}
+.type-color-card.missing{border-color:rgba(180,154,104,.58)}
+.type-color-status{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:5px}
+.type-color-card.present .type-color-status{color:var(--pos)}
+.type-color-card.missing .type-color-status{color:var(--brass2)}
+.type-color-name{font-size:12px;display:flex;align-items:center;gap:6px}
+.collection-section-title{margin-top:18px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.collection-empty{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px;color:var(--muted);font-size:11px;margin-top:10px}
+.collection-drill-summary{display:flex;gap:8px;margin-top:12px}
+.collection-drill-summary .panel{flex:1;text-align:center;margin:0;padding:9px 5px}
+.collection-drill-summary strong{display:block;font-family:Georgia,serif;font-size:19px}
+.collection-drill-summary span{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+
+/* V9.7 definitive palette override - intentionally last */
+:root{
+ --bg:#F4F0E8;
+ --panel:#FFFDFC;
+ --ink:#181715;
+ --muted:#746F67;
+ --line:#DED7CC;
+ --brass:#C0A06A;
+ --brass2:#9B7A45;
+ --pos:#52705A;
+ --neg:#8A4940;
+ --soft:#EEE8DE;
+ --shadow:0 8px 24px rgba(24,23,21,.06);
+}
+html{background:#181715!important}
+body{background:#F4F0E8!important;color:#181715!important}
+header{background:#181715!important;color:#FFFDFC!important;border-bottom-color:#C0A06A!important}
+.logo,header .logo{color:#D7BC87!important}
+.sub,header .sub{color:#B8B0A4!important}
+.stats{border-top-color:#393630!important}
+.stats span{color:#B8B0A4!important}
+nav{background:#181715!important;border-top-color:#9B7A45!important}
+nav a{color:#A9A198!important}
+nav a.on{color:#E0C48D!important}
+summary{background:#181715!important;color:#E0C48D!important}
+.btn{background:#181715!important;color:#E7CF9E!important}
+.btn.ghost{background:#FFFDFC!important;color:#181715!important;border-color:#DED7CC!important}
+.card,.panel,details,.sheet,.modal-card,.collection-drill-sheet{background:#FFFDFC!important;border-color:#DED7CC!important}
+input,select,textarea{background:#FFFDFC!important;color:#181715!important;border-color:#DED7CC!important}
+input:focus,select:focus,textarea:focus{outline-color:rgba(192,160,106,.25)!important;border-color:#9B7A45!important}
+.guided{background:#F1E9DB!important;border-color:#C0A06A!important}
+.readonly{background:#F0ECE5!important;color:#625D55!important}
+.pic,.preview,.slot-fallback,.collection-owned-thumb{background:#EEE8DE!important}
+.ph{color:#BEB6AA!important}
+.badge{background:rgba(24,23,21,.90)!important;color:#E0C48D!important}
+.brand,.brandmatch.primary{background:#181715!important;color:#E0C48D!important;border-color:#181715!important}
+.suggest,.model-dropdown{background:#FFFDFC!important;border-color:#C0A06A!important}
+.suggest button,.model-result{background:#FFFDFC!important;color:#181715!important;border-bottom-color:#DED7CC!important}
+.cover-card.owned,.matrix-card.ok{border-color:#86A08B!important}
+.cover-card.missing,.matrix-card.gap{border-color:#C0A06A!important}
+.statusbar.ok{background:#52705A!important;color:#fff!important}
+.statusbar.gap{background:#C0A06A!important;color:#181715!important}
+.collection-drill-modal{background:rgba(24,23,21,.42)!important}
+.type-color-card,.collection-owned-item{background:#FFFDFC!important}
+.type-color-card.missing{border-color:#C0A06A!important}
+.type-color-card.present{border-color:#86A08B!important}
+
+
+/* V9.8 definitive LIGHT palette - must remain last */
+:root{
+ --bg:#F4F0E8;
+ --panel:#FFFDFC;
+ --ink:#1C1A17;
+ --muted:#756F66;
+ --line:#DDD4C7;
+ --brass:#C5A56D;
+ --brass2:#9A7945;
+ --pos:#52705A;
+ --neg:#8A4940;
+ --soft:#EFE8DD;
+ --shadow:0 8px 24px rgba(28,26,23,.055);
+ color-scheme:light;
+}
+html,body{background:#F4F0E8!important;color:#1C1A17!important;color-scheme:light!important}
+header{
+ background:#F8F3EA!important;
+ color:#1C1A17!important;
+ border-bottom:1px solid #D9C8AA!important;
+ box-shadow:0 2px 10px rgba(28,26,23,.04)!important
+}
+header .logo,.logo{color:#8F6E39!important}
+header .sub,.sub{color:#756F66!important}
+.stats{border-top-color:#DDD4C7!important}
+.stats b,.stats strong{color:#1C1A17!important}
+.stats span{color:#756F66!important}
+
+nav{
+ background:#FFFDFC!important;
+ border-top:1px solid #DDD4C7!important;
+ box-shadow:0 -4px 18px rgba(28,26,23,.045)!important
+}
+nav a{color:#756F66!important;background:transparent!important}
+nav a.on{
+ color:#8F6E39!important;
+ background:#F4EBDD!important
+}
+
+summary{
+ background:#F7F1E7!important;
+ color:#1C1A17!important;
+ border-color:#DDD4C7!important
+}
+summary::marker{color:#9A7945!important}
+
+.btn{
+ background:#C5A56D!important;
+ color:#1C1A17!important;
+ border:1px solid #B79660!important
+}
+.btn.ghost{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#D7CCBD!important
+}
+.icon-btn{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#D7CCBD!important
+}
+
+.card,.panel,details,.sheet,.modal-card,.collection-drill-sheet{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#DDD4C7!important
+}
+.section-title,h1,h2,h3,h4{color:#1C1A17!important}
+.note,.muted,.meta,.collection-drill-kicker{color:#756F66!important}
+
+input,select,textarea{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#D7CCBD!important
+}
+input:focus,select:focus,textarea:focus{
+ outline:2px solid rgba(197,165,109,.24)!important;
+ border-color:#9A7945!important
+}
+input::placeholder,textarea::placeholder{color:#A39A8F!important}
+
+.guided{
+ background:#F2E8D8!important;
+ border-color:#D4B477!important;
+ color:#1C1A17!important
+}
+.readonly{background:#F1ECE4!important;color:#625D55!important}
+.pic,.preview,.slot-fallback,.collection-owned-thumb{background:#EFE8DD!important}
+.ph{color:#B4AA9D!important}
+
+.badge{
+ background:#F0E3CC!important;
+ color:#6E542D!important;
+ border:1px solid #D8BF90!important
+}
+.brand,.brandmatch.primary{
+ background:#F1E3C9!important;
+ color:#6E542D!important;
+ border-color:#D3B985!important
+}
+
+.suggest,.model-dropdown{
+ background:#FFFDFC!important;
+ border-color:#D4B477!important;
+ box-shadow:0 12px 30px rgba(28,26,23,.10)!important
+}
+.suggest button,.model-result{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-bottom-color:#E2D9CC!important
+}
+.suggest button:active,.model-result:active{background:#F4EBDD!important}
+
+.collection-drill-modal,.zoom-modal{
+ background:rgba(70,61,48,.28)!important
+}
+.collection-owned-item,.type-color-card{
+ background:#FFFDFC!important;
+ color:#1C1A17!important
+}
+
+/* Functional colors only */
+.cover-card.owned,.matrix-card.ok,.type-color-card.present{border-color:#86A08B!important}
+.cover-card.missing,.matrix-card.gap,.type-color-card.missing{border-color:#C5A56D!important}
+.statusbar.ok{background:#52705A!important;color:#FFFFFF!important}
+.statusbar.gap{background:#E4C995!important;color:#1C1A17!important}
+.type-color-card.present .type-color-status{color:#52705A!important}
+.type-color-card.missing .type-color-status{color:#9A7945!important}
+
+/* Photo gallery also stays light */
+.gallery-slide,.gallery-wrap{background:#FFFDFC!important}
+.gallery-dot{background:#D6CCBD!important}
+.gallery-dot.active{background:#9A7945!important}
+.zoom-stage{background:#F4F0E8!important}
+.zoom-close,.zoom-index{
+ background:#FFFDFC!important;
+ color:#1C1A17!important;
+ border-color:#DDD4C7!important
+}
+
+</style>
+
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#F4F0E8">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cartellino">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+</head>
+<body data-cartellino-version="9.8">
+<header>
+ <div class="logo">Cartellino</div>
+ <div class="sub">Archivio guardaroba personale</div>
+ <div class="stats"><div><b id="nCapi">0</b><span>capi</span></div><div><b id="nScarpe">0</b><span>scarpe</span></div><div><b id="nWish">0</b><span>wishlist</span></div></div>
+ </div>
+</header>
+
+<main>
+<section id="armadio" class="on">
+  <details id="addBox">
+    <summary>+ Aggiungi capo</summary>
+    <div class="form">
+      <div class="guided"><b>1. Cerca la marca  -  V9.8 Light Champagne</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+
+      <div class="field">
+        <label>Marca</label>
+        <input id="fBrand" autocomplete="off" autocapitalize="words" spellcheck="false"
+          placeholder="Scrivi Trickers, Church, Cruna...">
+        <div id="brandMatches" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:7px"></div>
+        <p class="note" id="brandStatus">Scrivi almeno 2 lettere: sotto compariranno le marche compatibili.</p>
+      </div>
+
+      <div class="field">
+        <label>Oppure scegli la marca</label>
+        <select id="fBrandFallback">
+          
+          <option value="">- Seleziona una marca -</option>
+          <option value="Alden">Alden</option><option value="Alpha Studio">Alpha Studio</option><option value="Aspesi">Aspesi</option><option value="Barbour">Barbour</option><option value="Barena Venezia">Barena Venezia</option><option value="Barker">Barker</option><option value="Barrett">Barrett</option><option value="Be Able">Be Able</option><option value="Berwich">Berwich</option><option value="Boglioli">Boglioli</option><option value="Briglia 1949">Briglia 1949</option><option value="Church&#x27;s">Church&#x27;s</option><option value="Circolo 1901">Circolo 1901</option><option value="Corneliani">Corneliani</option><option value="Crockett &amp; Jones">Crockett &amp; Jones</option><option value="Cruciani">Cruciani</option><option value="Cruna">Cruna</option><option value="Doucal&#x27;s">Doucal&#x27;s</option><option value="Drumohr">Drumohr</option><option value="Eleventy">Eleventy</option><option value="Fay">Fay</option><option value="Fedeli">Fedeli</option><option value="Fratelli Rossetti">Fratelli Rossetti</option><option value="Glanshirt">Glanshirt</option><option value="Gran Sasso">Gran Sasso</option><option value="Herno">Herno</option><option value="Incotex">Incotex</option><option value="J.M. Weston">J.M. Weston</option><option value="Jacob Cohen">Jacob Cohen</option><option value="L.B.M. 1911">L.B.M. 1911</option><option value="Lardini">Lardini</option><option value="Luigi Borrelli">Luigi Borrelli</option><option value="Manuel Ritz">Manuel Ritz</option><option value="Massimo Alba">Massimo Alba</option><option value="Montedoro">Montedoro</option><option value="Myths">Myths</option><option value="Paoloni">Paoloni</option><option value="PT Torino">PT Torino</option><option value="Roberto Collina">Roberto Collina</option><option value="Rota">Rota</option><option value="Santoni">Santoni</option><option value="Sebago">Sebago</option><option value="Slowear">Slowear</option><option value="Sonrisa">Sonrisa</option><option value="Stefano Bemer">Stefano Bemer</option><option value="Stone Island">Stone Island</option><option value="Tagliatore">Tagliatore</option><option value="Ten C">Ten C</option><option value="Tricker&#x27;s">Tricker&#x27;s</option><option value="Velasca">Velasca</option><option value="Woolrich">Woolrich</option><option value="Xacus">Xacus</option><option value="Zanone">Zanone</option>
+        
+        </select>
+      </div>
+
+      <div class="field">
+        <label>2. Tipo di prodotto</label>
+        <select id="fCatalogType" disabled>
+          <option value="">Prima scegli la marca</option>
+        </select>
+        <p class="note">La lista cambia in base al marchio: Tricker's  ->  Mocassini/Oxford/Derby...  -  Cruna  ->  Pantaloni/Giacche/Overshirt/Maglieria...</p>
+      </div>
+
+      <div class="field">
+        <label>3. Materiale <span style="text-transform:none;letter-spacing:0">(filtro facoltativo)</span></label>
+        <select id="fCatalogMaterial" disabled>
+          <option value="">Tutti i materiali</option>
+        </select>
+      </div>
+
+      <div class="field model-search-field">
+        <label>4. Modello / variante</label>
+        <input id="fCatalogModel" type="text" autocomplete="off" autocorrect="off" autocapitalize="off"
+          spellcheck="false" disabled placeholder="Prima scegli la marca">
+        <div id="modelDropdown" class="model-dropdown hidden"></div>
+        <p class="note" id="modelHint">Scrivi il nome: i risultati compaiono qui sotto dentro Cartellino. Tocca il modello esatto per selezionarlo.</p>
+      </div>
+
+      <div id="catalogPreviewBox" class="panel hidden">
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div class="preview" id="catalogPreview"></div>
+          <div style="flex:1">
+            <strong id="catalogTitle">Modello selezionato</strong>
+            <p id="catalogMeta"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="field"><label>Nome / modello</label><input id="fModel" placeholder="Si compila dal catalogo"></div>
+      <div class="row">
+        <div class="field"><label>Categoria</label><select id="fCat"><option>Scarpe</option><option>Pantaloni</option><option>Camicie</option><option>Maglieria</option><option>Giacche</option><option>Capospalla</option><option>Denim</option><option>Accessori</option><option>Altro</option></select></div>
+        <div class="field"><label>Stato</label><select id="fStatus"><option value="armadio">Armadio</option><option value="wishlist">Wishlist</option></select></div>
+      </div>
+      <div class="field"><label>Tipo / sottotipo</label><input id="fSubtype" placeholder="Penny loafer, Tassel, Chino..."></div>
+      <div class="row">
+        <div class="field"><label>Colore</label>
+<select id="fColor">
+  <option value="">- Seleziona colore -</option>
+  <option>Nero</option><option>Marrone</option><option>Bordeaux</option><option>Blu navy</option>
+  <option>Blu</option><option>Azzurro</option><option>Cuoio / Cognac</option><option>Beige</option>
+  <option>Grigio scuro</option><option>Grigio</option><option>Bianco</option><option>Verde</option>
+</select></div>
+        <div class="field"><label>Materiale</label><select id="fMaterial"><option value="">- Non specificato -</option></select></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Forma / last</label><select id="fLast"><option value="">- Non specificato -</option></select></div>
+        <div class="field"><label>Suola</label><select id="fSole"><option value="">- Non specificata -</option></select></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Taglia</label><select id="fSize"><option value="">- Seleziona taglia -</option></select></div>
+        <div class="field"><label>Fitting / larghezza</label><select id="fFitting"><option value="">- Seleziona fitting -</option></select></div>
+      </div>
+      <div class="field"><label>Finish / costruzione</label><select id="fFinish"><option value="">- Non specificato -</option></select></div>
+      <div class="row" id="clothingTechRow">
+        <div class="field"><label>Fit / vestibilita</label><select id="fFit"><option value="">- Non specificato -</option></select></div>
+        <div class="field"><label>Variante</label><select id="fVariant"><option value="">- Non specificata -</option></select></div>
+      </div>
+      <div class="field hidden" id="manualTechBox">
+        <label>Valore tecnico manuale</label>
+        <input id="fTechManual" placeholder="Inserisci un valore non presente nei menu">
+      </div>
+
+      <div class="title">Foto</div>
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px">
+        <div class="preview" id="preview"></div>
+        <div style="flex:1;display:grid;gap:7px">
+          <button class="btn ghost" type="button" id="photoBtn">Foto prodotto / scarpa</button>
+          <input type="file" id="photoInput" accept="image/*" hidden>
+          <button class="btn ghost" type="button" id="labelPhotoBtn">Foto etichetta / logo</button>
+          <input type="file" id="labelPhotoInput" accept="image/*" hidden>
+          <button class="btn ghost" type="button" id="solePhotoBtn">Foto suola / codice</button>
+          <input type="file" id="solePhotoInput" accept="image/*" hidden>
+          <div id="detailPhotos" class="note">Nessuna foto dettaglio.</div>
+          <button class="btn ghost" type="button" id="recognizePhotoBtn" disabled>Riconosci da foto  -  OCR + AI</button>
+          <p class="note">Per marca e modello: oltre alla foto intera, fotografa da vicino scritta interna, logo o codice. L'app legge il testo e lo incrocia col catalogo. Il colore viene calcolato sull'oggetto centrale, non sullo sfondo.</p>
+        </div>
+      </div>
+      <div id="recognitionBox" class="panel hidden" style="margin-top:10px">
+        <strong>Riconoscimento foto  -  beta</strong>
+        <p id="recognitionStatus">In attesa.</p>
+        <div id="recognitionResults" style="display:grid;gap:7px;margin-top:8px"></div>
+      </div>
+      <button class="btn" type="button" id="saveItem">Salva capo</button>
+    </div>
+  </details>
+
+  <div class="toolbar">
+    <input id="searchWardrobe" placeholder="Cerca nell'armadio">
+    <select id="statusFilter"><option value="armadio">Armadio</option><option value="wishlist">Wishlist</option><option value="tutti">Tutti</option></select>
+  </div>
+  <div class="title">I miei capi</div>
+  <div class="grid" id="wardrobeGrid"><div class="panel" style="grid-column:1/-1"><strong>Armadio vuoto</strong><p>Tocca &#8220;+ Aggiungi capo&#8221; qui sopra.</p></div></div>
+</section>
+
+<section id="catalogo">
+  <div class="toolbar"><input id="catalogSearch" placeholder="Cerca nel catalogo"><select id="brandFilter"><option>Tutte</option></select></div>
+  <div class="title">Catalogo</div>
+  <div class="grid" id="catalogGrid"></div>
+</section>
+
+<section id="collezione">
+  <div class="title">Collezione</div>
+  <div id="insights"></div>
+  <div id="shoeMacroCoverage"></div>
+  <div class="title">Colori</div>
+  <div class="coverage-grid" id="shoeColorCoverage"></div>
+  <div class="title">Da completare</div>
+  <div class="matrix" id="shoeMatrix"></div>
+  <div class="title">Suggerimenti</div>
+  <div class="grid" id="recommendGrid"></div>
+</section>
+
+<section id="wishlist">
+  <div class="title">Wishlist</div>
+  <div class="grid" id="wishlistGrid"></div>
+</section>
+</main>
+
+
+<div id="itemModal" class="item-modal hidden" role="dialog" aria-modal="true" aria-labelledby="itemModalTitle">
+  <div class="item-modal-sheet">
+    <div class="item-modal-head">
+      <button type="button" class="icon-btn" id="closeItemModal" aria-label="Chiudi">&#215;</button>
+      <div>
+        <div class="eyebrow">Scheda capo</div>
+        <h2 id="itemModalTitle">Articolo</h2>
+      </div>
+      <button type="button" class="text-btn danger" id="deleteItemBtn">Elimina</button>
+    </div>
+    <div class="item-detail-photo" id="itemDetailPhoto"></div>
+    <div class="item-detail-grid" id="itemDetailGrid"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="editItemBtn">Modifica</button>
+      <button type="button" class="btn hidden" id="saveEditBtn">Salva modifiche</button>
+    </div>
+  </div>
+</div>
+
+<div id="collectionDrillModal" class="collection-drill-modal hidden" role="dialog" aria-modal="true" aria-labelledby="collectionDrillTitle">
+  <div class="collection-drill-sheet">
+    <div class="collection-drill-head">
+      <button type="button" class="icon-btn" id="closeCollectionDrill" aria-label="Chiudi">&#215;</button>
+      <div>
+        <div class="collection-drill-kicker">Dettaglio collezione</div>
+        <h2 id="collectionDrillTitle">Tipo</h2>
+      </div>
+      <div></div>
+    </div>
+    <div id="collectionDrillBody"></div>
+  </div>
+</div>
+
+<nav>
+<a href="#armadio" data-section="armadio" class="on">Armadio</a>
+<a href="#catalogo" data-section="catalogo">Catalogo</a>
+<a href="#collezione" data-section="collezione">Collezione</a>
+<a href="#wishlist" data-section="wishlist">Wishlist</a>
+</nav>
+
+<script>
+let CATALOG = []; CATALOG=CATALOG.filter(c=>!isMonkItem(c));
+const BRAND_REGISTRY = ["Alden", "Alpha Studio", "Altea", "Anderson's", "Aspesi", "Ballantyne", "Barba Napoli", "Barbour", "Barena Venezia", "Barker", "Barrett", "Be Able", "Berwich", "Berwick 1707", "Boglioli", "Boldrini Selleria", "Bontoni", "Briglia 1949", "Campomaggi", "Canali", "Carlos Santos", "Carmina", "Caruso", "Cheaney", "Church's", "Circolo 1901", "Corneliani", "Crockett & Jones", "Cruciani", "Cruna", "Daniele Fiesoli", "Doucal's", "Drumohr", "Duno", "Edward Green", "Eleventy", "Fay", "Fedeli", "Fedon", "Felisi", "Filippo De Laurentiis", "Fratelli Rossetti", "G.T.A.", "Glanshirt", "Gran Sasso", "Herno", "Hogan", "Il Bisonte", "Incotex", "Inis Me\u00e1in", "J.M. Weston", "Jacob Cohen", "Jeckerson", "John Smedley", "Johnstons of Elgin", "L.B.M. 1911", "Lardini", "Loake", "Lubiam", "Luigi Bianchi Mantova", "Luigi Borrelli", "Malo", "Manuel Ritz", "Mason's", "Massimo Alba", "Montedoro", "MooRER", "Moreschi", "Myths", "Orciani", "Pal Zileri", "Paoloni", "Paul & Shark", "People of Shibuya", "Peuterey", "Piquadro", "Premiata", "PT Torino", "Roberto Collina", "Rota", "RRD Roberto Ricci Designs", "Santoni", "Sartorio", "Save The Duck", "Sebago", "Serapian", "Slowear", "Sonrisa", "Stefano Bemer", "Stone Island", "Tagliatore", "Ten C", "The Bridge", "Tintoria Mattei 954", "Tod's", "Tricker's", "Tumi", "Valextra", "Velasca", "Woolrich", "Xacus", "Zanone"];
+
+const KEY="cartellino:guided:v3";
+let state={items:[]}, pendingPhoto="", pendingLabelPhoto="", pendingSolePhoto="", selectedCatalog=null;
+try{state=JSON.parse(localStorage.getItem(KEY))||state}catch(e){}
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function canonicalBrandName(b){
+ const n=(b||"").trim();
+ if(/^(berwick|berwick 1707)$/i.test(n)) return "Berwick 1707";
+ if(/^berwich$/i.test(n)) return "Berwich";
+ if(/^moorer$/i.test(n)) return "MooRER";
+ if(/^barba napoli$/i.test(n)) return "Barba Napoli";
+ if(/^people of shibuya$/i.test(n)) return "People of Shibuya";
+ return n;
+}
+for(const c of CATALOG) c.brand=canonicalBrandName(c.brand);
+let BRANDS=[...new Set([...BRAND_REGISTRY,...CATALOG.map(c=>c.brand).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,"it"));
+let backendCatalogLoaded=false;
+function imageCandidates(c){
+ const xs=[];
+ if(c){
+   if(c.img) xs.push(c.img);
+   if(Array.isArray(c.images)) xs.push(...c.images);
+ }
+ const direct=[...new Set(xs.filter(Boolean))];
+ const proxied=direct.filter(u=>/^https?:\/\//i.test(u)).map(u=>'https://images.weserv.nl/?url='+encodeURIComponent(u));
+ return [...new Set([...direct,...proxied])].slice(0,16);
+}
+function imageTag(c, extra=""){
+ const xs=imageCandidates(c);
+ if(!xs.length) return '<div class="ph">C</div>';
+ const packed=encodeURIComponent(JSON.stringify(xs));
+ return `<img src="${esc(xs[0])}" data-imgs="${packed}" data-idx="0" ${extra} onerror="cycleImage(this)">`;
+}
+function cycleImage(el){
+ try{
+   const xs=JSON.parse(decodeURIComponent(el.dataset.imgs||"%5B%5D"));
+   let i=(+el.dataset.idx||0)+1;
+   while(i<xs.length && !xs[i]) i++;
+   if(i<xs.length){el.dataset.idx=String(i);el.src=xs[i];return;}
+ }catch(e){}
+ el.style.display="none";
+}
+function refreshBrandControls(){
+ BRANDS=[...new Set([...BRAND_REGISTRY,...CATALOG.map(c=>c.brand).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,"it"));
+ const sel=$("fBrandFallback");
+ if(sel) sel.innerHTML='<option value="">- Seleziona una marca -</option>'+BRANDS.map(b=>`<option value="${esc(b)}">${esc(b)}</option>`).join("");
+ const bf=$("brandFilter");
+ if(bf) bf.innerHTML='<option>Tutte</option>'+BRANDS.map(b=>`<option>${esc(b)}</option>`).join("");
+}
+function mergeBackendItems(items){
+ if(!Array.isArray(items)||items.length<100) return false;
+ const map=new Map();
+ for(const c of CATALOG) map.set((c.brand+'|'+c.model+'|'+(c.color||'')).toLowerCase(),c);
+ for(const c0 of items){
+   const c={...c0,brand:canonicalBrandName(c0.brand)};
+   const k=(c.brand+'|'+c.model+'|'+(c.color||'')).toLowerCase();
+   if(map.has(k)){
+     const a=map.get(k);
+     const imgs=[...new Set([...(a.images||[]),a.img,...(c.images||[]),c.img].filter(Boolean))];
+     Object.assign(a,{...c,images:imgs,img:imgs[0]||a.img||c.img||''});
+   }else{CATALOG.push(c);map.set(k,c);}
+ }
+ return true;
+}
+async function loadBackendCatalog(){
+ try{
+   const r=await fetch('catalog.generated.json?v='+Date.now(),{cache:'no-store'});
+   if(!r.ok) return;
+   const items=await r.json();
+   if(mergeBackendItems(items)){
+     backendCatalogLoaded=true;refreshBrandControls();
+     if($("modelHint")) $("modelHint").textContent='Catalogo caricato  -  '+CATALOG.length+' prodotti  -  '+new Set(CATALOG.map(x=>x.brand)).size+' marche. Foto con fallback multi-fonte.';
+     const g=document.querySelector(".guided b"); if(g) g.textContent='1. Cerca la marca  -  V9.0  -  '+new Set(CATALOG.map(x=>x.brand)).size+' marche  -  '+CATALOG.length+' prodotti';
+     renderWardrobe();
+   }
+ }catch(e){console.warn('backend catalog fallback',e);}
+}
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){alert("Memoria piena. Usa meno foto o foto pi\u00f9 leggere.")}}
+
+
+function textForShoe(x){
+ return ((x.category||"")+" "+(x.subtype||"")+" "+(x.model||"")+" "+(x.style||"")+" "+(x.family||"")).toLowerCase();
+}
+function shoeType(x){
+ const t=textForShoe(x);
+ if(/tassel|nappin|nappine|brera/.test(t))return"Tassel";
+ if(/horsebit|morsetto|bit loafer/.test(t))return"Horsebit";
+ if(/penny|fascetta|leisure handsewn|full strap/.test(t))return"Penny";
+ if(/venetian|slip-on plain/.test(t))return"Venetian";
+ if(/wholecut|one cut/.test(t))return"Wholecut";
+ if(/semi brogue|half brogue/.test(t))return"Semi brogue Oxford";
+ if(/full brogue|wingtip/.test(t)&&/oxford|francesina|richelieu/.test(t))return"Full brogue Oxford";
+ if(/cap toe|cap-toe|punta cap|francesina/.test(t)&&/oxford|francesina|richelieu/.test(t))return"Cap-toe Oxford";
+ if(/oxford|balmoral|francesina|richelieu|richielieu/.test(t))return"Oxford";
+ if(/split toe|norwegian|norvegese/.test(t)&&/derby|blucher/.test(t))return"Split-toe Derby";
+ if(/brogue/.test(t)&&/derby|blucher/.test(t))return"Brogue Derby";
+ if(/derby|blucher|country shoe|tramping shoe/.test(t))return"Derby";
+ if(/chelsea/.test(t))return"Chelsea";
+ if(/chukka|desert/.test(t))return"Chukka";
+ if(/boot|stivale|stivaletto/.test(t))return"Stivale";
+ if(/sneaker|trainer/.test(t))return"Sneaker";
+ if(/loafer|moccas|mocass/.test(t))return"Mocassino";
+ return (x.subtype||x.style||"Altro").trim()||"Altro";
+}
+function shoeMacro(x){
+ const s=shoeType(x);
+ if(["Penny","Tassel","Horsebit","Venetian","Mocassino"].includes(s))return"Mocassini";
+ if(["Cap-toe Oxford","Wholecut","Semi brogue Oxford","Full brogue Oxford","Oxford"].includes(s))return"Oxford";
+ if(["Split-toe Derby","Brogue Derby","Derby"].includes(s))return"Derby";
+ if(["Chelsea","Chukka","Stivale"].includes(s))return"Stivali";
+ if(s==="Sneaker")return"Sneaker";
+ return"Altro";
+}
+function isMonkItem(x){
+ return /double monk|single monk|monk strap|monk|fibbia|doppia fibbia|double buckle/i.test(textForShoe(x));
+}
+function isShoeItem(x){
+ const cat=(x.category||"").toLowerCase();
+ if(isMonkItem(x))return false;
+ if(/scarpe|shoe|calzatur/.test(cat))return true;
+ return ["Mocassini","Oxford","Derby","Stivali","Sneaker"].includes(shoeMacro(x));
+}
+function tone(x){
+ const t=(x.color||"").toLowerCase();
+ if(/nero|black/.test(t))return"Nero";
+ if(/burgundy|bordeaux|color 8|oxblood|bourgundy/.test(t))return"Bordeaux";
+ if(/marr|brown|tan|snuff|cognac|coffee|tobacco|walnut|ebano|moro|castagna|noce|tabacco|siena/.test(t))return"Marrone";
+ if(/navy|marine|blu scuro|dark blue|blu|blue/.test(t))return"Blu scuro";
+ return"Altro";
+}
+function colorHex(name){
+ return {"Nero":"#181818","Blu scuro":"#233d63","Marrone":"#6f4a32","Bordeaux":"#6c2632"}[name]||"#b6b7b2";
+}
+function findCatalogRepresentative(type,color){
+ const rows=CATALOG.filter(c=>!isMonkItem(c)&&isShoeItem({...c,category:inferCat(c)}) && shoeType(c)===type && (!color||tone(c)===color));
+ return rows.find(c=>imageCandidates(c).length)||rows[0]||null;
+}
+function slotImage(type,color,ownedItem){
+ const src=ownedItem&&(ownedItem.photo||ownedItem.standardPhoto);
+ if(src)return `<img src="${esc(src)}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;slot-fallback&quot;></div>'">`;
+ const c=findCatalogRepresentative(type,color);
+ if(c&&imageCandidates(c).length)return imageTag(c,'loading="lazy"');
+ return '<div class="slot-fallback"></div>';
+}
+
+function inferCat(c){
+ const t=((c.style||"")+" "+(c.model||"")+" "+(c.family||"")).toLowerCase();
+ if(/loafer|moccas|mocass|oxford|derby|blucher|monk|boot|chukka|chelsea|sneaker|shoe|lace-up/.test(t))return"Scarpe";
+ if(/belt|cintura/.test(t))return"Cinture";
+ if(/backpack|zaino|messenger|duffle|borsa|bag/.test(t))return"Borse";
+ if(/wallet|portafogl/.test(t))return"Portafogli";
+ if(/card.?holder|portacarte/.test(t))return"Portacarte";
+ if(/key.?ring|keycase|portachiavi/.test(t))return"Portachiavi";
+ if(/pouch|pochette/.test(t))return"Pochette";
+ if(/trouser|pants|pantal|chino|bermuda/.test(t))return"Pantaloni";
+ if(/shirt|camicia/.test(t))return"Camicie";
+ if(/cardigan|maglia|sweater|pullover|knit/.test(t))return"Maglieria";
+ if(/blazer|giacca/.test(t))return"Giacche";
+ if(/coat|cappotto|giubbotto|field jacket|impermeabile|outerwear/.test(t))return"Capispalla";
+ if(/polo|t-?shirt|tee/.test(t))return"Polo & T-shirt";
+ return"Altro";
+}
+
+
+
+const MODEL_DEFAULTS={
+ // Curated model-level defaults. Keep this table conservative: only add verified/curated values.
+ // Empty properties are intentionally not guessed.
+};
+
+function firstVal(obj,keys){
+ for(const k of keys){
+   const v=obj&&obj[k];
+   if(v!==undefined&&v!==null&&String(v).trim()!=="") return String(v).trim();
+ }
+ return "";
+}
+function catalogFit(x){return firstVal(x,["fit","fitting","cut","vestibilita","silhouette"])}
+function catalogVariant(x){return firstVal(x,["variant","variante","version","line","family","submodel","sub_model"])}
+function catalogFinish(x){return firstVal(x,["finish","construction","costruzione","finishing"])}
+function catalogSole(x){return firstVal(x,["sole","suola"])}
+function catalogLast(x){return firstVal(x,["last","forma"])}
+function catalogMaterial(x){return firstVal(x,["material","materiale","fabric","tessuto"])}
+
+function normKey(s){return String(s||"").trim().toLowerCase().replace(/\s+/g," ")}
+function modelDefault(c){
+ if(!c)return {};
+ const key=normKey(c.brand)+"|"+normKey(c.model)+"|"+normKey(c.color)+"|"+normKey(c.material);
+ const generic=normKey(c.brand)+"|"+normKey(c.model);
+ return MODEL_DEFAULTS[key]||MODEL_DEFAULTS[generic]||{};
+}
+function mostLikelyValue(rows,key){
+ const vals=(rows||[]).map(x=>String(x?.[key]||"").trim()).filter(Boolean);
+ if(!vals.length)return "";
+ const counts={}; vals.forEach(v=>counts[v]=(counts[v]||0)+1);
+ return Object.entries(counts).sort((a,b)=>b[1]-a[1])[0][0];
+}
+function technicalDefaultsFor(c){
+ if(!c)return {};
+ const exact=CATALOG.filter(x=>x.brand===c.brand&&x.model===c.model);
+ const variant=exact.filter(x=>
+   (!catalogMaterial(c)||!catalogMaterial(x)||normKey(catalogMaterial(x))===normKey(catalogMaterial(c))) &&
+   (!c.color||!x.color||normKey(x.color)===normKey(c.color)) &&
+   (!catalogVariant(c)||!catalogVariant(x)||normKey(catalogVariant(x))===normKey(catalogVariant(c)))
+ );
+ const rows=variant.length?variant:exact;
+ const curated=modelDefault(c);
+ return {
+   material:catalogMaterial(c)||curated.material||mostLikelyValue(rows,"material")||mostLikelyValue(rows,"materiale")||mostLikelyValue(rows,"fabric")||"",
+   last:catalogLast(c)||curated.last||mostLikelyValue(rows,"last")||mostLikelyValue(rows,"forma")||"",
+   sole:catalogSole(c)||curated.sole||mostLikelyValue(rows,"sole")||mostLikelyValue(rows,"suola")||"",
+   fitting:firstVal(c,["fitting","width"])||curated.fitting||mostLikelyValue(rows,"fitting")||mostLikelyValue(rows,"width")||"",
+   finish:catalogFinish(c)||curated.finish||mostLikelyValue(rows,"finish")||mostLikelyValue(rows,"construction")||mostLikelyValue(rows,"costruzione")||"",
+   fit:catalogFit(c)||curated.fit||mostLikelyValue(rows,"fit")||mostLikelyValue(rows,"cut")||mostLikelyValue(rows,"vestibilita")||"",
+   variant:catalogVariant(c)||curated.variant||mostLikelyValue(rows,"variant")||mostLikelyValue(rows,"variante")||mostLikelyValue(rows,"line")||mostLikelyValue(rows,"family")||""
+ };
+}
+const SHOE_PROFILES={
+ "Church's":{
+   sizes:["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12"],
+   fittings:["E","F","G","H"]
+ },
+ "Tricker's":{
+   sizes:["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12","12.5","13"],
+   fittings:["4","5","6","7"]
+ },
+ "Crockett & Jones":{
+   sizes:["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12"],
+   fittings:["D","E","F","G"]
+ },
+ "Edward Green":{
+   sizes:["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12"],
+   fittings:["D","E","F"]
+ },
+ "John Lobb":{
+   sizes:["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12"],
+   fittings:["D","E","EE"]
+ },
+ "Alden":{
+   sizes:["6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12","12.5","13"],
+   fittings:["B/D","C/E","D","E","EE"]
+ },
+ "J.M. Weston":{
+   sizes:["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12"],
+   fittings:["C","D","E","F","G"]
+ },
+ "Berwick 1707":{
+   sizes:["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12"],
+   fittings:["Standard","Wide"]
+ },
+ "Fratelli Rossetti":{
+   sizes:["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12"],
+   fittings:["Standard"]
+ },
+ "Santoni":{
+   sizes:["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12"],
+   fittings:["Standard"]
+ }
+};
+
+function uniqueClean(xs){
+ return [...new Set((xs||[]).map(x=>String(x||"").trim()).filter(x=>x&&x!=="0"))].sort((a,b)=>a.localeCompare(b,"it",{numeric:true}));
+}
+function selectedVariantPool(){
+ if(!selectedCatalog) return [];
+ const brand=selectedCatalog.brand, model=selectedCatalog.model;
+ const rows=CATALOG.filter(c=>c.brand===brand && c.model===model);
+ return rows.length?rows:[selectedCatalog];
+}
+function brandCatalogLasts(brand){
+ return uniqueClean(CATALOG.filter(c=>c.brand===brand).map(c=>c.last));
+}
+function optionFill(id,values,current,placeholder){
+ const el=$(id); if(!el)return;
+ const vals=uniqueClean(values);
+ if(current && !vals.includes(current)) vals.unshift(current);
+ el.innerHTML=`<option value="">${esc(placeholder)}</option>`+vals.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
+ if(current) el.value=current;
+}
+function genericSizesForBrand(brand){
+ const p=SHOE_PROFILES[brand];
+ if(p&&p.sizes)return p.sizes;
+ return ["5","5.5","6","6.5","7","7.5","8","8.5","9","9.5","10","10.5","11","11.5","12"];
+}
+function genericFittingsForBrand(brand){
+ const p=SHOE_PROFILES[brand];
+ return p&&p.fittings?p.fittings:["Standard"];
+}
+function syncTechnicalSelectors(c, preserve={}){
+ const brand=(c&&c.brand)||$("fBrand").value.trim();
+ const pool=c?selectedVariantPool():CATALOG.filter(x=>x.brand===brand);
+ const d=c?technicalDefaultsFor(c):{};
+ const materials=uniqueClean(pool.map(catalogMaterial));
+ const soles=uniqueClean(pool.map(catalogSole));
+ const exactLasts=uniqueClean(pool.map(catalogLast));
+ const brandLasts=brandCatalogLasts(brand);
+ const lasts=uniqueClean([...exactLasts,...brandLasts]);
+ const finishes=uniqueClean(pool.map(catalogFinish));
+ const fits=uniqueClean(pool.map(catalogFit));
+ const variants=uniqueClean(pool.map(catalogVariant));
+ optionFill("fMaterial",materials,preserve.material ?? d.material ?? "","- Non specificato -");
+ optionFill("fSole",soles,preserve.sole ?? d.sole ?? "","- Non specificata -");
+ optionFill("fLast",lasts,preserve.last ?? d.last ?? "","- Non specificato -");
+ optionFill("fSize",genericSizesForBrand(brand),preserve.size||"","- Seleziona taglia -");
+ optionFill("fFitting",genericFittingsForBrand(brand),preserve.fitting ?? d.fitting ?? "","- Seleziona fitting -");
+ optionFill("fFinish",finishes,preserve.finish ?? d.finish ?? "","- Non specificato -");
+ optionFill("fFit",fits,preserve.fit ?? d.fit ?? "","- Non specificato -");
+ optionFill("fVariant",variants,preserve.variant ?? d.variant ?? "","- Non specificata -");
+ const isShoe = !!(c ? isShoeItem(c) : ($("fCat").value==="Scarpe"));
+ ["fLast","fSole","fFitting"].forEach(id=>{const box=$(id)?.closest(".field");if(box)box.style.display=isShoe?"":"none"});
+ const finishBox=$("fFinish")?.closest(".field");if(finishBox)finishBox.style.display=(isShoe||finishes.length)?"":"none";
+ const clothingRow=$("clothingTechRow");if(clothingRow)clothingRow.style.display=isShoe?"none":"grid";
+}
+function catalogVariantFromSelections(){
+ if(!selectedCatalog)return null;
+ const pool=selectedVariantPool();
+ const color=$("fColor").value, material=$("fMaterial").value, last=$("fLast").value, sole=$("fSole").value, finish=$("fFinish").value, fit=$("fFit").value, variant=$("fVariant").value;
+ const score=c=>(color&&tone(c)===tone({color})?8:0)+(material&&catalogMaterial(c)===material?4:0)+(last&&catalogLast(c)===last?4:0)+(sole&&catalogSole(c)===sole?2:0)+(finish&&catalogFinish(c)===finish?2:0)+(fit&&catalogFit(c)===fit?3:0)+(variant&&catalogVariant(c)===variant?5:0);
+ return pool.slice().sort((a,b)=>score(b)-score(a))[0]||selectedCatalog;
+}
+function updateFromVariantControls(){
+ if(!selectedCatalog)return;
+ const best=catalogVariantFromSelections();
+ if(!best)return;
+ const keep={size:$("fSize").value,fitting:$("fFitting").value,last:$("fLast").value,sole:$("fSole").value,material:$("fMaterial").value};
+ if(best.color)setColorValue(best.color);
+ if(best.material && !$("fMaterial").value)$("fMaterial").value=best.material;
+ if(best.last && !$("fLast").value)$("fLast").value=best.last;
+ if(best.sole && !$("fSole").value)$("fSole").value=best.sole;
+ $("catalogPreview").innerHTML=imageCandidates(best).length?imageTag(best):$("catalogPreview").innerHTML;
+ $("catalogMeta").textContent=[best.style,best.color,best.material,best.last&&("forma "+best.last),best.sole].filter(Boolean).join("  -  ");
+}
+
+function clearBrandDependentFields(){
+ selectedCatalog=null;
+ $("fCatalogType").innerHTML='<option value="">Prima scegli la marca</option>';
+ $("fCatalogType").disabled=true;
+ $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali</option>';
+ $("fCatalogMaterial").disabled=true;
+ $("fCatalogModel").value="";
+ $("fCatalogModel").placeholder="Prima scegli la marca";
+ $("fCatalogModel").disabled=true;
+ MODEL_ROWS=[];MODEL_SELECTED_KEY="";
+ closeModelDropdown();
+ $("catalogPreviewBox").classList.add("hidden");
+
+ // Azzera anche i dati derivati dal prodotto della marca precedente.
+ $("fModel").value="";
+ $("fSubtype").value="";
+ $("fColor").value="";
+ optionFill("fMaterial",[],"","- Non specificato -");
+ optionFill("fLast",[],"","- Non specificato -");
+ optionFill("fSole",[],"","- Non specificata -");
+ optionFill("fSize",[],"","- Seleziona taglia -");
+ optionFill("fFitting",[],"","- Seleziona fitting -"); optionFill("fFinish",[],"","- Non specificato -"); optionFill("fFit",[],"","- Non specificato -"); optionFill("fVariant",[],"","- Non specificata -");
+}
+
+function resetCatalogSelection(){
+ clearBrandDependentFields();
+}
+
+function shoeFamily(c){
+ const s=((c.style||"")+" "+(c.model||"")).toLowerCase();
+ if(/loafer|mocass|penny|tassel|slip-on/.test(s)) return "Mocassini";
+ if(/oxford|balmoral/.test(s)) return "Oxford";
+ if(/derby|country shoe|tramping shoe|blucher/.test(s)) return "Derby";
+ if(/monk/.test(s)) return "Monk";
+ if(/chelsea/.test(s)) return "Chelsea";
+ if(/chukka|desert/.test(s)) return "Chukka / Desert";
+ if(/country boot|monkey boot|walking boot|boot|stivale|stivaletto/.test(s)) return "Stivali";
+ if(/sneaker/.test(s)) return "Sneaker";
+ if(/slipper|pantofo/.test(s)) return "Pantofole";
+ if(/sandalo|sandal/.test(s)) return "Sandali";
+ if(/brogue/.test(s)) return "Brogue";
+ return "Altre scarpe";
+}
+
+function isFootwearBrand(brand){
+ const rows=CATALOG.filter(c=>c.brand===brand && !c.family);
+ if(!rows.length) return false;
+ const shoeish=rows.filter(c=>{
+   const cat=inferCat(c);
+   return cat==="Scarpe" || /loafer|oxford|derby|monk|boot|shoe|mocass|stiv|sneaker|slipper|sandalo|brogue|country shoe|tramping/i.test((c.style||"")+" "+(c.model||""));
+ }).length;
+ return shoeish/rows.length >= .72;
+}
+
+function productFamily(c){
+ if(c.family) return c.family;
+ const brand=c.brand||"";
+ if(isFootwearBrand(brand)) return shoeFamily(c);
+ const s=((c.style||"")+" "+(c.model||"")).toLowerCase();
+ if(/belt|cintura/.test(s)) return "Cinture";
+ if(/backpack|zaino|messenger|duffle|borsa|bag/.test(s)) return "Borse";
+ if(/wallet|portafogl/.test(s)) return "Portafogli";
+ if(/card.?holder|portacarte/.test(s)) return "Portacarte";
+ if(/key.?ring|keycase|portachiavi/.test(s)) return "Portachiavi";
+ if(/pouch|pochette/.test(s)) return "Pochette";
+ const cat=inferCat(c);
+ if(cat && cat!=="Altro") return cat;
+ if(/pantal|trouser|chino|pants/.test(s)) return "Pantaloni";
+ if(/giacca|jacket|blazer/.test(s)) return "Giacche";
+ if(/overshirt/.test(s)) return "Overshirt";
+ if(/camicia|shirt/.test(s)) return "Camicie";
+ if(/polo|t-shirt|tee/.test(s)) return "Polo & T-shirt";
+ if(/maglia|knit|sweater|cardigan|pullover/.test(s)) return "Maglieria";
+ if(/coat|cappotto|outerwear|bomber|raincoat/.test(s)) return "Capispalla";
+ if(/short|bermuda/.test(s)) return "Shorts";
+ return c.style || "Altro";
+}
+
+function materialLabel(c){
+ const m=(c.material||"").trim();
+ if(!m) return "Non specificato";
+ const t=m.toLowerCase();
+ if(/suede|camoscio|scamosciato|nubuck|nabuk/.test(t)) return "Suede / camoscio";
+ if(/cordovan/.test(t)) return "Cordovan";
+ if(/calf|vitello|leather|pelle|grain|kudu|bookbinder/.test(t)) return "Pelle";
+ if(/linen|lino/.test(t)) return "Lino";
+ if(/cotton|cotone|gabardine|twill/.test(t)) return "Cotone";
+ if(/wool|lana|flannel/.test(t)) return "Lana";
+ if(/cashmere/.test(t)) return "Cashmere";
+ if(/denim|lyocell/.test(t)) return "Denim";
+ if(/tecnico|technical|performance|nylon|polyester/.test(t)) return "Tecnico";
+ return m;
+}
+
+function normBrand(s){
+ return (s||"").toLowerCase()
+   .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+   .replace(/['\u2019`\u00b4.\-&_\s]/g,"")
+   .replace(/[^a-z0-9]/g,"");
+}
+
+function brandCandidates(value){
+ const q=normBrand(value);
+ if(!q) return [];
+ const exact=BRANDS.filter(b=>normBrand(b)===q);
+ if(exact.length) return exact;
+ const starts=BRANDS.filter(b=>normBrand(b).startsWith(q));
+ const contains=BRANDS.filter(b=>!normBrand(b).startsWith(q)&&normBrand(b).includes(q));
+ return [...starts,...contains].slice(0,12);
+}
+
+function resolvedBrand(){
+ const raw=$("fBrand").value.trim();
+ const q=normBrand(raw);
+ if(!q) return "";
+ const exact=BRANDS.find(b=>normBrand(b)===q);
+ if(exact) return exact;
+ const candidates=brandCandidates(raw);
+ if(candidates.length===1) return candidates[0];
+ return "";
+}
+
+function renderBrandMatches(value){
+ const box=$("brandMatches");
+ const status=$("brandStatus");
+ const q=(value||"").trim();
+ if(q.length<2){
+   box.innerHTML="";
+   status.textContent="Scrivi almeno 2 lettere: sotto compariranno le marche compatibili.";
+   return;
+ }
+ const matches=brandCandidates(q);
+ if(!matches.length){
+   box.innerHTML="";
+   status.textContent="Nessuna marca del catalogo trovata.";
+   return;
+ }
+ box.innerHTML=matches.slice(0,8).map((b,i)=>
+   `<button type="button" class="brandmatch ${i===0&&matches.length===1?"primary":""}" data-brand="${esc(b)}">${esc(b)}</button>`
+ ).join("");
+ box.querySelectorAll("[data-brand]").forEach(btn=>{
+   btn.onclick=()=>selectBrand(btn.dataset.brand);
+ });
+ status.textContent=matches.length===1 ? "Marca riconosciuta: toccala oppure continua." : matches.length+" marche compatibili.";
+}
+
+function catalogPool(){
+ const brand=resolvedBrand();
+ if(!brand) return [];
+ return CATALOG.filter(c=>c.brand===brand);
+}
+
+function populateTypes(){
+ const pool=catalogPool();
+ const types=[...new Set(pool.map(productFamily))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"it"));
+ $("fCatalogType").disabled=!types.length;
+ $("fCatalogType").innerHTML=types.length
+   ? '<option value="">Tutti i tipi ('+types.length+')</option>'+types.map(x=>`<option>${esc(x)}</option>`).join("")
+   : '<option value="">Nessun tipo disponibile per questa marca</option>';
+ $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali</option>';
+ $("fCatalogMaterial").disabled=!pool.length;
+ selectedCatalog=null;
+ $("catalogPreviewBox").classList.add("hidden");
+ populateModels();
+}
+
+function populateMaterials(){
+ const type=$("fCatalogType").value;
+ const pool=catalogPool().filter(c=>!type||productFamily(c)===type);
+ const mats=[...new Set(pool.map(materialLabel))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"it"));
+ $("fCatalogMaterial").disabled=!pool.length;
+ $("fCatalogMaterial").innerHTML='<option value="">Tutti i materiali ('+mats.length+')</option>'+mats.map(x=>`<option>${esc(x)}</option>`).join("");
+ populateModels();
+}
+
+function modelOptionLabel(c){
+ return [c.model,c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c)&&("forma "+catalogLast(c))]
+   .filter(Boolean).join(" - ");
+}
+
+let MODEL_ROWS=[];
+let MODEL_SELECTED_KEY="";
+
+function populateModels(){
+ const type=$("fCatalogType").value;
+ const material=$("fCatalogMaterial").value;
+ const rows=catalogPool().filter(c=>
+   (!type||productFamily(c)===type) &&
+   (!material||materialLabel(c)===material)
+ );
+ const seen=new Set();
+ MODEL_ROWS=[];
+ rows.forEach(c=>{
+   const key=[c.model,c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c),catalogSole(c)]
+     .map(normKey).join("|");
+   if(!seen.has(key)){seen.add(key);MODEL_ROWS.push(c)}
+ });
+ MODEL_ROWS.sort((a,b)=>{
+   const x=String(a.model||"").localeCompare(String(b.model||""),"it",{sensitivity:"base",numeric:true});
+   return x||modelOptionLabel(a).localeCompare(modelOptionLabel(b),"it",{sensitivity:"base",numeric:true});
+ });
+ MODEL_SELECTED_KEY="";
+ const inp=$("fCatalogModel");
+ inp.disabled=!MODEL_ROWS.length;
+ inp.value="";
+ inp.placeholder=MODEL_ROWS.length?"Scrivi il nome del modello...":"Nessun modello compatibile";
+ closeModelDropdown();
+ selectedCatalog=null;
+ $("catalogPreviewBox").classList.add("hidden");
+}
+
+function modelSearchScore(c,q){
+ const m=normKey(c.model), label=normKey(modelOptionLabel(c));
+ if(!q)return 10;
+ if(m===q)return 1000;
+ if(m.startsWith(q))return 800-(m.length-q.length);
+ const words=m.split(/\s+/);
+ if(words.some(w=>w.startsWith(q)))return 650;
+ if(m.includes(q))return 500;
+ if(label.includes(q))return 300;
+ return -1;
+}
+function renderModelDropdown(){
+ const box=$("modelDropdown");
+ if($("fCatalogModel").disabled){closeModelDropdown();return}
+ const q=normKey($("fCatalogModel").value);
+ const matches=MODEL_ROWS.map(c=>({c,s:modelSearchScore(c,q)})).filter(x=>x.s>=0)
+   .sort((a,b)=>b.s-a.s||String(a.c.model||"").localeCompare(String(b.c.model||""),"it",{sensitivity:"base",numeric:true}))
+   .slice(0,40);
+ if(!matches.length){
+   box.innerHTML='<div class="model-empty">Nessun modello trovato</div>';
+ }else{
+   box.innerHTML=matches.map(({c})=>{
+     const meta=[c.color,catalogMaterial(c),catalogVariant(c),catalogFit(c),catalogLast(c)&&("Forma "+catalogLast(c))].filter(Boolean).join(" - ");
+     return `<button type="button" class="model-result" data-model-key="${esc(c.k)}"><span class="model-result-name">${esc(c.model||"Modello")}</span>${meta?`<span class="model-result-meta">${esc(meta)}</span>`:""}</button>`;
+   }).join("");
+ }
+ box.classList.remove("hidden");
+}
+function closeModelDropdown(){$("modelDropdown").classList.add("hidden")}
+function selectModelResult(k){
+ const c=CATALOG.find(x=>x.k===k);
+ if(!c)return;
+ MODEL_SELECTED_KEY=k;
+ $("fCatalogModel").value=c.model||"";
+ closeModelDropdown();
+ chooseCatalogItem(k);
+}
+function showBrandSuggestions(value){ renderBrandMatches(value); }
+
+function selectBrand(brand){
+ if(!brand) return;
+ clearBrandDependentFields();
+ $("fBrand").value=brand;
+ $("fBrandFallback").value=brand;
+ $("brandMatches").innerHTML="";
+ $("brandStatus").textContent="Marca selezionata: "+brand+". Ora scegli il tipo di prodotto.";
+ populateTypes();
+ syncTechnicalSelectors(null);
+}
+
+let ACTIVE_GALLERY_IMAGES=[];
+
+function safeImagesFor(c){
+ const identity=x=>
+   normKey(x.brand)===normKey(c.brand) &&
+   normKey(x.model)===normKey(c.model) &&
+   normKey(x.color)===normKey(c.color) &&
+   normKey(catalogMaterial(x))===normKey(catalogMaterial(c)) &&
+   normKey(catalogVariant(x))===normKey(catalogVariant(c)) &&
+   normKey(catalogFit(x))===normKey(catalogFit(c)) &&
+   normKey(catalogLast(x))===normKey(catalogLast(c));
+ const rows=CATALOG.filter(identity);
+ if(!rows.length)rows.push(c);
+ const out=[],seen=new Set();
+ rows.forEach(r=>(imageCandidates(r)||[]).forEach(u=>{
+   const s=String(u||"").trim();
+   if(s&&!seen.has(s)){seen.add(s);out.push(s)}
+ }));
+ return out;
+}
+
+function galleryHtml(c){
+ const imgs=safeImagesFor(c);
+ ACTIVE_GALLERY_IMAGES=imgs;
+ if(!imgs.length)return "";
+ const slides=imgs.map((u,i)=>`<div class="gallery-slide"><img src="${esc(u)}" alt="${esc((c.brand||"")+" "+(c.model||"")+" foto "+(i+1))}" data-zoom-index="${i}" loading="${i?"lazy":"eager"}"></div>`).join("");
+ const dots=imgs.length>1?`<div class="gallery-dots">${imgs.map((_,i)=>`<button class="gallery-dot${i===0?" active":""}" data-gallery-dot="${i}" aria-label="Foto ${i+1}"></button>`).join("")}</div>`:"";
+ return `<div class="gallery-wrap"><div class="gallery-count" id="galleryCount">1 / ${imgs.length}</div><div class="gallery-track" id="galleryTrack">${slides}</div>${dots}</div>`;
+}
+
+function syncGalleryIndicator(){
+ const tr=$("galleryTrack");
+ if(!tr||!ACTIVE_GALLERY_IMAGES.length)return;
+ const i=Math.max(0,Math.min(ACTIVE_GALLERY_IMAGES.length-1,Math.round(tr.scrollLeft/Math.max(1,tr.clientWidth))));
+ const count=$("galleryCount");if(count)count.textContent=(i+1)+" / "+ACTIVE_GALLERY_IMAGES.length;
+ document.querySelectorAll("[data-gallery-dot]").forEach((d,n)=>d.classList.toggle("active",n===i));
+}
+
+function openPhotoZoom(index=0){
+ if(!ACTIVE_GALLERY_IMAGES.length)return;
+ const z=$("photoZoom"),stage=$("zoomStage");
+ stage.innerHTML=ACTIVE_GALLERY_IMAGES.map((u,i)=>`<div class="zoom-slide"><img src="${esc(u)}" alt="Foto ${i+1}"></div>`).join("");
+ z.classList.add("open");z.setAttribute("aria-hidden","false");
+ document.body.style.overflow="hidden";
+ requestAnimationFrame(()=>{
+   stage.scrollLeft=Math.max(0,index)*stage.clientWidth;
+   syncZoomIndex();
+ });
+}
+function syncZoomIndex(){
+ const stage=$("zoomStage");
+ if(!stage||!ACTIVE_GALLERY_IMAGES.length)return;
+ const i=Math.max(0,Math.min(ACTIVE_GALLERY_IMAGES.length-1,Math.round(stage.scrollLeft/Math.max(1,stage.clientWidth))));
+ $("zoomIndex").textContent=(i+1)+" / "+ACTIVE_GALLERY_IMAGES.length;
+}
+function closePhotoZoom(){
+ $("photoZoom").classList.remove("open");
+ $("photoZoom").setAttribute("aria-hidden","true");
+ document.body.style.overflow="";
+}
+
+function chooseCatalogItem(k){
+ const c=CATALOG.find(x=>x.k===k);
+ if(!c)return;
+ selectedCatalog=c;
+ MODEL_SELECTED_KEY=c.k;
+ $("fCatalogModel").value=c.model||"";
+ $("fModel").value=c.model||"";
+ const fam=productFamily(c);
+ $("fCat").value=(["Mocassini","Oxford","Derby","Monk","Chelsea","Chukka / Desert","Stivali","Sneaker","Pantofole","Sandali","Brogue","Altre scarpe"].includes(fam)) ? "Scarpe" : (fam==="Polo & T-shirt" ? "Polo & T-shirt" : fam);
+ $("fSubtype").value=(isFootwearBrand(c.brand) ? shoeType({...c,subtype:c.style}) : (c.style||catalogVariant(c)||fam));
+ setColorValue(c.color||"");
+ syncTechnicalSelectors(c);
+ $("catalogPreview").innerHTML=galleryHtml(c);
+ $("catalogTitle").textContent=c.brand+"  -  "+c.model;
+ const td=technicalDefaultsFor(c);
+ $("catalogMeta").textContent=[c.style,c.color,td.material,td.variant,td.fit,td.last&&("forma "+td.last),td.sole,td.fitting&&("fitting "+td.fitting),td.finish].filter(Boolean).join("  -  ");
+ $("catalogPreviewBox").classList.remove("hidden");
+}
+function card(i){
+ const src=i.photo||i.standardPhoto||"";
+ const tech=[i.variant,i.fit,i.size,i.fitting,i.last&&("last "+i.last)].filter(Boolean).join("  -  ");
+ return `<div class="card" role="button" tabindex="0" data-item-id="${esc(i.id||"")}"><div class="pic">${src?`<img src="${esc(src)}" onerror="this.style.display='none'">`:`<div class="ph">C</div>`}<span class="badge">${esc(i.code||"")}</span></div><div class="body"><span class="brand">${esc(i.brand||"-")}</span><div class="model">${esc(i.model||i.category||"Capo")}</div><div class="meta">${esc([i.subtype,i.color,i.material].filter(Boolean).join("  -  "))}</div>${tech?`<div class="meta">${esc(tech)}</div>`:""}</div></div>`
+}
+function renderWardrobe(){
+ const q=$("searchWardrobe").value.toLowerCase(), st=$("statusFilter").value;
+ let list=state.items.filter(i=>st==="tutti"||i.status===st);
+ if(q)list=list.filter(i=>JSON.stringify(i).toLowerCase().includes(q));
+ $("wardrobeGrid").innerHTML=list.length?list.map(card).join(""):`<div class="panel" style="grid-column:1/-1"><strong>Armadio vuoto</strong><p>Tocca \u201c+ Aggiungi capo\u201d.</p></div>`;
+ const wish=state.items.filter(i=>i.status==="wishlist");
+ $("wishlistGrid").innerHTML=wish.length?wish.map(card).join(""):`<div class="panel" style="grid-column:1/-1"><strong>Nessun desiderio</strong><p>Salva un capo come wishlist.</p></div>`;
+ $("nCapi").textContent=state.items.filter(i=>i.status==="armadio").length;
+ $("nScarpe").textContent=state.items.filter(i=>i.status==="armadio"&&isShoeItem(i)).length;
+ $("nWish").textContent=wish.length;
+ document.querySelectorAll("#wardrobeGrid .card[data-item-id],#wishlistGrid .card[data-item-id]").forEach(el=>{
+   el.onclick=()=>openItemModal(el.dataset.itemId);
+   el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openItemModal(el.dataset.itemId)}};
+ });
+ renderInsights();
+}
+
+let activeItemId=null, itemEditing=false;
+const DETAIL_FIELDS=[
+ ["brand","Marca"],["model","Modello"],["category","Categoria"],["subtype","Tipo / sottotipo"],
+ ["color","Colore"],["material","Materiale"],["last","Last / forma"],["sole","Suola"],
+ ["size","Taglia"],["fitting","Fitting"],["fit","Fit / vestibilita"],["variant","Variante"],["finish","Finish / costruzione"],["status","Stato"]
+];
+function openItemModal(id){
+ const item=state.items.find(x=>x.id===id); if(!item)return;
+ activeItemId=id; itemEditing=false;
+ $("itemModalTitle").textContent=item.model||item.category||"Articolo";
+ const src=item.photo||item.standardPhoto||"";
+ $("itemDetailPhoto").innerHTML=src?`<img src="${esc(src)}">`:'<div class="slot-fallback"></div>';
+ renderItemDetail(item,false);
+ $("editItemBtn").classList.remove("hidden");
+ $("saveEditBtn").classList.add("hidden");
+ $("itemModal").classList.remove("hidden");
+ document.body.style.overflow="hidden";
+}
+function closeItemModal(){
+ $("itemModal").classList.add("hidden");
+ document.body.style.overflow="";
+ activeItemId=null; itemEditing=false;
+}
+function detailSelect(name,label,values,current){
+ const vals=uniqueClean(values);
+ if(current&&!vals.includes(current))vals.unshift(current);
+ return `<div class="detail-cell"><label>${esc(label)}</label><select data-edit="${esc(name)}"><option value=""></option>${vals.map(v=>`<option value="${esc(v)}"${v===current?" selected":""}>${esc(v)}</option>`).join("")}</select></div>`;
+}
+function renderItemDetail(item,editing){
+ if(!editing){
+   $("itemDetailGrid").innerHTML=DETAIL_FIELDS.map(([k,label])=>`<div class="detail-cell"><label>${esc(label)}</label><div class="value">${esc(item[k]||"-")}</div></div>`).join("");
+   return;
+ }
+ const brand=item.brand||"";
+ const catRows=CATALOG.filter(c=>c.brand===brand);
+ const modelRows=catRows.filter(c=>!item.model||c.model===item.model);
+ const lastVals=uniqueClean([...modelRows.map(c=>c.last),...catRows.map(c=>c.last)]);
+ const materialVals=uniqueClean(modelRows.map(c=>c.material));
+ const soleVals=uniqueClean(modelRows.map(c=>c.sole));
+ const html=[
+  `<div class="detail-cell"><label>Marca</label><input data-edit="brand" value="${esc(item.brand||"")}"></div>`,
+  `<div class="detail-cell"><label>Modello</label><input data-edit="model" value="${esc(item.model||"")}"></div>`,
+  detailSelect("category","Categoria",["Scarpe","Pantaloni","Camicie","Maglieria","Giacche","Capospalla","Denim","Accessori","Altro"],item.category||""),
+  `<div class="detail-cell"><label>Tipo / sottotipo</label><input data-edit="subtype" value="${esc(item.subtype||"")}"></div>`,
+  detailSelect("color","Colore",["Nero","Marrone","Bordeaux","Blu navy","Blu","Azzurro","Cuoio / Cognac","Beige","Grigio scuro","Grigio","Bianco","Verde"],item.color||""),
+  detailSelect("material","Materiale",materialVals,item.material||""),
+  detailSelect("last","Last / forma",lastVals,item.last||""),
+  detailSelect("sole","Suola",soleVals,item.sole||""),
+  detailSelect("size","Taglia",genericSizesForBrand(brand),item.size||""),
+  detailSelect("fitting","Fitting",genericFittingsForBrand(brand),item.fitting||""),
+  detailSelect("fit","Fit / vestibilita",uniqueClean(modelRows.map(catalogFit)),item.fit||""),
+  detailSelect("variant","Variante",uniqueClean(modelRows.map(catalogVariant)),item.variant||""),
+  detailSelect("finish","Finish / costruzione",uniqueClean(modelRows.map(catalogFinish)),item.finish||""),
+  detailSelect("status","Stato",["armadio","wishlist"],item.status||"armadio")
+ ];
+ $("itemDetailGrid").innerHTML=html.join("");
+}
+function startEditItem(){
+ const item=state.items.find(x=>x.id===activeItemId);if(!item)return;
+ itemEditing=true;renderItemDetail(item,true);
+ $("editItemBtn").classList.add("hidden");$("saveEditBtn").classList.remove("hidden");
+}
+function saveEditedItem(){
+ closeCollectionDrill();
+ const item=state.items.find(x=>x.id===activeItemId);if(!item)return;
+ document.querySelectorAll("#itemDetailGrid [data-edit]").forEach(el=>{item[el.dataset.edit]=el.value.trim()});
+ item.updated=Date.now(); save(); renderWardrobe();
+ $("itemModalTitle").textContent=item.model||item.category||"Articolo";
+ itemEditing=false;renderItemDetail(item,false);
+ $("editItemBtn").classList.remove("hidden");$("saveEditBtn").classList.add("hidden");
+}
+function deleteActiveItem(){
+ closeCollectionDrill();
+ const item=state.items.find(x=>x.id===activeItemId);if(!item)return;
+ if(!confirm(`Eliminare "${item.model||item.brand||"questo articolo"}" dall'armadio?`))return;
+ state.items=state.items.filter(x=>x.id!==activeItemId);save();renderWardrobe();closeItemModal();
+}
+$("closeItemModal").onclick=closeItemModal;
+$("itemModal").onclick=e=>{if(e.target===$("itemModal"))closeItemModal()};
+$("editItemBtn").onclick=startEditItem;
+$("saveEditBtn").onclick=saveEditedItem;
+$("deleteItemBtn").onclick=deleteActiveItem;
+
+function renderCatalog(){
+ const q=$("catalogSearch").value.toLowerCase(), b=$("brandFilter").value;
+ let list=CATALOG.filter(c=>!isMonkItem(c)&&(b==="Tutte"||c.brand===b)&&(!q||JSON.stringify(c).toLowerCase().includes(q))).slice(0,80);
+ $("catalogGrid").innerHTML=list.map(c=>`<div class="card"><div class="pic">${imageTag(c,'loading="lazy"')}<span class="badge">${c.price||"-"}</span></div><div class="body"><span class="brand">${esc(c.brand)}</span><div class="model">${esc(c.model)}</div><div class="meta">${esc([c.style,c.color,c.material].filter(Boolean).join("  -  "))}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(c.k)}">Aggiungi</button></div></div>`).join("");
+ document.querySelectorAll("#catalogGrid .addCat").forEach(btn=>btn.onclick=()=>addCatalog(btn.dataset.k));
+}
+
+function collectionItemImage(i){
+ const src=i.photo||i.standardPhoto||"";
+ return src?`<img src="${esc(src)}" loading="lazy" onerror="this.style.display='none'">`:'<div class="slot-fallback"></div>';
+}
+function closeCollectionDrill(){
+ $("collectionDrillModal").classList.add("hidden");
+}
+function openCollectionDrill(type){
+ const owned=state.items.filter(i=>i.status==="armadio"&&isShoeItem(i)&&!isMonkItem(i));
+ const items=owned.filter(i=>shoeType(i)===type);
+ const keyColors=["Nero","Marrone","Bordeaux","Blu scuro"];
+ const exactOwnedColors=[...new Set(items.map(tone).filter(c=>c&&c!=="Altro"))];
+ const missing=keyColors.filter(c=>!items.some(i=>tone(i)===c));
+ $("collectionDrillTitle").textContent=type;
+ const ownedHtml=items.length?items.map(i=>{
+   const secondary=[
+     i.variant,
+     tone(i)!=="Altro"?tone(i):(i.color||""),
+     i.material,
+     i.size&&("Taglia "+i.size),
+     i.fitting&&("Fitting "+i.fitting),
+     i.last&&("Last "+i.last)
+   ].filter(Boolean).join(" - ");
+   return `<button type="button" class="collection-owned-item" data-drill-item="${esc(i.id)}">
+     <div class="collection-owned-thumb">${collectionItemImage(i)}</div>
+     <div>
+       <div class="collection-owned-brand">${esc(i.brand||"")}</div>
+       <div class="collection-owned-title">${esc(i.model||type)}</div>
+       <div class="collection-owned-meta">${esc(secondary||type)}</div>
+     </div>
+   </button>`;
+ }).join(""):`<div class="collection-empty">Non hai ancora nessun paio di questo tipo.</div>`;
+ const colorsHtml=keyColors.map(color=>{
+   const count=items.filter(i=>tone(i)===color).length;
+   return `<div class="type-color-card ${count?"present":"missing"}">
+     <div class="type-color-name"><span class="color-dot" style="background:${colorHex(color)}"></span>${esc(color)}</div>
+     <div class="type-color-status">${count?"PRESENTE"+(count>1?" - "+count+" paia":""):"MANCA"}</div>
+   </div>`;
+ }).join("");
+ const extraColors=exactOwnedColors.filter(c=>!keyColors.includes(c));
+ const extraHtml=extraColors.length?`<div class="collection-section-title">Altri colori posseduti</div>
+   <div class="type-color-grid">${extraColors.map(color=>{
+     const count=items.filter(i=>tone(i)===color).length;
+     return `<div class="type-color-card present"><div class="type-color-name"><span class="color-dot" style="background:${colorHex(color)}"></span>${esc(color)}</div><div class="type-color-status">PRESENTE${count>1?" - "+count+" paia":""}</div></div>`;
+   }).join("")}</div>`:"";
+ $("collectionDrillBody").innerHTML=`
+   <div class="collection-drill-summary">
+     <div class="panel"><strong>${items.length}</strong><span>paia possedute</span></div>
+     <div class="panel"><strong>${keyColors.length-missing.length}/4</strong><span>colori chiave</span></div>
+     <div class="panel"><strong>${missing.length}</strong><span>colori mancanti</span></div>
+   </div>
+   <div class="collection-section-title">I miei modelli</div>
+   <div class="collection-owned-grid">${ownedHtml}</div>
+   <div class="collection-section-title">Colori di ${esc(type)}</div>
+   <div class="type-color-grid">${colorsHtml}</div>
+   ${extraHtml}`;
+ $("collectionDrillModal").classList.remove("hidden");
+}
+$("closeCollectionDrill").onclick=closeCollectionDrill;
+$("collectionDrillModal").onclick=e=>{if(e.target===$("collectionDrillModal"))closeCollectionDrill()};
+$("collectionDrillBody").addEventListener("click",e=>{
+ const item=e.target.closest("[data-drill-item]");
+ if(!item)return;
+ const found=state.items.find(x=>x.id===item.dataset.drillItem);
+ if(found){closeCollectionDrill();openItemModal(found.id)}
+});
+
+function renderInsights(){
+ const owned=state.items.filter(i=>i.status==="armadio");
+ const shoes=owned.filter(isShoeItem).filter(i=>!isMonkItem(i));
+
+ const macroDefs=[
+   {name:"Mocassini", subs:["Penny","Tassel","Horsebit","Venetian"]},
+   {name:"Oxford", subs:["Cap-toe Oxford","Wholecut","Semi brogue Oxford","Full brogue Oxford"]},
+   {name:"Derby", subs:["Derby","Split-toe Derby","Brogue Derby"]},
+   {name:"Stivali", subs:["Chelsea","Chukka","Stivale"]}
+ ];
+ const keyColors=["Nero","Marrone","Bordeaux","Blu scuro"];
+
+ const typeCount={}, colorCount={};
+ shoes.forEach(i=>{
+   const ty=shoeType(i), co=tone(i);
+   typeCount[ty]=(typeCount[ty]||0)+1;
+   if(co!=="Altro") colorCount[co]=(colorCount[co]||0)+1;
+ });
+
+ const presentSubs=macroDefs.flatMap(m=>m.subs).filter(s=>typeCount[s]).length;
+ const totalSubs=macroDefs.flatMap(m=>m.subs).length;
+ $("insights").innerHTML=`<div class="compact-insight">
+   <div class="panel"><strong>${shoes.length}</strong><span>scarpe</span></div>
+   <div class="panel"><strong>${presentSubs}/${totalSubs}</strong><span>sottotipi</span></div>
+   <div class="panel"><strong>${keyColors.filter(c=>colorCount[c]).length}/4</strong><span>colori</span></div>
+ </div>`;
+
+ $("shoeMacroCoverage").innerHTML=macroDefs.map(m=>{
+   const macroOwned=shoes.filter(i=>shoeMacro(i)===m.name).length;
+   const cards=m.subs.map(type=>{
+     const items=shoes.filter(i=>shoeType(i)===type);
+     const own=items[0];
+     const count=items.length;
+     return `<div class="cover-card ${count?"owned":"missing"}" data-type="${esc(type)}">
+       <div class="pic">${slotImage(type,"",own)}
+         <div class="statusbar ${count?"ok":"gap"}">${count?"PRESENTE":"MANCA"}</div>
+       </div>
+       <div class="body">
+         <div class="model">${esc(type)}</div>
+         <div class="meta">${count?count+(count===1?" paio":" paia"):""}</div>
+       </div>
+     </div>`;
+   }).join("");
+   return `<div class="macro-block">
+     <div class="macro-head"><h3>${m.name}</h3><span>${macroOwned} presenti</span></div>
+     <div class="sub-grid">${cards}</div>
+   </div>`;
+ }).join("");
+
+ document.querySelectorAll("#shoeMacroCoverage .cover-card").forEach(card=>{
+   card.onclick=()=>openCollectionDrill(card.dataset.type);
+ });
+
+ $("shoeColorCoverage").innerHTML=keyColors.map(color=>{
+   const own=shoes.find(i=>tone(i)===color);
+   const count=colorCount[color]||0;
+   const rep=!own?CATALOG.find(c=>!isMonkItem(c)&&isShoeItem({...c,category:inferCat(c)})&&tone(c)===color&&imageCandidates(c).length):null;
+   const visual=own
+     ? `<img src="${esc(own.photo||own.standardPhoto||"")}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;slot-fallback&quot;></div>'">`
+     : (rep?imageTag(rep,'loading="lazy"'):'<div class="slot-fallback"></div>');
+   return `<div class="cover-card ${count?"owned":"missing"}">
+      <div class="pic">${visual}<div class="statusbar ${count?"ok":"gap"}">${count?"PRESENTE":"MANCA"}</div></div>
+      <div class="body"><div class="model"><span class="color-dot" style="background:${colorHex(color)}"></span>${esc(color)}</div>
+      <div class="meta">${count?count+(count===1?" paio":" paia"):""}</div></div></div>`;
+ }).join("");
+
+ const priority=[
+   ["Penny","Nero"],["Penny","Marrone"],["Tassel","Nero"],["Tassel","Marrone"],
+   ["Cap-toe Oxford","Nero"],["Cap-toe Oxford","Marrone"],["Derby","Nero"],["Derby","Marrone"],
+   ["Chelsea","Nero"],["Chukka","Marrone"],["Penny","Bordeaux"],["Penny","Blu scuro"]
+ ];
+ $("shoeMatrix").innerHTML=priority.map(([type,color])=>{
+   const own=shoes.find(i=>shoeType(i)===type&&tone(i)===color);
+   return `<div class="matrix-card ${own?"ok":"gap"}">
+     <b>${esc(type)}</b>
+     <div><span class="color-dot" style="background:${colorHex(color)}"></span>${esc(color)}</div>
+     <small>${own?"PRESENTE":"MANCA"}</small>
+   </div>`;
+ }).join("");
+
+ const rec=CATALOG.filter(c=>!isMonkItem(c)).map(c=>{
+   const item={category:inferCat(c),subtype:c.style,model:c.model,color:c.color,family:c.family};
+   let score=10;
+   if(isShoeItem(item)){
+     const ty=shoeType(item), co=tone(item);
+     if(co==="Altro") score-=25;
+     if(!typeCount[ty])score+=35;
+     if(keyColors.includes(co)&&!colorCount[co])score+=15;
+     if(keyColors.includes(co)&&!shoes.some(s=>shoeType(s)===ty&&tone(s)===co))score+=20;
+   } else score-=30;
+   return{c,score};
+ }).filter(r=>r.score>0).sort((a,b)=>b.score-a.score).slice(0,10);
+
+ $("recommendGrid").innerHTML=rec.map(r=>`<div class="card"><div class="pic">${imageTag(r.c,'loading="lazy"')}</div><div class="body"><span class="brand">${esc(r.c.brand)}</span><div class="model">${esc(r.c.model)}</div><div class="meta">${esc([shoeMacro(r.c),shoeType(r.c),tone(r.c)].filter(Boolean).join(" - "))}</div><button class="btn ghost addCat" style="margin-top:8px" data-k="${esc(r.c.k)}">Aggiungi</button></div></div>`).join("");
+ document.querySelectorAll("#recommendGrid .addCat").forEach(btn=>btn.onclick=()=>addCatalog(btn.dataset.k));
+}
+function addCatalog(k){
+ const c=CATALOG.find(x=>x.k===k); if(!c)return;
+ state.items.unshift({id:uid(),code:"CT - "+String(state.items.length+1).padStart(3,"0"),brand:c.brand,model:c.model,category:inferCat(c),subtype:shoeType({...c,subtype:c.style}),color:c.color,material:c.material,last:c.last,sole:c.sole,size:"",fitting:"",status:"armadio",standardPhoto:(imageCandidates(c)[0]||""),photo:"",created:Date.now()});
+ save(); renderWardrobe(); showSection("armadio");
+}
+function showSection(id){
+ document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===id));
+ document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("on",a.dataset.section===id));
+ if(id==="catalogo")renderCatalog(); if(id==="collezione")renderInsights();
+}
+document.querySelectorAll("nav a").forEach(a=>a.onclick=()=>showSection(a.dataset.section));
+
+$("fBrand").addEventListener("input",e=>{
+ const value=e.target.value;
+ renderBrandMatches(value);
+ const resolved=resolvedBrand();
+ clearBrandDependentFields();
+ if(resolved){
+   $("fBrandFallback").value=resolved;
+   populateTypes();
+   $("brandStatus").textContent="Marca riconosciuta: "+resolved+". Ora scegli il tipo di prodotto.";
+ } else {
+   $("fBrandFallback").value="";
+ }
+});
+
+$("fBrand").addEventListener("change",e=>{
+ const resolved=resolvedBrand();
+ if(resolved) selectBrand(resolved);
+});
+
+$("fBrandFallback").addEventListener("change",e=>{
+ if(e.target.value) selectBrand(e.target.value);
+});
+
+$("fCatalogType").addEventListener("change",()=>populateMaterials());
+$("fCatalogMaterial").addEventListener("change",()=>populateModels());
+$("fCatalogModel").addEventListener("focus",renderModelDropdown);
+$("fCatalogModel").addEventListener("input",()=>{
+ MODEL_SELECTED_KEY="";
+ selectedCatalog=null;
+ $("catalogPreviewBox").classList.add("hidden");
+ renderModelDropdown();
+});
+$("modelDropdown").addEventListener("click",e=>{
+ const b=e.target.closest("[data-model-key]");
+ if(b)selectModelResult(b.dataset.modelKey);
+});
+document.addEventListener("click",e=>{
+ if(!e.target.closest(".model-search-field"))closeModelDropdown();
+});
+["fColor","fMaterial","fLast","fSole","fFinish","fFit","fVariant"].forEach(id=>$(id).addEventListener("change",updateFromVariantControls));
+$("fCat").addEventListener("change",()=>syncTechnicalSelectors(selectedCatalog));
+
+
+let visionClassifierPromise=null;
+let visionModulePromise=null;
+let lastRecognition={};
+
+function rgbToHsl(r,g,b){
+ r/=255; g/=255; b/=255;
+ const max=Math.max(r,g,b), min=Math.min(r,g,b);
+ let h=0,s=0,l=(max+min)/2;
+ if(max!==min){
+   const d=max-min;
+   s=l>.5?d/(2-max-min):d/(max+min);
+   switch(max){
+     case r:h=(g-b)/d+(g<b?6:0);break;
+     case g:h=(b-r)/d+2;break;
+     case b:h=(r-g)/d+4;break;
+   }
+   h*=60;
+ }
+ return [h,s,l];
+}
+
+
+async function detectPhotoColor(dataUrl){
+ return new Promise((resolve)=>{
+  const im=new Image();
+  im.onload=()=>{
+   const size=128,c=document.createElement("canvas");c.width=size;c.height=size;
+   const ctx=c.getContext("2d",{willReadFrequently:true});ctx.drawImage(im,0,0,size,size);
+   const d=ctx.getImageData(0,0,size,size).data;
+
+   // K-means leggero RGB+posizione: privilegia il cluster scuro/centrale dell'oggetto,
+   // invece del colore dominante dello sfondo.
+   const pts=[];
+   for(let y=4;y<size-4;y+=2)for(let x=4;x<size-4;x+=2){
+     const i=(y*size+x)*4,r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];
+     if(a<220)continue;
+     const mean=(r+g+b)/3,mx=Math.max(r,g,b),mn=Math.min(r,g,b);
+     if(mean>242||mean<16)continue;
+     pts.push([r,g,b,x/size,y/size]);
+   }
+   if(pts.length<20){resolve("");return}
+   const K=6;
+   const seeds=[.18,.33,.48,.62,.76,.9].map(q=>pts[Math.min(pts.length-1,Math.floor(q*pts.length))].slice());
+   let centers=seeds;
+   let labels=new Array(pts.length).fill(0);
+   for(let it=0;it<7;it++){
+     const sums=Array.from({length:K},()=>[0,0,0,0,0,0]);
+     for(let j=0;j<pts.length;j++){
+       const p=pts[j];let best=0,bd=1e18;
+       for(let k=0;k<K;k++){
+         const c0=centers[k];
+         const dr=p[0]-c0[0],dg=p[1]-c0[1],db=p[2]-c0[2];
+         const dx=(p[3]-c0[3])*110,dy=(p[4]-c0[4])*110;
+         const dist=dr*dr+dg*dg+db*db+dx*dx+dy*dy;
+         if(dist<bd){bd=dist;best=k}
+       }
+       labels[j]=best;const s=sums[best];
+       s[0]+=p[0];s[1]+=p[1];s[2]+=p[2];s[3]+=p[3];s[4]+=p[4];s[5]++;
+     }
+     centers=sums.map((s,k)=>s[5]?[s[0]/s[5],s[1]/s[5],s[2]/s[5],s[3]/s[5],s[4]/s[5]]:centers[k]);
+   }
+   const counts=new Array(K).fill(0);
+   for(const l of labels)counts[l]++;
+   let pick=-1,pickScore=-1e9;
+   for(let k=0;k<K;k++){
+     if(counts[k]<pts.length*.035)continue;
+     const cc=centers[k],r=cc[0],g=cc[1],b=cc[2],mean=(r+g+b)/3;
+     const dist=Math.hypot(cc[3]-.5,cc[4]-.5);
+     // scarpe/abiti sono spesso pi\u00f9 scuri dello sfondo: centralit\u00e0 + oscurit\u00e0 + dimensione.
+     const upperBias=Math.max(0,.72-cc[4])*2.8; // tomaia: privilegia met\u00e0 superiore, riduce fodera/soletta interna
+     const chroma=(Math.max(r,g,b)-Math.min(r,g,b))/255;
+     const coolBias=(b>r*1.04 && b>g*1.01)?1.7:0;
+     const score=(1-dist)*2.8 + upperBias + Math.min(1,counts[k]/(pts.length*.16))*1.1 + Math.max(0,(175-mean)/175)*1.2 + coolBias + chroma*.5;
+     if(score>pickScore){pickScore=score;pick=k}
+   }
+   if(pick<0){resolve("");return}
+   const [r,g,b]=centers[pick];
+   const [h,ss,l]=rgbToHsl(r,g,b);
+   let name="Altro";
+   // Nei pellami scuri non chiamare "Nero" un marrone/bordeaux solo perch\u00e9 \u00e8 poco luminoso.
+   const brownBias=r>g*1.12 && r>b*1.10;
+   const blueBias=b>r*1.10 && b>g*1.04;
+   if(l<.19 && !brownBias && !blueBias) name="Nero";
+   else if(ss<.09&&l>.82) name="Bianco";
+   else if(ss<.12) name=l<.42?"Grigio scuro":"Grigio";
+   else if(brownBias && (h<45||h>330)) name=l>.58?"Beige":((h>330&&r/b>1.55&&g/b<.82)||h<8?"Bordeaux":"Marrone");
+   else if(blueBias && h>=185&&h<270) name=l<.34?"Blu navy":"Blu";
+   else if(h<12||h>=345) name=l<.28?"Bordeaux":"Rosso";
+   else if(h<42) name=l>.62?"Beige":"Marrone";
+   else if(h<65) name=l>.68?"Beige":"Giallo";
+   else if(h<165) name="Verde";
+   else if(h<200) name="Azzurro";
+   else if(h<260) name=l<.34?"Blu navy":"Blu";
+   else if(h<300) name="Viola";
+   else name="Bordeaux";
+   resolve(name);
+  };
+  im.onerror=()=>resolve("");im.src=dataUrl;
+ });
+}
+
+function typeCandidates(){
+ return [
+   {label:"Mocassini",prompts:[
+     "a penny loafer with no laces and a leather strap across the vamp with a horizontal slot",
+     "a tassel or penny loafer slip-on dress shoe without shoelaces",
+     "a classic men's moccasin loafer viewed from above"
+   ]},
+   {label:"Oxford",prompts:[
+     "a formal oxford shoe with clearly visible shoelaces and closed lacing",
+     "a lace-up oxford dress shoe, not a loafer",
+     "a men's oxford shoe with eyelets and laces"
+   ]},
+   {label:"Derby",prompts:[
+     "a derby or blucher dress shoe with clearly visible shoelaces and open lacing",
+     "a lace-up derby shoe, not a loafer",
+     "a men's blucher shoe with eyelets and laces"
+   ]},
+   {label:"Monk",prompts:[
+     "a monk strap dress shoe with one or two metal buckles and no laces",
+     "a double monk shoe with buckles",
+     "a single monk strap shoe"
+   ]},
+   {label:"Chelsea",prompts:["a chelsea ankle boot with elastic side panels","a men's chelsea boot"]},
+   {label:"Chukka / Desert",prompts:["a chukka or desert ankle boot with two or three eyelets","a men's desert boot"]},
+   {label:"Stivali",prompts:["a men's leather boot","a tall or ankle leather boot"]},
+   {label:"Sneaker",prompts:["a casual sneaker or trainer","a sports-inspired sneaker"]},
+   {label:"Cinture",prompts:["a men's leather belt","a dress belt with buckle"]},
+   {label:"Borse",prompts:["a men's leather bag backpack messenger or duffle","a men's briefcase or tote bag"]},
+   {label:"Portafogli",prompts:["a leather wallet","a bifold wallet"]},
+   {label:"Portacarte",prompts:["a leather card holder","a slim card case"]},
+   {label:"Portachiavi",prompts:["a leather key ring or key case","a key holder"]},
+   {label:"Pochette",prompts:["a leather clutch or document pouch","a men's pouch"]},
+   {label:"Pantaloni",prompts:["men's trousers or chinos","tailored men's pants"]},
+   {label:"Giacche",prompts:["a men's blazer or tailored jacket","a suit jacket"]},
+   {label:"Overshirt",prompts:["a men's overshirt","a shirt jacket"]},
+   {label:"Camicie",prompts:["a men's button-up shirt","a dress shirt"]},
+   {label:"Polo & T-shirt",prompts:["a men's polo shirt or t-shirt","a polo shirt"]},
+   {label:"Maglieria",prompts:["a men's sweater or knitwear","a knitted pullover or cardigan"]},
+   {label:"Capispalla",prompts:["a men's coat or outerwear","a jacket or coat"]},
+   {label:"Shorts",prompts:["men's shorts","tailored shorts"]}
+ ];
+}
+
+
+
+let tesseractPromise=null;
+function loadScriptOnce(src){return new Promise((resolve,reject)=>{const hit=[...document.scripts].find(s=>s.src===src);if(hit){if(window.Tesseract)resolve();else hit.addEventListener("load",resolve,{once:true});return}const s=document.createElement("script");s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}
+async function getTesseract(){if(!tesseractPromise)tesseractPromise=(async()=>{await loadScriptOnce("https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js");return window.Tesseract})();return tesseractPromise}
+
+function normOCR(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"")}
+function levenshtein(a,b){
+ const m=a.length,n=b.length,dp=new Array(n+1);for(let j=0;j<=n;j++)dp[j]=j;
+ for(let i=1;i<=m;i++){let prev=dp[0];dp[0]=i;for(let j=1;j<=n;j++){const old=dp[j];dp[j]=Math.min(dp[j]+1,dp[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=old}}
+ return dp[n];
+}
+function fuzzyScore(a,b){
+ if(!a||!b)return 0;if(a.includes(b)||b.includes(a))return Math.min(a.length,b.length)/Math.max(a.length,b.length);
+ const d=levenshtein(a,b);return 1-d/Math.max(a.length,b.length);
+}
+function detectBrandFromOCR(txt){
+ const aliases={
+  "berwick1707":"Berwick 1707","berwick":"Berwick 1707","berwich":"Berwick 1707",
+  "trickers":"Tricker's","churchs":"Church's","church":"Church's",
+  "crockettjones":"Crockett & Jones","fratellirossetti":"Fratelli Rossetti","fratelliross etti":"Fratelli Rossetti",
+  "rossetti":"Fratelli Rossetti","jmweston":"J.M. Weston","stefanobemer":"Stefano Bemer",
+  "pttorino":"PT Torino","santoni":"Santoni","doucal":"Doucal's","doucal's":"Doucal's"
+ };
+ const normalized=normOCR(txt);
+ for(const [a,b] of Object.entries(aliases)){const na=normOCR(a);if(na.length>=5&&normalized.includes(na))return {brand:b,score:.995,source:"exact"}}
+ for(const b of BRANDS){const k=normOCR(b);if(k.length>=5&&normalized.includes(k))return {brand:b,score:.99,source:"exact"}}
+ // Fuzzy sulle righe e su coppie di righe: utile quando OCR perde 1-3 lettere.
+ const raw=(txt||"").split(/\n+/).map(x=>normOCR(x)).filter(x=>x.length>=4);
+ const chunks=[...raw];for(let i=0;i<raw.length-1;i++)chunks.push(raw[i]+raw[i+1]);
+ let best=null;
+ const candidates=[...BRANDS,...Object.values(aliases)];
+ for(const b of candidates){
+   const key=normOCR(b);if(key.length<5)continue;
+   for(const ch of chunks){
+     if(ch.length<4)continue;
+     let s=fuzzyScore(ch,key);
+     if(ch.length>key.length+5){
+       for(let i=0;i<=ch.length-key.length;i++){s=Math.max(s,fuzzyScore(ch.slice(i,i+key.length),key))}
+     }
+     if(!best||s>best.score)best={brand:b,score:s,source:"fuzzy"};
+   }
+ }
+ return best&&best.score>=.74?best:null;
+}
+function ocrModelCandidates(txt,brand,type,color){
+ const words=(txt||"").toUpperCase().match(/[A-Z0-9-]{3,}/g)||[];const strong=words.filter(w=>/\d/.test(w));
+ let pool=CATALOG.filter(c=>brand&&c.brand===brand);if(type)pool=pool.filter(c=>productFamily(c)===type);
+ const scored=[];for(const c of pool){const hay=((c.model||"")+" "+(c.url||"")).toUpperCase();let s=0;for(const w of strong)if(hay.includes(w))s+=10;for(const w of words)if(w.length>=5&&hay.includes(w))s+=2;if(color&&tone(c)===color)s+=1;if(s>=10)scored.push({c,score:s})}
+ return scored.sort((a,b)=>b.score-a.score).slice(0,5);
+}
+async function makeOCRVariant(dataUrl,rotation=0,crop=false,threshold=false){
+ return new Promise(resolve=>{
+  const im=new Image();im.onload=()=>{
+   let sx=0,sy=0,sw=im.width,sh=im.height;
+   if(crop){sx=im.width*.2;sy=im.height*.15;sw=im.width*.6;sh=im.height*.7}
+   const max=2200,scale=Math.min(3,max/Math.max(sw,sh));
+   const rw=Math.max(1,Math.round(sw*scale)),rh=Math.max(1,Math.round(sh*scale));
+   const rad=((rotation%360)+360)%360*Math.PI/180;
+   const flip=rotation%180!==0;
+   const c=document.createElement("canvas");c.width=flip?rh:rw;c.height=flip?rw:rh;
+   const ctx=c.getContext("2d",{willReadFrequently:true});ctx.translate(c.width/2,c.height/2);ctx.rotate(rad);
+   ctx.drawImage(im,sx,sy,sw,sh,-rw/2,-rh/2,rw,rh);
+   const id=ctx.getImageData(0,0,c.width,c.height),d=id.data;
+   for(let i=0;i<d.length;i+=4){
+     let y=.299*d[i]+.587*d[i+1]+.114*d[i+2];
+     if(threshold)y=y>145?255:0;else y=Math.max(0,Math.min(255,(y-128)*2.05+128));
+     d[i]=d[i+1]=d[i+2]=y;
+   }
+   ctx.putImageData(id,0,0);resolve(c.toDataURL("image/png"));
+  };im.onerror=()=>resolve("");im.src=dataUrl;
+ })
+}
+async function readVisibleText(){
+ const T=await getTesseract();const worker=await T.createWorker("eng");
+ try{
+   await worker.setParameters({tessedit_pageseg_mode:"11",preserve_interword_spaces:"1"});
+   let all="";
+   const jobs=[];
+   // Etichetta e suola: tutte le rotazioni, perch\u00e9 i loghi sono spesso verticali/capovolti.
+   for(const src of [pendingLabelPhoto,pendingSolePhoto].filter(Boolean)){
+     for(const rot of [0,90,180,270])jobs.push([src,rot,false,false]);
+     jobs.push([src,0,false,true]);
+   }
+   // Foto prodotto: OCR secondario e solo su crop centrale; evita tappeti/sfondi.
+   if(pendingPhoto && !pendingLabelPhoto && !pendingSolePhoto){
+     for(const rot of [0,90,270])jobs.push([pendingPhoto,rot,true,false]);
+   }
+   for(const [src,rot,crop,thr] of jobs.slice(0,14)){
+     const prep=await makeOCRVariant(src,rot,crop,thr);if(!prep)continue;
+     const r=await worker.recognize(prep);const t=(r?.data?.text||"").trim();
+     if(t)all+="\n"+t;
+   }
+   return all.trim();
+ }finally{await worker.terminate()}
+}
+async function getVisionClassifier(){
+ if(!visionClassifierPromise){
+   visionModulePromise = import("https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1");
+   visionClassifierPromise=(async()=>{
+     const mod=await visionModulePromise;
+     const pipe=await mod.pipeline("zero-shot-image-classification","Xenova/clip-vit-base-patch32");
+     return {pipe,RawImage:mod.RawImage};
+   })();
+ }
+ return visionClassifierPromise;
+}
+
+function pct(x){ return Math.round((x||0)*100)+"%"; }
+
+function addRecognitionRow(key, value, score, action, actionValue){
+ const wrap=$("recognitionResults");
+ const row=document.createElement("div");
+ row.className="recogrow";
+ row.innerHTML=`<div class="recogkey">${esc(key)}</div>
+   <div class="recogval">${esc(value||"-")} ${score!=null?`<span class="recogscore"> -  ${pct(score)}</span>`:""}</div>
+   <button class="recoguse" type="button">Usa</button>`;
+ row.querySelector("button").onclick=()=>applyRecognition(action,actionValue||value);
+ wrap.appendChild(row);
+}
+
+function applyRecognition(kind,value){
+ if(kind!=="none"&&!value)return;
+ if(kind==="none") return;
+ if(kind==="brand"){
+   selectBrand(value);
+ } else if(kind==="type"){
+   const sel=$("fCatalogType");
+   const opt=[...sel.options].find(o=>o.value===value || o.textContent===value);
+   if(opt){sel.value=opt.value;populateMaterials();}
+ } else if(kind==="model"){
+   chooseCatalogItem(value);
+ } else if(kind==="color"){
+   setColorValue(value);
+ }
+}
+
+
+async function classifyTypeWithClip(pipe,image){
+ const defs=typeCandidates(),labels=[],owner=[];
+ for(const d of defs)for(const p of d.prompts){labels.push(p);owner.push(d.label)}
+ const out=await pipe(image,labels);
+ const buckets={};for(const x of out){const i=labels.indexOf(x.label),lab=owner[i];(buckets[lab]||(buckets[lab]=[])).push(x.score||0)}
+ const scores={};for(const [lab,arr] of Object.entries(buckets)){const mx=Math.max(...arr),avg=arr.reduce((a,b)=>a+b,0)/arr.length;scores[lab]=mx*.72+avg*.28}
+ return Object.entries(scores).map(([label,score])=>({label,score})).sort((a,b)=>b.score-a.score);
+}
+
+function shoeSubtypeCandidates(){
+ return [
+  {label:"Penny loafer",prompts:[
+    "a men's penny loafer with a horizontal leather strap across the vamp and a cutout slot, no laces",
+    "a classic penny moccasin loafer, slip-on shoe, no tassels and no buckles",
+    "a penny loafer viewed from above"
+  ]},
+  {label:"Tassel loafer",prompts:[
+    "a men's tassel loafer with decorative tassels on the vamp and no laces",
+    "a classic tassel moccasin shoe"
+  ]},
+  {label:"Horsebit loafer",prompts:[
+    "a men's horsebit loafer with a metal bit across the vamp",
+    "a loafer with metal horsebit hardware"
+  ]},
+  {label:"Venetian loafer",prompts:[
+    "a plain venetian loafer with no penny strap, tassels, laces or buckles",
+    "a plain slip-on dress loafer"
+  ]},
+  {label:"Oxford",prompts:[
+    "a men's oxford dress shoe with closed lacing and visible shoelaces",
+    "a formal lace-up oxford shoe"
+  ]},
+  {label:"Derby",prompts:[
+    "a men's derby or blucher shoe with open lacing and visible shoelaces",
+    "a formal open-lacing derby shoe"
+  ]},
+  {label:"Single monk",prompts:[
+    "a men's single monk strap shoe with one buckle and no laces"
+  ]},
+  {label:"Double monk",prompts:[
+    "a men's double monk strap shoe with two buckles and no laces"
+  ]},
+  {label:"Chelsea boot",prompts:[
+    "a men's chelsea boot with elastic side panels"
+  ]},
+  {label:"Chukka / Desert",prompts:[
+    "a men's chukka or desert boot with ankle height and two or three eyelets"
+  ]},
+  {label:"Boot",prompts:[
+    "a men's leather boot"
+  ]},
+  {label:"Sneaker",prompts:[
+    "a men's sneaker or trainer"
+  ]}
+ ];
+}
+
+async function classifyFromDefinitions(pipe,image,defs){
+ const labels=[],owner=[];
+ for(const d of defs)for(const p of d.prompts){labels.push(p);owner.push(d.label)}
+ const out=await pipe(image,labels);
+ const buckets={};
+ for(const x of out){
+   const i=labels.indexOf(x.label),lab=owner[i];
+   (buckets[lab]||(buckets[lab]=[])).push(x.score||0);
+ }
+ const scores={};
+ for(const [lab,arr] of Object.entries(buckets)){
+   const mx=Math.max(...arr),avg=arr.reduce((a,b)=>a+b,0)/arr.length;
+   scores[lab]=mx*.78+avg*.22;
+ }
+ return Object.entries(scores).map(([label,score])=>({label,score})).sort((a,b)=>b.score-a.score);
+}
+
+function shoeFamilyFromSubtype(sub){
+ if(/loafer/i.test(sub)) return "Mocassini";
+ if(/Oxford/i.test(sub)) return "Oxford";
+ if(/Derby/i.test(sub)) return "Derby";
+ if(/monk/i.test(sub)) return "Monk";
+ if(/Chelsea/i.test(sub)) return "Chelsea";
+ if(/Chukka/i.test(sub)) return "Chukka / Desert";
+ if(/Boot/i.test(sub)) return "Stivali";
+ if(/Sneaker/i.test(sub)) return "Sneaker";
+ return "";
+}
+
+function colorDefinitions(subject){
+ const prefix = subject==="shoe"
+   ? "the main upper material of this shoe is "
+   : "the main visible fabric of this fashion product is ";
+ const values=[
+  ["Nero","black"],["Blu navy","navy blue"],["Blu","blue"],["Azzurro","light blue"],
+  ["Marrone","brown"],["Cuoio / Cognac","cognac tan leather"],["Beige","beige"],
+  ["Grigio scuro","dark gray"],["Grigio","gray"],["Bianco","white"],["Verde","green"],
+  ["Bordeaux","burgundy"],["Rosso","red"],["Giallo","yellow"],["Viola","purple"]
+ ];
+ return values.map(([label,c])=>({label,prompts:[
+   prefix+c,
+   subject==="shoe" ? "a shoe whose upper, excluding the sole and background, is "+c : "a fashion item whose main material is "+c
+ ]}));
+}
+
+async function classifySemanticColor(pipe,image,isShoe){
+ const ranked=await classifyFromDefinitions(pipe,image,colorDefinitions(isShoe?"shoe":"product"));
+ return ranked;
+}
+
+function setColorValue(v){
+ const sel=$("fColor");
+ const opt=[...sel.options].find(o=>o.value===v || o.textContent===v);
+ if(opt)sel.value=opt.value;
+}
+
+function catalogSubtypeMatch(c, subtype){
+ const s=((c.style||"")+" "+(c.model||"")+" "+(c.family||"")).toLowerCase();
+ const q=(subtype||"").toLowerCase();
+ if(!q)return true;
+ if(q==="penny loafer")return /penny|loafer|mocass/.test(s) && !/tassel|nappin|horsebit|bit/.test(s);
+ if(q==="tassel loafer")return /tassel|nappin/.test(s);
+ if(q==="horsebit loafer")return /horsebit|bit loafer|morsetto/.test(s);
+ if(q==="venetian loafer")return /loafer|mocass/.test(s) && !/penny|tassel|nappin|horsebit|bit/.test(s);
+ if(q==="oxford")return /oxford|balmoral/.test(s);
+ if(q==="derby")return /derby|blucher/.test(s);
+ if(q==="single monk")return /monk|fibbia/.test(s) && !/double|doppia/.test(s);
+ if(q==="double monk")return /double monk|doppia fibbia/.test(s);
+ if(q==="chelsea boot")return /chelsea/.test(s);
+ if(q==="chukka / desert")return /chukka|desert/.test(s);
+ if(q==="boot")return /boot|stivale|stivaletto/.test(s);
+ if(q==="sneaker")return /sneaker|trainer/.test(s);
+ return true;
+}
+
+function exactModelFromEvidence(txt,brand,subtype,color){
+ if(!brand)return [];
+ const normalized=normOCR(txt);
+ const tokens=(txt||"").toUpperCase().match(/[A-Z0-9][A-Z0-9._/-]{2,}/g)||[];
+ const strong=tokens.filter(t=>/\d/.test(t) && t.length>=3);
+ let pool=CATALOG.filter(c=>c.brand===brand && catalogSubtypeMatch(c,subtype));
+ const scored=[];
+ for(const c of pool){
+   const hay=normOCR((c.model||"")+" "+(c.url||"")+" "+(c.style||""));
+   let score=0,reasons=[];
+   for(const t of strong){
+     const nt=normOCR(t);
+     if(nt.length>=3 && hay.includes(nt)){score+=12;reasons.push(t)}
+   }
+   const modelNorm=normOCR(c.model||"");
+   if(modelNorm.length>=4 && normalized.includes(modelNorm)){score+=20;reasons.push(c.model)}
+   if(color && tone(c)===color)score+=1;
+   if(score>=12)scored.push({c,score,reasons});
+ }
+ return scored.sort((a,b)=>b.score-a.score).slice(0,5);
+}
+
+async function recognizeCurrentPhoto(){
+ if(!pendingPhoto&&!pendingLabelPhoto&&!pendingSolePhoto){alert("Carica almeno una foto.");return}
+ const box=$("recognitionBox"),status=$("recognitionStatus"),results=$("recognitionResults");
+ box.classList.remove("hidden");results.innerHTML="";$("recognizePhotoBtn").disabled=true;
+
+ let detectedBrand="",bestFamily="",bestSubtype="",detectedColor="",ocrText="";
+ let brandEvidence=false;
+
+ try{
+   let pipe=null,RawImage=null,image=null;
+   if(pendingPhoto){
+     status.textContent="Riconoscimento del tipo di prodotto...";
+     const vision=await getVisionClassifier();
+     pipe=vision.pipe;RawImage=vision.RawImage;image=await RawImage.read(pendingPhoto);
+
+     const broad=await classifyTypeWithClip(pipe,image);
+     const broadTop=broad.slice(0,3);
+     bestFamily=broadTop[0]?.label||"";
+     broadTop.forEach((x,i)=>addRecognitionRow(i?"Famiglia alt.":"Famiglia",x.label,x.score,"type",x.label));
+
+     const looksLikeShoe=["Mocassini","Oxford","Derby","Monk","Chelsea","Chukka / Desert","Stivali","Sneaker"].includes(bestFamily);
+
+     if(looksLikeShoe){
+       status.textContent="Riconoscimento del sottotipo della scarpa...";
+       const subs=await classifyFromDefinitions(pipe,image,shoeSubtypeCandidates());
+       const topSubs=subs.slice(0,4);
+       if(topSubs[0]){
+         bestSubtype=topSubs[0].label;
+         const margin=topSubs[0].score-(topSubs[1]?.score||0);
+         if(topSubs[0].score>=.30 && margin>=.018){
+           $("fCat").value="Scarpe";
+           $("fSubtype").value=bestSubtype;
+           const family=shoeFamilyFromSubtype(bestSubtype);
+           if(family)bestFamily=family;
+         }
+       }
+       topSubs.forEach((x,i)=>addRecognitionRow(i?"Sottotipo alt.":"Sottotipo",x.label,x.score,"none",""));
+     }
+
+     status.textContent=looksLikeShoe
+       ? "Analisi del colore della tomaia, escludendo suola e sfondo..."
+       : "Analisi del colore principale del prodotto...";
+
+     // Primary color comes from semantic vision, not raw dominant pixels.
+     const colorRank=await classifySemanticColor(pipe,image,looksLikeShoe);
+     if(colorRank[0]){
+       detectedColor=colorRank[0].label;
+       const margin=colorRank[0].score-(colorRank[1]?.score||0);
+       if(colorRank[0].score>=.16 && margin>=.008){
+         setColorValue(detectedColor);
+       }
+       colorRank.slice(0,3).forEach((x,i)=>addRecognitionRow(i?"Colore alt.":"Colore",x.label,x.score,"color",x.label));
+     }else{
+       // Fallback only if semantic classifier failed.
+       detectedColor=await detectPhotoColor(pendingPhoto);
+       if(detectedColor){setColorValue(detectedColor);addRecognitionRow("Colore",detectedColor,null,"color",detectedColor)}
+     }
+   }
+
+   status.textContent="Lettura etichetta, logo e codici...";
+   try{
+     ocrText=await readVisibleText();
+     if(ocrText){
+       const clean=ocrText.replace(/\s+/g," ").slice(0,300);
+       const useful=(clean.match(/[A-Za-z]{4,}/g)||[]).length>=1;
+       if(useful)addRecognitionRow("Testo letto",clean,null,"none","");
+       const br=detectBrandFromOCR(ocrText);
+       if(br){
+         detectedBrand=br.brand;brandEvidence=br.score>=.74;
+         if(brandEvidence){
+           selectBrand(detectedBrand);
+           addRecognitionRow(br.source==="exact"?"Marca OCR":"Marca OCR prob.",detectedBrand,br.score,"brand",detectedBrand);
+           // Restore recognized shoe family/subtype after selectBrand resets dependent fields.
+           if(bestSubtype){
+             $("fCat").value="Scarpe";$("fSubtype").value=bestSubtype;
+             const family=shoeFamilyFromSubtype(bestSubtype);
+             const sel=$("fCatalogType");
+             const opt=[...sel.options].find(o=>o.value===family||o.textContent===family);
+             if(opt){sel.value=opt.value;populateMaterials()}
+           }
+           if(detectedColor)setColorValue(detectedColor);
+         }
+       }
+     }
+   }catch(e){console.warn("OCR",e)}
+
+   // Visual brand is advisory only, never auto-applied.
+   if(!brandEvidence && pendingPhoto && pipe && image){
+     status.textContent="Verifica visiva della marca...";
+     const brandLabels=BRANDS.map(b=>"the visible logo or brand identity of "+b+" on this product");
+     const bo=await pipe(image,brandLabels);
+     const tops=bo.slice(0,3).map(x=>({
+       label:x.label.replace(/^the visible logo or brand identity of /,"").replace(/ on this product$/,""),
+       score:x.score
+     }));
+     const margin=(tops[0]?.score||0)-(tops[1]?.score||0);
+     if(tops[0]&&tops[0].score>=.48&&margin>=.14){
+       addRecognitionRow("Marca visiva prob.",tops[0].label,tops[0].score,"brand",tops[0].label);
+     }else{
+       addRecognitionRow("Marca","Non determinata: fotografa logo/etichetta da vicino",null,"none","");
+     }
+   }
+
+   const brand=detectedBrand||resolvedBrand();
+
+   // Exact model only after brand + subtype/family, and only from explicit text/code evidence.
+   if(brand){
+     const hits=exactModelFromEvidence(ocrText,brand,bestSubtype,detectedColor);
+     if(hits.length){
+       hits.forEach((x,i)=>addRecognitionRow(i?"Modello alt.":"Modello preciso",`${x.c.brand}  -  ${x.c.model}`,Math.min(.99,.68+x.score*.012),"model",x.c.k));
+       if(hits[0].score>=20)chooseCatalogItem(hits[0].c.k);
+     }else{
+       addRecognitionRow("Modello","Marca e tipo riconosciuti; modello esatto non confermato da codice/nome",null,"none","");
+     }
+   }else{
+     addRecognitionRow("Modello","Non cercato finch\u00e9 la marca non \u00e8 affidabile",null,"none","");
+   }
+
+   status.textContent="Analisi completata. Per le scarpe: famiglia  ->  sottotipo  ->  colore tomaia  ->  marca  ->  modello preciso.";
+ }catch(err){
+   console.error(err);
+   const msg=String(err&&err.message||err||"");
+   status.textContent=/fetch|network|load|module|cdn|import/i.test(msg)
+     ?"Foto caricata, ma il motore AI non si e' caricato dalla rete. Controlla la connessione e riprova."
+     :"Analisi non completata. Prova con una foto prodotto pi\u00f9 pulita e una foto ravvicinata di logo/etichetta.";
+ }finally{
+   $("recognizePhotoBtn").disabled=!(pendingPhoto||pendingLabelPhoto||pendingSolePhoto);
+ }
+}
+
+$("photoBtn").onclick=()=>{$("photoInput").value="";$("photoInput").click()};
+$("labelPhotoBtn").onclick=()=>{$("labelPhotoInput").value="";$("labelPhotoInput").click()};
+$("solePhotoBtn").onclick=()=>{$("solePhotoInput").value="";$("solePhotoInput").click()};
+$("recognizePhotoBtn").onclick=recognizeCurrentPhoto;
+function compressPicked(file,max=1400,q=.86){return new Promise(resolve=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL("image/jpeg",q))};im.src=r.result};r.readAsDataURL(file)})}
+function updateDetailPhotos(){const xs=[];if(pendingLabelPhoto)xs.push("etichetta/logo \u2713");if(pendingSolePhoto)xs.push("suola/codice \u2713");$("detailPhotos").textContent=xs.length?xs.join("  -  "):"Nessuna foto dettaglio.";$("recognizePhotoBtn").disabled=!(pendingPhoto||pendingLabelPhoto||pendingSolePhoto)}
+$("photoInput").onchange=async e=>{
+ const f=e.target.files[0];if(!f)return;
+ try{
+   pendingPhoto=await compressPicked(f,1200,.84);
+   const img=new Image();
+   img.onload=()=>{
+     $("preview").innerHTML=`<img src="${pendingPhoto}" alt="Foto caricata">`;
+     $("recognitionBox").classList.remove("hidden");
+     $("recognitionStatus").textContent=`Foto caricata correttamente: ${img.naturalWidth} x ${img.naturalHeight}. Premi Riconosci da foto.`;
+     $("recognitionResults").innerHTML="";
+     updateDetailPhotos();
+   };
+   img.onerror=()=>{
+     pendingPhoto="";
+     $("recognitionBox").classList.remove("hidden");
+     $("recognitionStatus").textContent="Errore nella lettura della foto. Prova un'altra immagine.";
+     updateDetailPhotos();
+   };
+   img.src=pendingPhoto;
+ }catch(err){
+   console.error(err);pendingPhoto="";
+   $("recognitionBox").classList.remove("hidden");
+   $("recognitionStatus").textContent="Errore durante la preparazione della foto.";
+   updateDetailPhotos();
+ }
+};
+$("labelPhotoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;pendingLabelPhoto=await compressPicked(f,1800,.92);updateDetailPhotos()};
+$("solePhotoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;pendingSolePhoto=await compressPicked(f,1800,.92);updateDetailPhotos()};
+$("saveItem").onclick=()=>{
+ const brand=$("fBrand").value.trim(); if(!brand){alert("Scegli o scrivi una marca.");return}
+ const data={id:uid(),code:"CT - "+String(state.items.length+1).padStart(3,"0"),brand,model:$("fModel").value.trim(),category:$("fCat").value,status:$("fStatus").value,subtype:$("fSubtype").value.trim(),color:$("fColor").value.trim(),material:$("fMaterial").value.trim(),last:$("fLast").value.trim(),sole:$("fSole").value.trim(),size:$("fSize").value.trim(),fitting:$("fFitting").value.trim(),finish:$("fFinish").value.trim(),fit:$("fFit").value.trim(),variant:$("fVariant").value.trim(),photo:pendingPhoto,standardPhoto:selectedCatalog?.img||"",catalogKey:selectedCatalog?.k||"",created:Date.now()};
+ state.items.unshift(data); save(); pendingPhoto=""; pendingLabelPhoto=""; pendingSolePhoto=""; selectedCatalog=null;
+ ["fBrand","fBrandFallback","fCatalogModel","fModel","fSubtype","fColor"].forEach(id=>$(id).value="");
+ optionFill("fMaterial",[],"","- Non specificato -"); optionFill("fLast",[],"","- Non specificato -"); optionFill("fSole",[],"","- Non specificata -"); optionFill("fSize",[],"","- Seleziona taglia -"); optionFill("fFitting",[],"","- Seleziona fitting -");
+ $("preview").innerHTML=""; updateDetailPhotos(); $("recognizePhotoBtn").disabled=true; $("recognitionBox").classList.add("hidden"); $("recognitionResults").innerHTML=""; resetCatalogSelection(); $("addBox").open=false; renderWardrobe();
+ showSection("armadio");
+ const addDetails=document.querySelector("#armadio details"); if(addDetails)addDetails.open=false;
+ window.scrollTo({top:0,behavior:"smooth"});
+};
+$("searchWardrobe").oninput=renderWardrobe;
+$("statusFilter").onchange=renderWardrobe;
+$("catalogSearch").oninput=renderCatalog;
+$("brandFilter").onchange=renderCatalog;
+
+refreshBrandControls();
+renderWardrobe();
+loadBackendCatalog();
+</script>
+<script>
+if ('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn));
+
+document.addEventListener("click",e=>{
+ const zi=e.target.closest("[data-zoom-index]");
+ if(zi){openPhotoZoom(Number(zi.dataset.zoomIndex)||0);return}
+ const dot=e.target.closest("[data-gallery-dot]");
+ if(dot){
+   const tr=$("galleryTrack"),i=Number(dot.dataset.galleryDot)||0;
+   if(tr)tr.scrollTo({left:i*tr.clientWidth,behavior:"smooth"});
+   return;
+ }
+});
+document.addEventListener("scroll",e=>{
+ if(e.target&&e.target.id==="galleryTrack")syncGalleryIndicator();
+ if(e.target&&e.target.id==="zoomStage")syncZoomIndex();
+},true);
+$("zoomClose").addEventListener("click",closePhotoZoom);
+$("photoZoom").addEventListener("click",e=>{if(e.target.id==="photoZoom")closePhotoZoom()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhotoZoom()});
+
+</script>
+
+
+<div id="photoZoom" class="zoom-modal" aria-hidden="true">
+  <button class="zoom-close" id="zoomClose" aria-label="Chiudi">&times;</button>
+  <div class="zoom-index" id="zoomIndex">1 / 1</div>
+  <div class="zoom-stage" id="zoomStage"></div>
+</div>
+
+</body>
+</html>
