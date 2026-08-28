@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartellino V10.2 Archive Gallery</title>
+<title>Cartellino V10.3 Fixed Bottom Nav</title>
 <style>
 :root{--bg:#F5F3EE;--panel:#FFFFFF;--ink:#171717;--muted:#74716B;--line:#DDD9D1;--brass:#B49A68;--brass2:#8F764B;--pos:#52705A;--neg:#8A4940;--soft:#ECE9E2;--shadow:0 8px 24px rgba(23,23,23,.055)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -102,7 +102,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 @media(min-width:700px){.sub-grid{grid-template-columns:repeat(4,1fr)}}
 
 
-/* V10.2 Archive Gallery / iPhone-safe responsive layer */
+/* V10.3 Fixed Bottom Nav / iPhone-safe responsive layer */
 html{
   width:100%;
   min-height:100%;
@@ -906,6 +906,57 @@ input::placeholder,textarea::placeholder{color:#A39A8F!important}
  .archive-gallery-slide,.archive-gallery-slide img{height:280px;min-height:280px}
 }
 
+
+/* V10.3 iPhone/PWA bottom navigation lock */
+:root{--bottom-nav-h:74px}
+html{
+ min-height:100%;
+ background:var(--bg)!important;
+}
+body{
+ min-height:100%;
+ padding-bottom:calc(var(--bottom-nav-h) + env(safe-area-inset-bottom))!important;
+ overflow-x:hidden!important;
+}
+main{
+ padding-bottom:calc(var(--bottom-nav-h) + 34px + env(safe-area-inset-bottom))!important;
+}
+nav{
+ position:fixed!important;
+ left:0!important;
+ right:0!important;
+ bottom:0!important;
+ top:auto!important;
+ width:100%!important;
+ min-height:var(--bottom-nav-h)!important;
+ margin:0!important;
+ transform:translate3d(0,0,0)!important;
+ -webkit-transform:translate3d(0,0,0)!important;
+ backface-visibility:hidden!important;
+ -webkit-backface-visibility:hidden!important;
+ will-change:transform!important;
+ z-index:9999!important;
+ padding-bottom:env(safe-area-inset-bottom)!important;
+ background:#FFFDFC!important;
+ border-top:1px solid #DDD4C7!important;
+ box-shadow:0 -5px 18px rgba(28,26,23,.07)!important;
+}
+nav a{
+ min-height:var(--bottom-nav-h)!important;
+ display:flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ padding:0 4px!important;
+ background:#FFFDFC!important;
+}
+nav a.on{
+ background:#F4EBDD!important;
+ color:#8F6E39!important;
+}
+@supports(height:100dvh){
+ body{min-height:100dvh}
+}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -916,7 +967,7 @@ input::placeholder,textarea::placeholder{color:#A39A8F!important}
 <meta name="apple-mobile-web-app-title" content="Cartellino">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 </head>
-<body data-cartellino-version="10.2">
+<body data-cartellino-version="10.3">
 <header>
  <div class="logo">Cartellino</div>
  <div class="sub">Archivio guardaroba personale</div>
@@ -929,7 +980,7 @@ input::placeholder,textarea::placeholder{color:#A39A8F!important}
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca  -  V10.2 Archive Gallery</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+      <div class="guided"><b>1. Cerca la marca  -  V10.3 Fixed Bottom Nav</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -3227,6 +3278,25 @@ document.addEventListener("touchend",e=>{
  PHOTO_TOUCH=null;
 },{passive:true});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhotoZoom()});
+
+
+(function lockBottomNavToViewport(){
+ const n=document.querySelector("nav");
+ if(!n)return;
+ const fix=()=>{
+   n.style.bottom="0px";
+   n.style.top="auto";
+   n.style.position="fixed";
+   n.style.transform="translate3d(0,0,0)";
+ };
+ fix();
+ window.addEventListener("resize",fix,{passive:true});
+ window.addEventListener("orientationchange",()=>setTimeout(fix,80),{passive:true});
+ if(window.visualViewport){
+   visualViewport.addEventListener("resize",fix,{passive:true});
+   visualViewport.addEventListener("scroll",fix,{passive:true});
+ }
+})();
 
 </script>
 
