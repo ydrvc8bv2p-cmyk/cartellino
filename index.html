@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartellino V10.3 Fixed Bottom Nav</title>
+<title>Cartellino V10.4 Add Product Photos</title>
 <style>
 :root{--bg:#F5F3EE;--panel:#FFFFFF;--ink:#171717;--muted:#74716B;--line:#DDD9D1;--brass:#B49A68;--brass2:#8F764B;--pos:#52705A;--neg:#8A4940;--soft:#ECE9E2;--shadow:0 8px 24px rgba(23,23,23,.055)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -102,7 +102,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 @media(min-width:700px){.sub-grid{grid-template-columns:repeat(4,1fr)}}
 
 
-/* V10.3 Fixed Bottom Nav / iPhone-safe responsive layer */
+/* V10.4 Add Product Photos / iPhone-safe responsive layer */
 html{
   width:100%;
   min-height:100%;
@@ -957,6 +957,23 @@ nav a.on{
  body{min-height:100dvh}
 }
 
+
+/* V10.4 add-product photo preview */
+.add-product-preview{padding:10px!important;overflow:visible!important}
+.add-product-preview-head{padding:2px 2px 8px}
+.add-product-preview-head strong{font-family:Georgia,serif;font-size:18px;font-weight:400}
+.add-product-preview-head p{margin:4px 0 0;font-size:10px;color:var(--muted);line-height:1.4}
+#catalogPreview{width:100%!important;height:auto!important;min-height:0!important;overflow:visible!important;background:transparent!important;border:0!important}
+#catalogPreview .gallery-wrap{margin-top:0!important}
+#catalogPreview .gallery-slide{min-height:245px!important;height:245px!important}
+#catalogPreview .gallery-slide img{height:245px!important;max-height:245px!important;object-fit:contain!important}
+#catalogPreview .gallery-thumbs{padding-top:7px!important}
+
+
+#itemDetailPhoto{width:100%!important;height:auto!important;min-height:0!important;overflow:visible!important;background:transparent!important}
+#itemDetailPhoto .gallery-slide{min-height:300px!important}
+#itemDetailPhoto .gallery-slide img{max-height:390px!important;object-fit:contain!important}
+
 </style>
 
 <link rel="manifest" href="manifest.webmanifest">
@@ -967,7 +984,7 @@ nav a.on{
 <meta name="apple-mobile-web-app-title" content="Cartellino">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 </head>
-<body data-cartellino-version="10.3">
+<body data-cartellino-version="10.4">
 <header>
  <div class="logo">Cartellino</div>
  <div class="sub">Archivio guardaroba personale</div>
@@ -980,7 +997,7 @@ nav a.on{
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca  -  V10.3 Fixed Bottom Nav</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+      <div class="guided"><b>1. Cerca la marca  -  V10.4 Add Product Photos</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -1023,14 +1040,12 @@ nav a.on{
         <p class="note" id="modelHint">Scrivi il nome: i risultati compaiono qui sotto dentro Cartellino. Tocca il modello esatto per selezionarlo.</p>
       </div>
 
-      <div id="catalogPreviewBox" class="panel hidden">
-        <div style="display:flex;gap:10px;align-items:flex-start">
-          <div class="preview" id="catalogPreview"></div>
-          <div style="flex:1">
-            <strong id="catalogTitle">Modello selezionato</strong>
-            <p id="catalogMeta"></p>
-          </div>
+      <div id="catalogPreviewBox" class="panel hidden add-product-preview">
+        <div class="add-product-preview-head">
+          <strong id="catalogTitle">Modello selezionato</strong>
+          <p id="catalogMeta"></p>
         </div>
+        <div id="catalogPreview"></div>
       </div>
 
       <div class="field"><label>Nome / modello</label><input id="fModel" placeholder="Si compila dal catalogo"></div>
@@ -2078,11 +2093,54 @@ function chooseCatalogItem(k){
  const td=technicalDefaultsFor(c);
  $("catalogMeta").textContent=[c.style,c.color,td.material,td.variant,td.fit,td.last&&("forma "+td.last),td.sole,td.fitting&&("fitting "+td.fitting),td.finish].filter(Boolean).join("  -  ");
  $("catalogPreviewBox").classList.remove("hidden");
+ requestAnimationFrame(()=>{refreshActiveGallery();syncGalleryIndicator()});
 }
+function itemPhotoCandidates(i){
+ const out=[],seen=new Set();
+ function add(v){
+   if(Array.isArray(v)){v.forEach(add);return}
+   const s=String(v||"").trim();
+   if(!s)return;
+   const key=photoKey(s);
+   if(!seen.has(key)){seen.add(key);out.push(s)}
+ }
+ add(i.photo);
+ add(i.catalogPhotos);
+ add(i.standardPhoto);
+ if(i.catalogKey){
+   const c=CATALOG.find(x=>x.k===i.catalogKey);
+   if(c)add(safeImagesFor(c));
+ }
+ if(!i.catalogKey&&i.brand&&i.model){
+   const rows=CATALOG.filter(c=>normKey(c.brand)===normKey(i.brand)&&normKey(c.model)===normKey(i.model));
+   rows.forEach(c=>add(safeImagesFor(c)));
+ }
+ return out.slice(0,32);
+}
+function itemPhotoTag(i,extra=""){
+ return imageTagFromList(itemPhotoCandidates(i),extra);
+}
+function itemGalleryHtml(i){
+ const imgs=itemPhotoCandidates(i);
+ if(!imgs.length)return'<div class="collection-empty">Nessuna foto disponibile per questo articolo.</div>';
+ ACTIVE_GALLERY_IMAGES=imgs.slice();
+ const slides=imgs.map((u,n)=>`<div class="gallery-slide" data-photo-id="p${n}" data-original="${esc(u)}">${galleryImgMarkup(u,n,false)}</div>`).join("");
+ const dots=imgs.map((_,n)=>`<button type="button" class="gallery-dot${n===0?" active":""}" data-gallery-photo="p${n}" aria-label="Foto ${n+1}"></button>`).join("");
+ const thumbs=imgs.map((u,n)=>`<button type="button" class="gallery-thumb${n===0?" active":""}" data-gallery-photo="p${n}" aria-label="Scegli foto ${n+1}"><img src="${esc(u)}" draggable="false" onerror="this.style.visibility='hidden'"></button>`).join("");
+ return `<div class="gallery-wrap">
+  <div class="gallery-count" id="galleryCount">1 / ${imgs.length}</div>
+  <button type="button" class="gallery-nav prev" id="galleryPrev" data-gallery-step="-1" aria-label="Foto precedente">&#8249;</button>
+  <button type="button" class="gallery-nav next" id="galleryNext" data-gallery-step="1" aria-label="Foto successiva">&#8250;</button>
+  <div class="gallery-track" id="galleryTrack">${slides}</div>
+  <div class="gallery-dots" id="galleryDots">${dots}</div>
+  <div class="gallery-thumbs" id="galleryThumbs">${thumbs}</div>
+  <div class="gallery-hint" id="galleryHint">${imgs.length>1?"Scorri le foto o scegli una miniatura.":"Una foto disponibile."}</div>
+ </div>`;
+}
+
 function card(i){
- const src=i.photo||i.standardPhoto||"";
  const tech=[i.variant,i.fit,i.size,i.fitting,i.last&&("last "+i.last)].filter(Boolean).join("  -  ");
- return `<div class="card" role="button" tabindex="0" data-item-id="${esc(i.id||"")}"><div class="pic">${src?`<img src="${esc(src)}" onerror="this.style.display='none'">`:`<div class="ph">C</div>`}<span class="badge">${esc(i.code||"")}</span></div><div class="body"><span class="brand">${esc(i.brand||"-")}</span><div class="model">${esc(i.model||i.category||"Capo")}</div><div class="meta">${esc([i.subtype,i.color,i.material].filter(Boolean).join("  -  "))}</div>${tech?`<div class="meta">${esc(tech)}</div>`:""}</div></div>`
+ return `<div class="card" role="button" tabindex="0" data-item-id="${esc(i.id||"")}"><div class="pic">${itemPhotoTag(i,'loading="lazy"')}<span class="badge">${esc(i.code||"")}</span></div><div class="body"><span class="brand">${esc(i.brand||"-")}</span><div class="model">${esc(i.model||i.category||"Capo")}</div><div class="meta">${esc([i.subtype,i.color,i.material].filter(Boolean).join("  -  "))}</div>${tech?`<div class="meta">${esc(tech)}</div>`:""}</div></div>`
 }
 function renderWardrobe(){
  const q=$("searchWardrobe").value.toLowerCase(), st=$("statusFilter").value;
@@ -2111,8 +2169,7 @@ function openItemModal(id){
  const item=state.items.find(x=>x.id===id); if(!item)return;
  activeItemId=id; itemEditing=false;
  $("itemModalTitle").textContent=item.model||item.category||"Articolo";
- const src=item.photo||item.standardPhoto||"";
- $("itemDetailPhoto").innerHTML=src?`<img src="${esc(src)}">`:'<div class="slot-fallback"></div>';
+ $("itemDetailPhoto").innerHTML=itemGalleryHtml(item);
  renderItemDetail(item,false);
  $("editItemBtn").classList.remove("hidden");
  $("saveEditBtn").classList.add("hidden");
@@ -2561,7 +2618,7 @@ function addCatalog(k){
  const c=CATALOG.find(x=>x.k===k); if(!c)return;
  const cat=inferCat(c);
  const subtype=cat==="Scarpe"?shoeType({...c,category:"Scarpe",subtype:c.style}):(catalogVariant(c)||c.style||productFamily(c)||cat);
- state.items.unshift({id:uid(),code:"CT - "+String(state.items.length+1).padStart(3,"0"),brand:c.brand,model:c.model,category:cat,subtype,color:c.color,material:catalogMaterial(c),last:catalogLast(c),sole:catalogSole(c),size:"",fitting:catalogFit(c),variant:catalogVariant(c),fit:catalogFit(c),finish:catalogFinish(c),status:"armadio",standardPhoto:(safeImagesFor(c)[0]||imageCandidates(c)[0]||""),photo:"",created:Date.now()});
+ state.items.unshift({id:uid(),code:"CT - "+String(state.items.length+1).padStart(3,"0"),brand:c.brand,model:c.model,category:cat,subtype,color:c.color,material:catalogMaterial(c),last:catalogLast(c),sole:catalogSole(c),size:"",fitting:catalogFit(c),variant:catalogVariant(c),fit:catalogFit(c),finish:catalogFinish(c),status:"armadio",standardPhoto:(safeImagesFor(c)[0]||imageCandidates(c)[0]||""),catalogPhotos:safeImagesFor(c),catalogKey:c.k||"",photo:"",created:Date.now()});
  save(); renderWardrobe(); showSection("armadio");
 }
 function showSection(id){
@@ -3216,7 +3273,7 @@ $("labelPhotoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;p
 $("solePhotoInput").onchange=async e=>{const f=e.target.files[0];if(!f)return;pendingSolePhoto=await compressPicked(f,1800,.92);updateDetailPhotos()};
 $("saveItem").onclick=()=>{
  const brand=$("fBrand").value.trim(); if(!brand){alert("Scegli o scrivi una marca.");return}
- const data={id:uid(),code:"CT - "+String(state.items.length+1).padStart(3,"0"),brand,model:$("fModel").value.trim(),category:$("fCat").value,status:$("fStatus").value,subtype:$("fSubtype").value.trim(),color:$("fColor").value.trim(),material:$("fMaterial").value.trim(),last:$("fLast").value.trim(),sole:$("fSole").value.trim(),size:$("fSize").value.trim(),fitting:$("fFitting").value.trim(),finish:$("fFinish").value.trim(),fit:$("fFit").value.trim(),variant:$("fVariant").value.trim(),photo:pendingPhoto,standardPhoto:selectedCatalog?.img||"",catalogKey:selectedCatalog?.k||"",created:Date.now()};
+ const data={id:uid(),code:"CT - "+String(state.items.length+1).padStart(3,"0"),brand,model:$("fModel").value.trim(),category:$("fCat").value,status:$("fStatus").value,subtype:$("fSubtype").value.trim(),color:$("fColor").value.trim(),material:$("fMaterial").value.trim(),last:$("fLast").value.trim(),sole:$("fSole").value.trim(),size:$("fSize").value.trim(),fitting:$("fFitting").value.trim(),finish:$("fFinish").value.trim(),fit:$("fFit").value.trim(),variant:$("fVariant").value.trim(),photo:pendingPhoto,standardPhoto:(selectedCatalog?(safeImagesFor(selectedCatalog)[0]||imageCandidates(selectedCatalog)[0]||""):""),catalogPhotos:(selectedCatalog?safeImagesFor(selectedCatalog):[]),catalogKey:selectedCatalog?.k||"",created:Date.now()};
  state.items.unshift(data); save(); pendingPhoto=""; pendingLabelPhoto=""; pendingSolePhoto=""; selectedCatalog=null;
  ["fBrand","fBrandFallback","fCatalogModel","fModel","fSubtype","fColor"].forEach(id=>$(id).value="");
  optionFill("fMaterial",[],"","- Non specificato -"); optionFill("fLast",[],"","- Non specificato -"); optionFill("fSole",[],"","- Non specificata -"); optionFill("fSize",[],"","- Seleziona taglia -"); optionFill("fFitting",[],"","- Seleziona fitting -");
