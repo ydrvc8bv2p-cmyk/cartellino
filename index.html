@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartellino V10.4 Add Product Photos</title>
+<title>Cartellino V10.5 Universal Exact Photos</title>
 <style>
 :root{--bg:#F5F3EE;--panel:#FFFFFF;--ink:#171717;--muted:#74716B;--line:#DDD9D1;--brass:#B49A68;--brass2:#8F764B;--pos:#52705A;--neg:#8A4940;--soft:#ECE9E2;--shadow:0 8px 24px rgba(23,23,23,.055)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -102,7 +102,7 @@ summary::-webkit-details-marker{display:none}.form{padding:12px}.field{margin-bo
 @media(min-width:700px){.sub-grid{grid-template-columns:repeat(4,1fr)}}
 
 
-/* V10.4 Add Product Photos / iPhone-safe responsive layer */
+/* V10.5 Add Product Photos / iPhone-safe responsive layer */
 html{
   width:100%;
   min-height:100%;
@@ -559,6 +559,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid rgba(180,154,104,.22);
 .type-color-name{font-size:12px;display:flex;align-items:center;gap:6px}
 .collection-section-title{margin-top:18px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .collection-empty{background:#fff;border:1px solid var(--line);border-radius:9px;padding:12px;color:var(--muted);font-size:11px;margin-top:10px}
+.gallery-empty-state{flex:0 0 100%;min-height:245px;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:#FFFDFC;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:11px;line-height:1.45}
 .collection-drill-summary{display:flex;gap:8px;margin-top:12px}
 .collection-drill-summary .panel{flex:1;text-align:center;margin:0;padding:9px 5px}
 .collection-drill-summary strong{display:block;font-family:Georgia,serif;font-size:19px}
@@ -958,7 +959,7 @@ nav a.on{
 }
 
 
-/* V10.4 add-product photo preview */
+/* V10.5 add-product photo preview */
 .add-product-preview{padding:10px!important;overflow:visible!important}
 .add-product-preview-head{padding:2px 2px 8px}
 .add-product-preview-head strong{font-family:Georgia,serif;font-size:18px;font-weight:400}
@@ -997,7 +998,7 @@ nav a.on{
   <details id="addBox">
     <summary>+ Aggiungi capo</summary>
     <div class="form">
-      <div class="guided"><b>1. Cerca la marca  -  V10.4 Add Product Photos</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
+      <div class="guided"><b>1. Cerca la marca  -  V10.5 Add Product Photos</b><p>Scegli la marca e, se vuoi, restringi per tipo e materiale. Nel campo Modello scrivi le prime lettere: Cartellino apre un menu interno con i risultati esatti. Catalogo multi-fonte con archivi attuali e precedenti.</p></div>
 
       <div class="field">
         <label>Marca</label>
@@ -1230,6 +1231,21 @@ function canonicalBrandName(b){
 for(const c of CATALOG) c.brand=canonicalBrandName(c.brand);
 let BRANDS=[...new Set([...BRAND_REGISTRY,...CATALOG.map(c=>c.brand).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,"it"));
 let backendCatalogLoaded=false;
+function exactCatalogPhotoUrl(c,v){
+ const s=String(v||"").trim();
+ if(!s)return "";
+ if(/^#f[0-9]+\.(?:jpe?g|png|webp|avif)$/i.test(s)&&normKey(c&&c.brand)==="tricker's"){
+   try{
+     const x=new URL(String(c.url||""));
+     const handle=x.pathname.split("/").filter(Boolean).pop()||"";
+     const m=s.match(/^#f([0-9]+)\.(jpe?g|png|webp|avif)$/i);
+     if(handle&&m)return "https://trickers.com/cdn/shop/files/"+handle+"-"+m[1]+"."+m[2].toLowerCase();
+   }catch(e){}
+ }
+ if(/^#/i.test(s))return "";
+ if(!/^(https?:|data:image|blob:)/i.test(s))return "";
+ return s;
+}
 function directImageUrls(c){
  const out=[],seen=new Set();
  function add(v){
@@ -1238,9 +1254,8 @@ function directImageUrls(c){
      ["url","src","image","img"].forEach(k=>{if(v[k])add(v[k])});
      return;
    }
-   const s=String(v||"").trim();
+   const s=exactCatalogPhotoUrl(c,v);
    if(!s)return;
-   if(!/^(https?:|data:image|blob:)/i.test(s))return;
    const key=photoKey(s);
    if(!seen.has(key)){seen.add(key);out.push(s)}
  }
@@ -1306,17 +1321,10 @@ function refreshBrandControls(){
 }
 function mergeBackendItems(items){
  if(!Array.isArray(items)||items.length<100) return false;
- const map=new Map();
- for(const c of CATALOG) map.set((c.brand+'|'+c.model+'|'+(c.color||'')).toLowerCase(),c);
- for(const c0 of items){
-   const c={...c0,brand:canonicalBrandName(c0.brand)};
-   const k=(c.brand+'|'+c.model+'|'+(c.color||'')).toLowerCase();
-   if(map.has(k)){
-     const a=map.get(k);
-     const imgs=[...new Set([...(a.images||[]),a.img,...(c.images||[]),c.img].filter(Boolean))];
-     Object.assign(a,{...c,images:imgs,img:imgs[0]||a.img||c.img||''});
-   }else{CATALOG.push(c);map.set(k,c);}
- }
+ /* Every backend row is a distinct catalog record/variant.
+    Never merge by brand + model + color: that can mix materials, lasts,
+    soles or clothing variants and therefore the wrong photos. */
+ CATALOG=items.map(c0=>({...c0,brand:canonicalBrandName(c0.brand)}));
  return true;
 }
 async function loadBackendCatalog(){
@@ -1931,15 +1939,16 @@ function inferredViewUrls(u){
  return out;
 }
 function safeImagesFor(c){
- const rows=[c,...CATALOG.filter(x=>x!==c&&compatiblePhotoRow(x,c))];
  const out=[],seen=new Set();
  function put(u){
    const s=String(u||"").trim(),key=photoKey(s);
    if(s&&!seen.has(key)){seen.add(key);out.push(s)}
  }
- rows.forEach(r=>directImageUrls(r).forEach(put));
- /* Try additional numbered views only for the exact same image filename family.
-    Failed URLs disappear automatically and are never kept as photos. */
+ /* Exact record only: never borrow photos from another color/material/variant.
+    This applies equally to shoes, clothing and accessories. */
+ directImageUrls(c).forEach(put);
+ /* Additional numbered views are attempted only inside the exact same
+    filename family; failed URLs are removed at runtime. */
  [...out].forEach(u=>inferredViewUrls(u).forEach(put));
  return out.slice(0,32);
 }
@@ -1961,7 +1970,7 @@ function galleryHtml(c){
    <div class="gallery-track" id="galleryTrack">${slides}</div>
    <div class="gallery-dots" id="galleryDots">${dots}</div>
    <div class="gallery-thumbs" id="galleryThumbs">${thumbs}</div>
-   <div class="gallery-hint" id="galleryHint">Scorri a destra o sinistra, oppure scegli una miniatura.</div>
+   <div class="gallery-hint" id="galleryHint">${imgs.length>1?"Scorri a destra o sinistra, oppure scegli una miniatura.":"Una sola foto disponibile per questa variante."}</div>
  </div>`;
 }
 function gallerySlides(){
@@ -1980,6 +1989,7 @@ function closestHorizontalIndex(scroller,slides){
 function refreshActiveGallery(){
  const slides=gallerySlides();
  ACTIVE_GALLERY_IMAGES=slides.map(s=>s.dataset.original).filter(Boolean);
+ const tr=$("galleryTrack");
  slides.forEach((s,i)=>{
    const img=s.querySelector("img");
    if(img)img.dataset.zoomIndex=String(i);
@@ -1990,9 +2000,15 @@ function refreshActiveGallery(){
    const u=s.dataset.original||"";
    return `<button type="button" class="gallery-thumb${i===0?" active":""}" data-gallery-photo="${s.dataset.photoId}" aria-label="Scegli foto ${i+1}"><img src="${esc(u)}" draggable="false" onerror="this.style.visibility='hidden'"></button>`;
  }).join("");
- const prev=$("galleryPrev"),next=$("galleryNext"),hint=$("galleryHint");
+ const prev=$("galleryPrev"),next=$("galleryNext"),hint=$("galleryHint"),count=$("galleryCount");
  if(prev)prev.hidden=slides.length<2;
  if(next)next.hidden=slides.length<2;
+ if(!slides.length){
+   if(tr)tr.innerHTML='<div class="gallery-empty-state">Nessuna foto disponibile per questa variante.</div>';
+   if(count)count.textContent="0 / 0";
+   if(hint)hint.textContent="Nessuna foto disponibile per questa variante.";
+   return;
+ }
  if(hint)hint.textContent=slides.length>1?"Scorri a destra o sinistra, oppure scegli una miniatura.":"Una sola foto disponibile per questa variante.";
  syncGalleryIndicator();
 }
@@ -2112,8 +2128,18 @@ function itemPhotoCandidates(i){
    if(c)add(safeImagesFor(c));
  }
  if(!i.catalogKey&&i.brand&&i.model){
-   const rows=CATALOG.filter(c=>normKey(c.brand)===normKey(i.brand)&&normKey(c.model)===normKey(i.model));
-   rows.forEach(c=>add(safeImagesFor(c)));
+   const rows=CATALOG.filter(c=>
+     normKey(c.brand)===normKey(i.brand)&&
+     normKey(c.model)===normKey(i.model)&&
+     (!i.color||normKey(c.color)===normKey(i.color))&&
+     (!i.material||normKey(catalogMaterial(c))===normKey(i.material))&&
+     (!i.last||normKey(catalogLast(c))===normKey(i.last))&&
+     (!i.sole||normKey(catalogSole(c))===normKey(i.sole))&&
+     (!i.variant||normKey(catalogVariant(c))===normKey(i.variant))
+   );
+   /* Old saved items without catalogKey get catalog photos only when the
+      remaining match identifies one exact catalog record. */
+   if(rows.length===1)add(safeImagesFor(rows[0]));
  }
  return out.slice(0,32);
 }
@@ -2366,7 +2392,7 @@ function archiveGalleryHtml(c){
    <button type="button" class="archive-gallery-nav next" id="archiveGalleryNext" data-archive-step="1" aria-label="Foto successiva">&#8250;</button>
    <div class="archive-gallery-track" id="archiveGalleryTrack">${slides}</div>
    <div class="archive-gallery-thumbs" id="archiveGalleryThumbs">${thumbs}</div>
-   <div class="archive-gallery-hint">${imgs.length>1?"Scorri le foto o tocca una miniatura. Tocca la foto per lo zoom.":"Tocca la foto per lo zoom."}</div>
+   <div class="archive-gallery-hint" id="archiveGalleryHint">${imgs.length>1?"Scorri le foto o tocca una miniatura. Tocca la foto per lo zoom.":"Una sola foto disponibile. Tocca la foto per lo zoom."}</div>
  </div>`;
 }
 function archiveGallerySlides(){
@@ -2409,6 +2435,17 @@ function archivePhotoError(img){
    const thumbs=$("archiveGalleryThumbs");
    if(thumbs)thumbs.innerHTML=ARCHIVE_ACTIVE_IMAGES.map((u,i)=>`<button type="button" class="archive-gallery-thumb${i===0?" active":""}" data-archive-thumb="a${i}" aria-label="Foto ${i+1}"><img src="${esc(u)}" draggable="false" onerror="this.style.visibility='hidden'"></button>`).join("");
    archiveGallerySlides().forEach((s,i)=>{s.dataset.archivePhoto="a"+i;const im=s.querySelector("img");if(im)im.dataset.archiveZoomIndex=String(i)});
+   const remain=archiveGallerySlides(),tr=$("archiveGalleryTrack"),count=$("archiveGalleryCount"),hint=$("archiveGalleryHint");
+   if(!remain.length){
+     if(tr)tr.innerHTML='<div class="gallery-empty-state">Nessuna foto disponibile per questo modello/variante.</div>';
+     if(count)count.textContent="0 / 0";
+     if(thumbs)thumbs.innerHTML="";
+     const prev=$("archiveGalleryPrev"),next=$("archiveGalleryNext");
+     if(prev)prev.hidden=true;if(next)next.hidden=true;
+     if(hint)hint.textContent="Nessuna foto disponibile per questo modello/variante.";
+     return;
+   }
+   if(hint)hint.textContent=remain.length>1?"Scorri le foto o tocca una miniatura. Tocca la foto per lo zoom.":"Una sola foto disponibile. Tocca la foto per lo zoom.";
    syncArchiveGallery();
  }
 }
